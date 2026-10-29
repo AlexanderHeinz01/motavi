@@ -116,7 +116,11 @@ Das Skelett wird als SVG gebaut (keine Fotos, keine echten Videos). Gelenkpunkte
 
 **Kontrastregel:** Komponenten verwenden ausschließlich die Tokens `--*-ink` und `--path-*`. Die bright-Werte werden nur über `.surface-inverse` aktiv. So passt sich jede Komponente automatisch an hellen und dunklen Grund an, und kein Datenwert kann versehentlich mit zu wenig Kontrast erscheinen.
 
-**Empfehlungs-Labels:** weiße Schrift auf den `--path-*`-Flächen (alle mindestens 4,9:1) oder alternativ helle Tönung als Fläche (10 bis 12 % Deckkraft) mit Text in der vollen `--path-*`-Farbe. Nie weiße Schrift auf Bright-Cyan.
+**Empfehlungs-Labels, zwei Varianten:**
+- **Kräftig** (nur für die eine Hauptaussage, z.B. Kopf des Steckbriefs): volle `--path-*`-Fläche mit weißer Schrift (4,94 bis 6,21:1).
+- **Ruhig** (Standard für Listen, Tabellen, Matrix, Entscheidungsweg): Tönung der Pfadfarbe mit 10 bis 12 % Deckkraft als Fläche, Text in `--text`. Die Pfadfarbe trägt Icon, Punkt und 1-px-Rahmen. Wirkt wie ein Datenblatt-Etikett.
+
+Nie Text in der Pfadfarbe auf der eigenen Tönung, nie weiße Schrift auf Bright-Cyan.
 
 **Visuelle Folge:** Die Website wirkt in den Datenfarben etwas gedeckter und technischer als das Dashboard. Das passt zur Leitidee "Datenblatt". Die leuchtenden Originalfarben erscheinen dort, wo das Dashboard gezeigt wird: in dunklen Sektionen und der Steckbrief-Vorschau.
 
