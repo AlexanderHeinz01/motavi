@@ -1,16 +1,13 @@
 /**
  * Motavi API layer.
- * Runs the analysis in the browser (MediaPipe, see services/poseAnalyzer.ts)
+ * Runs the analysis in the browser (MediaPipe, see analysis/poseAnalyzer.ts)
  * while keeping the interfaces of the former HTTP API used by the pages.
  */
 
-import {
-  processVideoJob,
-  getStoredJob,
-  saveStoredJob,
-  generatePdfReport,
-  type AnalysisResult,
-} from '../services/ergonomicsEngine'
+import { processVideoJob } from '../../analysis/aggregate'
+import { getStoredJob, saveStoredJob } from '../../analysis/jobStore'
+import { generatePdfReport } from '../../analysis/pdfReport'
+import type { AnalysisResult } from '../../analysis/types'
 
 export interface UploadResponse {
   job_id: string

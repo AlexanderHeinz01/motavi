@@ -1,0 +1,91 @@
+/*
+ * Design tokens of the Motavi website (docs/DESIGN_BRIEF.md, section 3).
+ * The website is light; the analysis app (/app) keeps its dark theme and
+ * shares the data colours (--data, --risk) with the website.
+ */
+:root {
+  /* Surfaces */
+  --bg: #ffffff;
+  --bg-subtle: #f6f7f9;
+  --bg-inverse: #0a0f1e;
+  --border: #e4e6eb;
+
+  /* Text */
+  --text: #1a1a1a;
+  --text-muted: #5b616e;
+  --text-inverse: #ffffff;
+
+  /* Brand: interaction only (buttons, links, focus) */
+  --primary: #6c3aed;
+  --primary-hover: #5a2bd4;
+  --primary-soft: #f1ecfe;
+
+  /* Data (shared with the dashboard) */
+  --data: #00b4d8;
+  --risk: #e63946;
+  --gain: #16a34a;
+  --warn: #d97706;
+
+  /* Recommendations: equal weight, no traffic-light logic */
+  --path-improve: #16a34a;
+  --path-automate: #00b4d8;
+  --path-keep: #5b616e;
+
+  /* Fonts (self-hosted via @fontsource) */
+  --font-headline: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Typography scale: mobile first, desktop from 768 px */
+.t-display { font-family: var(--font-headline); font-weight: 600; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; }
+.t-h1      { font-family: var(--font-headline); font-weight: 600; font-size: 34px; line-height: 1.1;  letter-spacing: -0.015em; }
+.t-h2      { font-family: var(--font-headline); font-weight: 600; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; }
+.t-h3      { font-family: var(--font-headline); font-weight: 600; font-size: 20px; line-height: 1.3; }
+.t-body-lg { font-family: var(--font-body); font-size: 17px; line-height: 1.6; }
+.t-body    { font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.t-label   { font-family: var(--font-mono); font-weight: 500; font-size: 12px; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; }
+.t-kpi     { font-family: var(--font-mono); font-weight: 500; font-size: 40px; line-height: 1.1; }
+
+@media (min-width: 768px) {
+  .t-display { font-size: 64px; }
+  .t-h1      { font-size: 48px; }
+  .t-h2      { font-size: 36px; line-height: 1.15; }
+  .t-h3      { font-size: 22px; }
+  .t-body-lg { font-size: 19px; }
+  .t-kpi     { font-size: 56px; }
+}
+
+/* Layout: container max. 1200 px, side margin 24 px mobile / 48 px desktop */
+.site-container {
+  width: 100%;
+  max-width: calc(1200px + 2 * 24px);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+.site-section { padding-block: 64px; }
+
+@media (min-width: 768px) {
+  .site-container { max-width: calc(1200px + 2 * 48px); padding-inline: 48px; }
+  .site-section { padding-block: 96px; }
+}
+
+/* Long German compounds must not break the layout: hyphenate running text.
+   Headlines break between words only (no "Mo-tavi"), balanced over the lines;
+   a single word wider than the screen still wraps instead of overflowing. */
+.site-root { hyphens: auto; overflow-wrap: break-word; }
+.site-root :is(.t-display, .t-h1, .t-h2, .t-h3) { hyphens: manual; text-wrap: balance; }
+
+/* Visible focus everywhere on the website */
+.site-root :focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-root *, .site-root *::before, .site-root *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}

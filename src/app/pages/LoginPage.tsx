@@ -122,7 +122,7 @@ export default function LoginPage() {
           <MotaviMark />
           <span
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontWeight: 700,
               fontSize: 20,
               color: '#fff',
@@ -140,7 +140,7 @@ export default function LoginPage() {
           </div>
           <p
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 22,
               fontWeight: 600,
               color: '#fff',
@@ -173,7 +173,7 @@ export default function LoginPage() {
             <MotaviMark />
             <span
               style={{
-                fontFamily: 'Outfit,sans-serif',
+                fontFamily: "'Space Grotesk',sans-serif",
                 fontWeight: 700,
                 fontSize: 20,
                 color: '#1A1A1A',
@@ -186,7 +186,7 @@ export default function LoginPage() {
 
           <h1
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 30,
               fontWeight: 800,
               color: '#1A1A1A',

@@ -96,7 +96,7 @@ export default function UploadPage() {
               Sofort-Demo ausprobieren
             </div>
             <p className="font-body text-xs text-neutral/60 mt-0.5">
-              Reale Analyse aus der Logistik-Kommissionierung mit REBA-Score und Heatmap
+              Beispielanalyse mit erfundenen Demodaten aus der Logistik-Kommissionierung
             </p>
           </div>
           <button

@@ -104,7 +104,7 @@ function Logo({ light = false }: { light?: boolean }) {
       </svg>
       <span
         style={{
-          fontFamily: 'Outfit,sans-serif',
+          fontFamily: "'Space Grotesk',sans-serif",
           fontWeight: 700,
           fontSize: 20,
           color: c,
@@ -383,7 +383,7 @@ function Hero() {
         </div>
         <h1
           style={{
-            fontFamily: 'Outfit,sans-serif',
+            fontFamily: "'Space Grotesk',sans-serif",
             fontSize: 'clamp(38px,5vw,64px)',
             fontWeight: 800,
             color: '#fff',
@@ -487,7 +487,7 @@ function Problem() {
         </p>
         <p
           style={{
-            fontFamily: 'Outfit,sans-serif',
+            fontFamily: "'Space Grotesk',sans-serif",
             fontSize: 32,
             fontWeight: 800,
             color: '#1A1A1A',
@@ -666,7 +666,7 @@ function HowItWorks() {
           <CatLabel>Von der Begehung zur kontinuierlichen Analyse</CatLabel>
           <h2
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 'clamp(32px,4vw,52px)',
               fontWeight: 800,
               color: '#1A1A1A',
@@ -703,7 +703,7 @@ function HowItWorks() {
               </div>
               <div
                 style={{
-                  fontFamily: 'Outfit,sans-serif',
+                  fontFamily: "'Space Grotesk',sans-serif",
                   fontSize: 12,
                   fontWeight: 700,
                   color: '#6C3AED',
@@ -715,7 +715,7 @@ function HowItWorks() {
               </div>
               <div
                 style={{
-                  fontFamily: 'Outfit,sans-serif',
+                  fontFamily: "'Space Grotesk',sans-serif",
                   fontSize: 20,
                   fontWeight: 700,
                   color: '#1A1A1A',
@@ -777,7 +777,7 @@ function Stats() {
           <CatLabel>Bewährt in der Produktion</CatLabel>
           <h2
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 'clamp(28px,4vw,48px)',
               fontWeight: 800,
               color: '#1A1A1A',
@@ -820,7 +820,7 @@ function Stats() {
             >
               <div
                 style={{
-                  fontFamily: 'Outfit,sans-serif',
+                  fontFamily: "'Space Grotesk',sans-serif",
                   fontSize: 72,
                   fontWeight: 300,
                   color: '#1A1A1A',
@@ -833,7 +833,7 @@ function Stats() {
               </div>
               <div
                 style={{
-                  fontFamily: 'Outfit,sans-serif',
+                  fontFamily: "'Space Grotesk',sans-serif",
                   fontSize: 18,
                   fontWeight: 700,
                   color: '#1A1A1A',
@@ -1345,7 +1345,7 @@ function UseCases() {
           <CatLabel>Use Cases</CatLabel>
           <h2
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 'clamp(28px,4vw,48px)',
               fontWeight: 800,
               color: '#1A1A1A',
@@ -1410,7 +1410,7 @@ function UseCases() {
           <div>
             <h3
               style={{
-                fontFamily: 'Outfit,sans-serif',
+                fontFamily: "'Space Grotesk',sans-serif",
                 fontSize: 26,
                 fontWeight: 700,
                 color: '#1A1A1A',
@@ -1511,7 +1511,7 @@ function Testimonials() {
           <CatLabel>Das sagt die Industrie</CatLabel>
           <h2
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 'clamp(28px,3.5vw,44px)',
               fontWeight: 800,
               color: '#1A1A1A',
@@ -1612,7 +1612,7 @@ function DemoCTA() {
           </div>
           <h2
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 'clamp(32px,4vw,52px)',
               fontWeight: 800,
               color: '#1A1A1A',
@@ -1676,7 +1676,7 @@ function Vision() {
           <CatLabel light>Unsere Vision · Ergonomie als Standard, nicht als Ausnahme</CatLabel>
           <p
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 24,
               fontWeight: 400,
               color: 'rgba(255,255,255,0.9)',
@@ -1710,7 +1710,7 @@ function Vision() {
             </svg>
           </div>
           <div>
-            <div style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: '#fff' }}>
+            <div style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: 18, fontWeight: 700, color: '#fff' }}>
               Alexander Heinz
             </div>
             <div style={{ fontFamily: 'Inter,sans-serif', fontSize: 14, color: 'rgba(255,255,255,0.55)', marginBottom: 12 }}>
@@ -1795,42 +1795,7 @@ function Trust() {
             </div>
           ))}
         </div>
-        <div>
-          <div
-            style={{
-              fontFamily: 'Inter,sans-serif',
-              fontSize: 12,
-              fontWeight: 600,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: '#6C3AED',
-              marginBottom: 24,
-            }}
-          >
-            ● Entwickelt mit / Unterstützt von
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16 }}>
-            {['Industrie 4.0 BW', 'Ergonomie Lab', 'EU Compliance'].map((partner, i) => (
-              <div
-                key={i}
-                style={{
-                  border: '1px solid #E5E7EB',
-                  borderRadius: 8,
-                  height: 56,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontFamily: 'Inter,sans-serif',
-                  fontSize: 12,
-                  fontWeight: 600,
-                  color: '#6B7280',
-                }}
-              >
-                {partner}
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Partner names removed: no partners without written approval (WEBSITE_PLAN §2.2). */}
       </div>
     </section>
   )
@@ -1905,7 +1870,7 @@ function FinalCTA() {
           <CatLabel>Lernen Sie Motavi kennen</CatLabel>
           <h2
             style={{
-              fontFamily: 'Outfit,sans-serif',
+              fontFamily: "'Space Grotesk',sans-serif",
               fontSize: 'clamp(24px,3vw,40px)',
               fontWeight: 800,
               color: '#1A1A1A',
