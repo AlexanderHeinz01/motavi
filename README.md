@@ -1,14 +1,16 @@
 # Motavi — KI-gestützte Ergonomie-Analyse
 
-Motavi analysiert Bewegungsabläufe von Arbeitskräften in Fertigung, Montage und Logistik kamerabasiert, datenschutzkonform und normgerecht nach REBA (Rapid Entire Body Assessment) und DIN EN ISO 10075 / ArbSchG §5.
+Motavi analysiert Bewegungsabläufe an Arbeitsplätzen in Fertigung, Montage und Logistik kamerabasiert nach REBA (Rapid Entire Body Assessment), als Grundlage für die Gefährdungsbeurteilung nach ArbSchG §5.
+
+Hinweise für die Arbeit mit Claude Code, Leitplanken und Struktur: [`CLAUDE.md`](CLAUDE.md).
 
 ## Features
 
-- **Marketing Landing Page**: Interaktive Produktpräsentation mit interaktiver Calendly-Demo-Buchung, Leistungsmetriken, Use Cases und Branchen-Zitaten.
+- **Website** (Relaunch nach `docs/WEBSITE_PLAN.md`, in Arbeit): vorgerenderte Seiten mit gemeinsamem Layout, Texte in `src/content/`, bis zur Freigabe `noindex`. Siehe [Website](#website).
 - **Benutzeranmeldung**: Schneller Login mit vorbelegten Testkonten (`demo@motavi.de`) sowie flexibler Benutzerverwaltung.
 - **Video-Upload & Parameter**: Auswahl von Arbeitsplatzvideos (MP4/H.264, WebM, MOV) mit Analyseparametern (Unternehmen, Abteilung, Schichtdauer, Körpergröße).
 - **Echte Videoanalyse im Browser**: Körperpunkterkennung mit MediaPipe Pose Landmarker direkt im Browser – das Video verlässt den Rechner nicht. Siehe [Analyse](#analyse).
-- **Sofort-Demo**: Voranalysierte reale Arbeitsplatzszenarien (z. B. Logistik-Kommissionierung) zum unmittelbaren Testen ohne Videodatei.
+- **Sofort-Demo**: Beispielanalyse mit erfundenen Demodaten (Logistik-Kommissionierung) zum Testen ohne Videodatei.
 - **Ergonomie-Dashboard**:
   - **REBA-Score-Tachometer**: 1–10 Skala mit dynamischen Farbzonen (Grün / Gelb / Rot) und Risikostufen-Klassifikation.
   - **Körperregionen-Heatmap**: Anatomische SVG-Heatmap mit per-Region-Subscores (Lendenwirbel, Schulter L/R, Nacken, Unterarm, Knie L/R).
@@ -26,10 +28,32 @@ Motavi analysiert Bewegungsabläufe von Arbeitskräften in Fertigung, Montage un
 - **Visualisierungen**: Recharts & performante Vektorgrafiken (SVG)
 - **PDF-Generierung**: jsPDF
 - **Posenerkennung**: `@mediapipe/tasks-vision` (WebAssembly, im Build enthalten)
+- **Schriften**: Space Grotesk, Inter, JetBrains Mono, selbst gehostet über `@fontsource`
+
+## Website
+
+| Route | Seite |
+|---|---|
+| `/` | Startseite |
+| `/arbeitsplatz-steckbrief` | Der Arbeitsplatz-Steckbrief |
+| `/kapazitaet`, `/automatisierung`, `/gesundheit` | Perspektiven |
+| `/so-funktionierts` | Ablauf |
+| `/pakete` | Pakete und Preise |
+| `/betriebsrat` | Datenschutz und Betriebsrat |
+| `/pilot` | Pilot anfragen |
+| `/impressum`, `/datenschutz` | Rechtliches (Platzhalter) |
+| `/fuer-robotik-anbieter` | Partnerseite, nicht verlinkt |
+
+Analyse-App: `/login`, `/app`, `/app/analyzing/:jobId`, `/app/dashboard/:jobId`. Die alte Startseite liegt bis zum Abschluss des Relaunchs unter `/_alt-startseite`.
+
+`npm run build` erzeugt neben dem Client-Build für jede Website-Route eine vorgerenderte HTML-Datei mit eigenem Titel, Beschreibung, Canonical und Open-Graph-Angaben sowie `sitemap.xml`, `robots.txt` und `404.html` (`scripts/prerender.mjs`). Umgebungsvariablen beim Build:
+
+- `VITE_SITE_URL`: Basis-URL für Canonical, Sitemap und Open Graph (Standard `https://motavi.ai`)
+- `VITE_SITE_INDEXABLE=true`: hebt das `noindex` der Website auf (Standard: alles `noindex`)
 
 ## Analyse
 
-Die Analyse läuft vollständig im Browser (`src/services/poseAnalyzer.ts`, `src/services/reba.ts`) und überträgt die Pipeline aus `motavi-backend/backend/app/services/analyzer.py`:
+Die Analyse läuft vollständig im Browser (`src/analysis/poseAnalyzer.ts`, `src/analysis/reba.ts`) und überträgt die Pipeline aus `motavi-backend/backend/app/services/analyzer.py`:
 
 1. Das Video wird lokal dekodiert und mit bis zu 5 Bildern pro Sekunde abgetastet (höchstens 1.500 Bilder pro Video).
 2. Pro Bild erkennt der MediaPipe Pose Landmarker (Modell `pose_landmarker_full`) 33 Körperpunkte.

@@ -4,6 +4,18 @@ Stand: 29.10.2026 (Version 2: eine Messung, drei Empfehlungen)
 Ablage im Repo: `docs/STECKBRIEF_MODUL.md`
 Zugehörig: `docs/WEBSITE_PLAN.md`, `docs/DESIGN_BRIEF.md`
 
+> **Architekturentscheidung (Phase 0, 29.10.2026):** Das Modul läuft im Browser, im selben Repo wie Website und Analyse-App (`motavi`), wie die bestehende Ergonomie-Pipeline. Das Video verlässt den Rechner nicht. Die ursprünglich für ein Python-Backend geschriebenen Angaben gelten sinngemäß:
+>
+> | Ursprünglich (Python-Backend) | Jetzt (Browser) |
+> |---|---|
+> | `backend/app/services/analyzer.py` | `src/analysis/poseAnalyzer.ts`, `src/analysis/reba.ts` |
+> | `results/{job_id}/pose.npz` | Pose-Daten je Job in IndexedDB (nur Koordinaten) |
+> | `backend/app/services/workplace/*.py` | `src/analysis/workplace/*.ts` |
+> | `results/{job_id}/workplace.json`, API-Routen | lokal gespeicherter Steckbrief je Job, Export als Datei-Download |
+> | `frontend/src/content/` | `src/content/` |
+>
+> Unit-Tests laufen mit Vitest (wird mit Phase S1 eingerichtet).
+
 ---
 
 ## 1. Ziel
@@ -44,7 +56,7 @@ Der Steckbrief beantwortet:
 
 ### 3.1 Pose-Daten speichern
 
-Falls Phase S0 zeigt, dass die Pipeline Pose-Daten nicht dauerhaft speichert: nach der Pose-Erkennung pro Frame unter `results/{job_id}/pose.npz` speichern.
+Phase 0 hat gezeigt, dass die Pipeline Pose-Daten nicht dauerhaft speichert. Deshalb nach der Pose-Erkennung pro Frame je Job in IndexedDB speichern (Schlüssel `job_id`).
 
 - `t`: Zeitstempel je Frame in Sekunden
 - `landmarks`: Array (Frames × 33 × 4) mit x, y, z, visibility
@@ -68,7 +80,7 @@ Nur Koordinaten, keine Bilddaten.
 
 **Verfahren:**
 1. Dominante Periode über Autokorrelation (Suchbereich konfigurierbar, Standard 3 bis 180 s).
-2. Zyklusgrenzen über wiederkehrende Muster, z.B. Matrix Profile (`stumpy`, BSD-Lizenz) oder Peak-Erkennung.
+2. Zyklusgrenzen über wiederkehrende Muster, z.B. Matrix Profile oder Peak-Erkennung, in TypeScript umgesetzt (Python-Bibliotheken wie `stumpy` stehen im Browser nicht zur Verfügung).
 3. Ausreißer markieren (Unterbrechungen, Nebentätigkeiten).
 
 **Ausgabe:** Anzahl Zyklen, hochgerechnet auf die Schicht. Zykluszeit als Median, Mittelwert, Standardabweichung, Variationskoeffizient. Zeitanteil in Zyklen. Konfidenz. Liste der Zyklen.
@@ -196,13 +208,13 @@ Bei "Erst verbessern, dann automatisieren" wird die Automatisierung auf Basis de
 | GET | `/api/v1/workplace/{job_id}/pdf` | PDF-Steckbrief |
 | GET | `/api/v1/workplace/{job_id}/export` | JSON-Export |
 
-Ergebnisse unter `results/{job_id}/workplace.json`.
+Ergebnisse unter `results/{job_id}/workplace.json`. In der Browser-Variante (siehe Architekturentscheidung oben) ersetzen lokal gespeicherte Steckbriefe und ein Datei-Download die API.
 
 ---
 
 ## 7. Demo-Daten für die Website
 
-Datei `frontend/src/content/demo_steckbrief.json`, erfundene plausible Werte, klar als Beispiel gekennzeichnet. Zusätzlich drei kürzere Varianten für die anderen Empfehlungen (`demo_verbessern.json`, `demo_automatisieren.json`, `demo_beibehalten.json`), damit die Website alle Wege zeigen kann.
+Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar als Beispiel gekennzeichnet. Zusätzlich drei kürzere Varianten für die anderen Empfehlungen (`demo_verbessern.json`, `demo_automatisieren.json`, `demo_beibehalten.json`), damit die Website alle Wege zeigen kann.
 
 ```json
 {
@@ -252,12 +264,11 @@ Zusätzlich: Die Empfehlungslogik an drei bis fünf Arbeitsplätzen gegen deine 
 ### S0: Bestandsaufnahme Pipeline
 
 ```
-Lies docs/STECKBRIEF_MODUL.md. Prüfe in backend/app/services/analyzer.py,
+Lies docs/STECKBRIEF_MODUL.md. Prüfe in src/analysis/poseAnalyzer.ts,
 ob Pose-Daten pro Frame gespeichert werden, in welchem Format und mit
 welcher Bildrate, und wo die Bewegungsklassifikation sitzt. Ändere
-nichts. Schlag vor, wie das Modul als Paket
-backend/app/services/workplace/ angebunden wird, ohne die bestehende
-Pipeline zu verändern.
+nichts. Schlag vor, wie das Modul als src/analysis/workplace/
+angebunden wird, ohne die bestehende Pipeline zu verändern.
 ```
 
 **Abnahme:** Bericht und Paketstruktur freigegeben.
@@ -265,18 +276,18 @@ Pipeline zu verändern.
 ### S1: Pose-Daten speichern und normieren
 
 ```
-Setze Abschnitt 3 um: pose.npz speichern, Normierung und Glättung in
-backend/app/services/workplace/preprocess.py. Unit-Tests mit
-synthetischen Daten. Prüfe an einem Testvideo, dass result.json vor und
-nach der Änderung identisch ist.
+Setze Abschnitt 3 um: Pose-Daten in IndexedDB speichern, Normierung und
+Glättung in src/analysis/workplace/preprocess.ts. Vitest einrichten,
+Unit-Tests mit synthetischen Daten. Prüfe an einem Testvideo, dass das
+AnalysisResult vor und nach der Änderung identisch ist.
 ```
 
-**Abnahme:** Tests grün, result.json unverändert.
+**Abnahme:** Tests grün, AnalysisResult unverändert.
 
 ### S2: Zykluserkennung und Greifraum
 
 ```
-Setze Abschnitt 4.1 und 4.2 um in cycles.py und reach.py. Tests mit
+Setze Abschnitt 4.1 und 4.2 um in src/analysis/workplace/cycles.ts und reach.ts. Tests mit
 synthetischen Signalen (bekannte Periode mit Rauschen, Unterbrechungen,
 aperiodisch). Qualitätsangaben und Fallback nach Leitplanke 3. Skript,
 das für ein Video die erkannten Zyklen als PNG-Diagramm ausgibt.

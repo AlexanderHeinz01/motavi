@@ -322,6 +322,6 @@ verbessern würdest.
 ## 10. Offene Designfragen
 
 1. **Logo:** Gibt es bereits ein Motavi-Logo? Falls nicht, nutzt Claude Code vorerst eine reine Wortmarke in Space Grotesk. Ein echtes Logo sollte gestaltet werden, bevor die Seite öffentlich geht.
-2. **Farbsystem:** Bisher existieren zwei Varianten (hell mit Lila, dunkel mit Teal). Dieses Briefing schlägt hell mit Lila plus Dashboard-Datenfarben vor. Bestätigen oder ändern.
+2. **Farbsystem:** Bisher existieren zwei Varianten (hell mit Lila, dunkel mit Teal). Dieses Briefing schlägt hell mit Lila plus Dashboard-Datenfarben vor. **Entschieden in Phase 0:** Tokens aus Abschnitt 3 übernommen (`src/styles/tokens.css`), Schriften selbst gehostet.
 3. **Partnerseite:** Soll `/fuer-robotik-anbieter` schon im Prototyp gestaltet werden oder erst nach den Gesprächen mit Anbietern? Empfehlung: gestalten, aber nicht verlinken.
 4. **Dashboard-Angleich:** Später sollte das Dashboard die gleichen Schriften und Datenfarben behalten, damit der Übergang von Website zu Produkt stimmig ist. Das ist ein eigener Schritt, nicht Teil dieses Relaunchs.

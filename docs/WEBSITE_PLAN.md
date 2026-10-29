@@ -160,7 +160,7 @@ Ausgabe: Stunden, Euro und Vollzeitäquivalente pro Jahr als "freisetzbare Kapaz
 
 ### 4.2 Arbeitsplatz-Check (`/arbeitsplatz-steckbrief`)
 
-Selbsttest mit 8 Fragen. Ergebnis ist eine der drei Empfehlungen (oder "Erst verbessern, dann automatisieren"), dazu die beiden Teilwerte als Balken. Gewichte und Entscheidungsregeln stammen aus `config/workplace_scoring.json`, derselben Datei, die das Backend nutzt (siehe `docs/STECKBRIEF_MODUL.md`, Abschnitt 5).
+Selbsttest mit 8 Fragen. Ergebnis ist eine der drei Empfehlungen (oder "Erst verbessern, dann automatisieren"), dazu die beiden Teilwerte als Balken. Gewichte und Entscheidungsregeln stammen aus `config/workplace_scoring.json`, derselben Datei, die das Analysemodul nutzt (siehe `docs/STECKBRIEF_MODUL.md`, Abschnitt 5).
 
 Fragen (Selbsteinschätzung):
 1. Wie oft wiederholt sich die Tätigkeit pro Schicht?
@@ -181,9 +181,9 @@ Ergebnis wird nicht gespeichert. Hinweis: "Im Steckbrief messen wir diese Kriter
 - Bestehendes React + Vite + Tailwind, Routing mit `react-router-dom`.
 - SEO: Vorab-Generierung, Titel und Meta-Description pro Seite, `sitemap.xml`, `robots.txt`, Open-Graph-Bilder. Suchbegriffe: Automatisierungspotenzial, Arbeitsplatzanalyse, Ergonomie Analyse Video, Zykluszeitanalyse, Physical AI Produktion, Lean Automatisierung.
 - Texte in `src/content/*.ts`.
-- Scoring-Konfiguration als gemeinsame JSON-Datei für Website und Backend.
-- Formular: `POST /api/v1/contact`, Honeypot, Rate-Limit, Zugangsdaten aus Umgebungsvariablen.
-- Website und Analyse-App getrennt deployen.
+- Scoring-Konfiguration als gemeinsame JSON-Datei für Website und Analysemodul.
+- Formular: `POST /api/v1/contact`, Honeypot, Rate-Limit, Zugangsdaten aus Umgebungsvariablen. Offen: welcher Server den Endpunkt bereitstellt (das Repo hat bisher keinen).
+- Website und Analyse-App getrennt deployen. Stand Phase 0: vorerst eine Vite-App (Bereitstellung über Google AI Studio), Website vorgerendert, App unter `/app` nachgeladen; die Ordnerstruktur erlaubt die spätere Trennung.
 - Lighthouse mindestens 90, mobil ab 360 px, WCAG AA.
 
 ---
