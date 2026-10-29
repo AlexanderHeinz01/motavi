@@ -81,26 +81,52 @@ Das Skelett wird als SVG gebaut (keine Fotos, keine echten Videos). Gelenkpunkte
   --primary-hover: #5A2BD4;
   --primary-soft:  #F1ECFE;   /* Hintergrund für Hervorhebungen */
 
-  /* Daten (aus dem Dashboard) */
-  --data:          #00B4D8;   /* Messwerte, Diagrammlinien, Skelett */
-  --risk:          #E63946;   /* Belastung, kritische Werte */
-  --gain:          #16A34A;   /* Einsparung, Potenzial */
-  --warn:          #D97706;   /* mittleres Risiko */
+  /* Datenfarben, Stufe "ink": für Text, Linien, Symbole und Füllungen
+     auf hellem Grund (--bg und --bg-subtle). Alle mindestens 4,5:1. */
+  --data-ink:      #007A99;   /* 4,95 auf Weiß, 4,62 auf subtle */
+  --risk-ink:      #C62E3A;   /* 5,45 / 5,08 */
+  --gain-ink:      #15803D;   /* 5,02 / 4,68 */
+  --warn-ink:      #B45309;   /* 5,02 / 4,68 */
 
-  /* Empfehlungen (gleichwertig, keine Ampellogik) */
-  --path-improve:  #16A34A;   /* Verbessern */
-  --path-automate: #00B4D8;   /* Automatisieren */
-  --path-keep:     #5B616E;   /* Beibehalten */
+  /* Datenfarben, Stufe "bright": Originalfarben des Dashboards. Nur auf
+     dunklem Grund (--bg-inverse) oder als Fläche, deren Beschriftung
+     außerhalb in --text steht. Nie als Text oder Linie auf Hell. */
+  --data:          #00B4D8;   /* 7,75 auf --bg-inverse */
+  --risk:          #E63946;   /* 4,58 auf --bg-inverse */
+  --gain:          #16A34A;   /* 5,79 auf --bg-inverse */
+  --warn:          #D97706;   /* 5,99 auf --bg-inverse */
+
+  /* Empfehlungen (gleichwertig, keine Ampellogik), auf Hell */
+  --path-improve:  #15803D;   /* Verbessern */
+  --path-automate: #007A99;   /* Automatisieren */
+  --path-keep:     #5B616E;   /* Beibehalten, 6,21 */
+}
+
+/* Dunkle Sektionen und Dashboard: ink-Tokens auf bright umschalten */
+.surface-inverse {
+  --data-ink: #00B4D8;
+  --risk-ink: #E63946;
+  --gain-ink: #16A34A;
+  --warn-ink: #D97706;
+  --path-improve:  #16A34A;
+  --path-automate: #00B4D8;
+  --path-keep:     #9AA0AC;   /* 7,27 auf --bg-inverse */
 }
 ```
+
+**Kontrastregel:** Komponenten verwenden ausschließlich die Tokens `--*-ink` und `--path-*`. Die bright-Werte werden nur über `.surface-inverse` aktiv. So passt sich jede Komponente automatisch an hellen und dunklen Grund an, und kein Datenwert kann versehentlich mit zu wenig Kontrast erscheinen.
+
+**Empfehlungs-Labels:** weiße Schrift auf den `--path-*`-Flächen (alle mindestens 4,9:1) oder alternativ helle Tönung als Fläche (10 bis 12 % Deckkraft) mit Text in der vollen `--path-*`-Farbe. Nie weiße Schrift auf Bright-Cyan.
+
+**Visuelle Folge:** Die Website wirkt in den Datenfarben etwas gedeckter und technischer als das Dashboard. Das passt zur Leitidee "Datenblatt". Die leuchtenden Originalfarben erscheinen dort, wo das Dashboard gezeigt wird: in dunklen Sektionen und der Steckbrief-Vorschau.
 
 **Empfehlungsfarben:** Die drei Wege dürfen nicht wie eine Ampel wirken. "Beibehalten" ist ein gutes Ergebnis (keine Fehlinvestition), kein schlechtes. Deshalb Grau statt Rot. "Erst verbessern, dann automatisieren" wird als Abfolge der beiden Farben dargestellt (zwei Segmente mit Pfeil), nicht als Mischfarbe. Farbe nie als einziges Unterscheidungsmerkmal: immer mit Text und Icon.
 
 **Regeln:**
 - `--primary` nur für Interaktion (Buttons, Links, Fokus). Nicht für Daten.
-- `--risk` nur für Belastung und kritische Werte, nie für Fehlermeldungen im Formular (dafür eine gedämpfte Variante).
-- `--gain` für alle Einsparungswerte. Die wichtigste Zahl der Seite (freisetzbare Minuten) ist immer grün oder neutral, nie rot.
-- Alle Text-Kombinationen mindestens WCAG AA. Claude Code prüft die Kontraste und meldet Verstöße.
+- `--risk-ink` nur für Belastung und kritische Werte, nie für Fehlermeldungen im Formular (dafür eine gedämpfte Variante).
+- `--gain-ink` für alle Einsparungswerte. Die wichtigste Zahl der Seite (freisetzbare Minuten) ist immer grün oder neutral, nie rot.
+- Text mindestens 4,5:1, auch bei großen Zahlen (strenger als WCAG verlangt, damit eine Regel für alles gilt). Linien, Symbole und Grafikelemente mindestens 3:1. Claude Code prüft alle Kombinationen automatisiert (Test im Repo) und meldet Verstöße.
 
 ### Typografie
 
@@ -164,7 +190,7 @@ Claude Code baut zuerst eine Komponentenbibliothek und eine interne Übersichtss
 | Doppel-Score | zwei Balken | Verbesserungs-Score und Automatisierungs-Score nebeneinander mit Schwellenlinie, darunter die abgeleitete Empfehlung |
 | Steckbrief-Vorschau | kompakt, vollständig, vier Varianten | Wirkt wie ein technisches Datenblatt: Kopf mit Arbeitsplatz und Empfehlung, Doppel-Score, Kennzahlen in Mono, Zyklus-Zeitleiste, Greifraum-Grafik, Minuten und Euro. Liest die Demo-Dateien. Umschalter zwischen den vier Beispielen |
 | Zyklus-Zeitleiste | einzelner Zyklus, Folge von Zyklen | Segmente nach Klasse: wertschöpfend (kräftig), notwendig (mittel), Verschwendung (schraffiert). Zykluszeit als Maßlinie wie in einer technischen Zeichnung |
-| Greifraum-Grafik | Seitenansicht | Silhouette mit Höhenzonen und Dichtefläche der Handpositionen in `--data` |
+| Greifraum-Grafik | Seitenansicht | Silhouette mit Höhenzonen und Dichtefläche der Handpositionen in `--data-ink` |
 | Partnerhinweis | ein Satz mit Icon | "Herstellerneutral" als wiederkehrendes Vertrauenselement |
 | Formular | Eingabe, Auswahl, Checkbox, Textfeld | Labels immer sichtbar, Fehler unter dem Feld |
 | Navigation | Desktop, mobil | Mobil: Vollbildmenü, CTA "Pilot anfragen" immer sichtbar |
@@ -212,7 +238,7 @@ Claude Code baut zuerst eine Komponentenbibliothek und eine interne Übersichtss
 ## 6. Bildsprache
 
 - **Keine echten Personen**, keine Gesichter, keine Kundenvideos und keine Standbilder aus Kundenprojekten.
-- **Arbeitsplatz-Illustrationen** als reduzierte Linienzeichnungen (Werkbank, Regal, Behälter, Maschine) in `--text-muted`, das Skelett darüber in `--data`.
+- **Arbeitsplatz-Illustrationen** als reduzierte Linienzeichnungen (Werkbank, Regal, Behälter, Maschine) in `--text-muted`, das Skelett darüber in `--data-ink`.
 - **Stil technischer Zeichnungen:** Maßlinien, Hüllkurven, Bahnkurven, Rasterpapier als feiner Hintergrund in einzelnen Sektionen. Das verbindet Motavi visuell mit Engineering und Automatisierung, ohne Roboter zu zeigen.
 - **Dashboard-Vorschau** aus echten Komponenten mit erfundenen Demo-Daten gebaut, nicht als Screenshot.
 - **Keine Logos** von Kunden, Roboterherstellern oder Partnern, solange keine Freigabe vorliegt.
