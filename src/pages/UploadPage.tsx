@@ -241,7 +241,7 @@ export default function UploadPage() {
               />
             </div>
             <div className="flex justify-between items-center">
-              <span className="font-mono text-xs text-neutral/40">Upload läuft…</span>
+              <span className="font-mono text-xs text-neutral/40">Analyse wird gestartet…</span>
               <span className="font-mono text-xs text-data">{progress} %</span>
             </div>
           </div>

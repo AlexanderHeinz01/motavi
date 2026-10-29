@@ -1,10 +1,15 @@
 /**
  * Ergonomics Analysis Engine & Store for Motavi.
- * Port of backend/app/services/analyzer.py with in-browser execution,
- * REBA subscore calculation, movement classification, and critical frame extraction.
+ * Aggregation of the in-browser pose analysis (see poseAnalyzer.ts / reba.ts)
+ * into the result format of backend/app/services/analyzer.py, local job store
+ * and PDF report.
  */
 
 import { jsPDF } from 'jspdf'
+import { computeOverallReba, determineRebaLevel, REGION_KEYS } from './reba'
+import type { ProgressFn } from './poseAnalyzer'
+
+export { computeOverallReba, determineRebaLevel }
 
 export interface BodyRegions {
   lumbar: number
@@ -62,6 +67,16 @@ export interface AnalysisResult {
   timeline_frames: TimelineFrame[]
   critical_frames: CriticalFrame[]
   action_items: ActionItem[]
+  analysis_info?: AnalysisInfo
+}
+
+/** How much of the video the measurement is based on. */
+export interface AnalysisInfo {
+  video_duration_sec: number
+  sampled_frames: number
+  detected_frames: number
+  sample_interval_sec: number
+  model: string
 }
 
 export interface JobRecord {
@@ -69,28 +84,9 @@ export interface JobRecord {
   status: 'processing' | 'done' | 'error'
   result?: AnalysisResult
   error?: string
+  progress?: number
+  stage?: string
   createdAt: number
-}
-
-// ── REBA scoring constants from analyzer.py ──────────────────────────────────
-const REGION_MAX: Record<string, number> = {
-  lumbar: 8.0,
-  shoulder_l: 7.2,
-  shoulder_r: 8.0,
-  neck: 6.5,
-  knee_l: 6.175,
-  knee_r: 6.5,
-  forearm: 4.5,
-}
-
-const REGION_WEIGHTS: Record<string, number> = {
-  lumbar: 0.30,
-  neck: 0.20,
-  shoulder_l: 0.10,
-  shoulder_r: 0.10,
-  knee_l: 0.10,
-  knee_r: 0.10,
-  forearm: 0.10,
 }
 
 export function buildActionItems(regions: Record<string, number>, bend_pct: number, over_pct: number): ActionItem[] {
@@ -149,28 +145,12 @@ export function buildActionItems(regions: Record<string, number>, bend_pct: numb
     })
   }
 
-  items.sort((a, b) => (a.priority === 'CRITICAL' ? -1 : 1))
+  // Stable sort: critical items first, original order kept within a priority
+  items.sort((a, b) => (a.priority === b.priority ? 0 : a.priority === 'CRITICAL' ? -1 : 1))
   return items
 }
 
-export function computeOverallReba(subscores: Record<string, number>): number {
-  let raw = 0
-  for (const k of Object.keys(REGION_WEIGHTS)) {
-    const val = subscores[k] ?? 1.0
-    const maxVal = REGION_MAX[k] ?? 8.0
-    raw += (REGION_WEIGHTS[k] * val) / maxVal
-  }
-  return Number((1.0 + raw * 9.0).toFixed(2))
-}
-
-export function determineRebaLevel(score: number): 'LOW' | 'MEDIUM' | 'HIGH' | 'VERY_HIGH' {
-  if (score <= 4) return 'LOW'
-  if (score <= 6) return 'MEDIUM'
-  if (score <= 8) return 'HIGH'
-  return 'VERY_HIGH'
-}
-
-// ── Synthetic Critical Frame Canvas Generator ────────────────────────────────
+// ── Illustrated frames for the pre-seeded demo job only ──────────────────────
 function generateCriticalFrameImage(
   second: number,
   reba: number,
@@ -326,8 +306,11 @@ function generateCriticalFrameImage(
 
 // ── In-Memory & LocalStorage Store ───────────────────────────────────────────
 const STORAGE_PREFIX = 'motavi_job_'
+const memoryJobs = new Map<string, JobRecord>()
 
 export function getStoredJob(jobId: string): JobRecord | null {
+  const cached = memoryJobs.get(jobId)
+  if (cached) return cached
   try {
     const raw = localStorage.getItem(`${STORAGE_PREFIX}${jobId}`)
     if (raw) return JSON.parse(raw)
@@ -337,11 +320,40 @@ export function getStoredJob(jobId: string): JobRecord | null {
   return null
 }
 
+/** Remove the oldest finished jobs (never the demo) to free localStorage space. */
+function pruneOldestJobs(keepJobId: string, count: number): number {
+  const jobs: { key: string; createdAt: number }[] = []
+  for (let i = 0; i < localStorage.length; i++) {
+    const key = localStorage.key(i)
+    if (!key?.startsWith(STORAGE_PREFIX) || key === `${STORAGE_PREFIX}${keepJobId}`) continue
+    if (DEMO_JOBS[key.slice(STORAGE_PREFIX.length)]) continue
+    try {
+      jobs.push({ key, createdAt: JSON.parse(localStorage.getItem(key) || '{}').createdAt ?? 0 })
+    } catch {
+      jobs.push({ key, createdAt: 0 })
+    }
+  }
+  jobs.sort((a, b) => a.createdAt - b.createdAt)
+  const removed = jobs.slice(0, count)
+  removed.forEach((j) => localStorage.removeItem(j.key))
+  return removed.length
+}
+
 export function saveStoredJob(record: JobRecord): void {
-  try {
-    localStorage.setItem(`${STORAGE_PREFIX}${record.job_id}`, JSON.stringify(record))
-  } catch (err) {
-    console.error('Failed to save job to localStorage', err)
+  memoryJobs.set(record.job_id, record)
+  const key = `${STORAGE_PREFIX}${record.job_id}`
+  const value = JSON.stringify(record)
+  for (let attempt = 0; attempt < 5; attempt++) {
+    try {
+      localStorage.setItem(key, value)
+      return
+    } catch (err) {
+      // Quota exceeded: drop the oldest analyses and retry.
+      if (pruneOldestJobs(record.job_id, 3) === 0) {
+        console.error('Failed to save job to localStorage', err)
+        return
+      }
+    }
   }
 }
 
@@ -440,7 +452,19 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// ── Real Simulation / Video Processing Pipeline ─────────────────────────────
+// ── Video Processing Pipeline ────────────────────────────────────────────────
+export const NO_PERSON_DETECTED =
+  'In dem Video wurde keine Person erkannt. Bitte ein Video verwenden, in dem die ' +
+  'arbeitende Person gut sichtbar ist (möglichst ganzer Körper, ausreichend Licht). ' +
+  'Falls das Video normal abspielbar ist, kann auch das Format die Ursache sein: ' +
+  'bitte als MP4 (H.264) oder WebM speichern.'
+
+const mean = (vals: number[]) => vals.reduce((a, b) => a + b, 0) / vals.length
+
+/**
+ * Analyse a video in the browser and aggregate it into an AnalysisResult
+ * (same structure and rules as _aggregate in analyzer.py).
+ */
 export async function processVideoJob(
   jobId: string,
   meta: {
@@ -450,161 +474,75 @@ export async function processVideoJob(
     shift_duration_min: number
     worker_height_cm?: number
   },
-  file?: File
+  file: File,
+  onProgress: ProgressFn = () => {},
 ): Promise<AnalysisResult> {
-  const shiftMin = meta.shift_duration_min || 480
-  const durationSec = 120 // standard simulated observation window or actual video duration
+  // Loaded on demand so MediaPipe is not part of the initial page bundle
+  const { analyzeVideo, MODEL_NAME } = await import('./poseAnalyzer')
+  const analysis = await analyzeVideo(file, onProgress)
+  const sampled = analysis.samples
+  if (!sampled.length) throw new Error(NO_PERSON_DETECTED)
 
-  // If user uploaded a video, we can inspect duration or sample frames via HTMLVideoElement
-  let actualDuration = durationSec
-  if (file && typeof window !== 'undefined') {
-    try {
-      const url = URL.createObjectURL(file)
-      const vid = document.createElement('video')
-      vid.preload = 'metadata'
-      vid.src = url
-      await new Promise<void>((resolve) => {
-        vid.onloadedmetadata = () => {
-          if (vid.duration && !isNaN(vid.duration) && isFinite(vid.duration)) {
-            actualDuration = Math.max(10, Math.min(600, Math.round(vid.duration)))
-          }
-          resolve()
-        }
-        vid.onerror = () => resolve()
-        setTimeout(resolve, 1500)
-      })
-      URL.revokeObjectURL(url)
-    } catch {
-      // fallback
-    }
-  }
+  onProgress(97, 'Ergebnis wird zusammengestellt…')
 
-  // Generate realistic frames distribution (sample every 1-2 seconds)
-  const step = Math.max(1, Math.round(actualDuration / 60))
-  const sampleCount = Math.floor(actualDuration / step)
+  const shiftMin = meta.shift_duration_min || Math.max(1, Math.floor(analysis.durationSec / 60))
+  const roundedReba = Number(mean(sampled.map((s) => s.reba)).toFixed(1))
 
-  const sampled: Array<{
-    second: number
-    movement: 'neutral' | 'bending' | 'overhead'
-    reba: number
-    scores: Record<string, number>
-  }> = []
-
-  let seed = 42
-  const rand = () => {
-    seed = (seed * 9301 + 49297) % 233280
-    return seed / 233280
-  }
-
-  for (let i = 0; i < sampleCount; i++) {
-    const sec = i * step
-    const r = rand()
-    let mv: 'neutral' | 'bending' | 'overhead' = 'neutral'
-    let trunkAngle = 10 + r * 15
-    let armAngle = 25 + rand() * 20
-    let neckAngle = 12 + rand() * 15
-    let kneeAngle = 15 + rand() * 20
-
-    if (r > 0.68) {
-      mv = 'bending'
-      trunkAngle = 35 + rand() * 40
-      neckAngle = 25 + rand() * 25
-      kneeAngle = 40 + rand() * 30
-    } else if (r > 0.48) {
-      mv = 'overhead'
-      armAngle = 75 + rand() * 45
-      neckAngle = 20 + rand() * 20
-    }
-
-    // Compute regional subscores
-    const lumbar = trunkAngle < 20 ? 2.5 : trunkAngle < 45 ? 5.5 : 8.0
-    const neck = neckAngle < 10 ? 1.0 : neckAngle < 20 ? 3.0 : 6.5
-    const shoulder = armAngle < 20 ? 1.5 : armAngle < 45 ? 3.0 : armAngle < 90 ? 5.5 : 8.0
-    const forearm = 2.0 + rand() * 2.0
-    const knee = kneeAngle < 30 ? 1.5 : kneeAngle < 60 ? 3.8 : 6.5
-
-    const scores = {
-      lumbar,
-      shoulder_l: shoulder * 0.9,
-      shoulder_r: shoulder,
-      neck,
-      knee_l: knee * 0.95,
-      knee_r: knee,
-      forearm,
-    }
-
-    const reba = computeOverallReba(scores)
-    sampled.push({ second: sec, movement: mv, reba, scores })
-  }
-
-  // Aggregate
-  const rebaVals = sampled.map((s) => s.reba)
-  const avgReba = rebaVals.reduce((a, b) => a + b, 0) / rebaVals.length
-  const roundedReba = Number(avgReba.toFixed(1))
-
-  // Regional averages
   const regionAvgs: Record<string, number> = {}
-  for (const k of Object.keys(REGION_MAX)) {
-    const sum = sampled.reduce((acc, curr) => acc + (curr.scores[k] ?? 1.0), 0)
-    regionAvgs[k] = Number((sum / sampled.length).toFixed(1))
+  for (const k of REGION_KEYS) {
+    regionAvgs[k] = Number(mean(sampled.map((s) => s.scores[k])).toFixed(1))
   }
 
-  // Movement counts
   const n = sampled.length
-  const nBend = sampled.filter((s) => s.movement === 'bending').length
-  const nOver = sampled.filter((s) => s.movement === 'overhead').length
-  const nNeut = n - nBend - nOver
-
-  const bendPct = Number(((nBend / n) * 100).toFixed(1))
-  const overPct = Number(((nOver / n) * 100).toFixed(1))
+  const bendPct = Number(((sampled.filter((s) => s.movement === 'bending').length / n) * 100).toFixed(1))
+  const overPct = Number(((sampled.filter((s) => s.movement === 'overhead').length / n) * 100).toFixed(1))
   const neutPct = Number(Math.max(0, 100 - bendPct - overPct).toFixed(1))
+  const minutes = (pct: number) => Number(((shiftMin * pct) / 100).toFixed(1))
 
-  // Timeline per minute
-  const byMinute: Record<number, number[]> = {}
+  const byMinute = new Map<number, number[]>()
   for (const s of sampled) {
     const m = Math.floor(s.second / 60)
-    if (!byMinute[m]) byMinute[m] = []
-    byMinute[m].push(s.reba)
+    byMinute.set(m, [...(byMinute.get(m) ?? []), s.reba])
   }
-  const timeline: TimelinePoint[] = Object.entries(byMinute).map(([m, vals]) => ({
-    minute: Number(m),
-    reba: Number((vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(1)),
-  }))
+  const timeline: TimelinePoint[] = [...byMinute.entries()]
+    .sort(([a], [b]) => a - b)
+    .map(([minute, vals]) => ({ minute, reba: Number(mean(vals).toFixed(1)) }))
 
-  // Top 3 critical frames
-  const sortedTop = [...sampled].sort((a, b) => b.reba - a.reba).slice(0, 3)
-  const criticalFrames: CriticalFrame[] = sortedTop.map((item, idx) => ({
+  const criticalFrames: CriticalFrame[] = analysis.criticalFrames.map((f, idx) => ({
     rank: idx + 1,
-    second: item.second,
-    reba: item.reba,
-    movement: item.movement,
-    imageUrl: generateCriticalFrameImage(item.second, item.reba, item.movement, idx + 1),
+    second: f.second,
+    reba: f.reba,
+    movement: f.movement,
+    imageUrl: f.imageUrl,
   }))
 
-  const actionItems = buildActionItems(regionAvgs, bendPct, overPct)
-
-  const result: AnalysisResult = {
+  return {
     job_id: jobId,
-    company_name: meta.company_name || 'Industriepartner',
-    department: meta.department || 'Produktionslinie',
-    task_description: meta.task_description || 'Manuelle Tätigkeit an Arbeitsstation',
+    company_name: meta.company_name || undefined,
+    department: meta.department || undefined,
+    task_description: meta.task_description || undefined,
     shift_duration_min: shiftMin,
     worker_height_cm: meta.worker_height_cm,
     reba_score: roundedReba,
     reba_level: determineRebaLevel(roundedReba),
     body_regions: regionAvgs,
     movements: {
-      bending: { pct: bendPct, minutes: Number(((shiftMin * bendPct) / 100).toFixed(1)) },
-      overhead: { pct: overPct, minutes: Number(((shiftMin * overPct) / 100).toFixed(1)) },
-      neutral: { pct: neutPct, minutes: Number(((shiftMin * neutPct) / 100).toFixed(1)) },
+      bending: { pct: bendPct, minutes: minutes(bendPct) },
+      overhead: { pct: overPct, minutes: minutes(overPct) },
+      neutral: { pct: neutPct, minutes: minutes(neutPct) },
     },
     timeline,
     timeline_frames: sampled.map((s) => ({ second: s.second, movement: s.movement })),
     critical_frames: criticalFrames,
-    action_items: actionItems,
+    action_items: buildActionItems(regionAvgs, bendPct, overPct),
+    analysis_info: {
+      video_duration_sec: Number(analysis.durationSec.toFixed(1)),
+      sampled_frames: analysis.sampledFrames,
+      detected_frames: n,
+      sample_interval_sec: Number(analysis.intervalSec.toFixed(2)),
+      model: MODEL_NAME,
+    },
   }
-
-  return result
 }
 
 // ── PDF Report Generator (Matches report.py + Motavi CI) ────────────────────

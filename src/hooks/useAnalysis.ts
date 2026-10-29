@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { getAnalysisStatus, type AnalysisStatus } from '../api/motavi'
 
-const POLL_MS = 1_500
+const POLL_MS = 500
 
 export function useAnalysis(jobId: string | undefined): AnalysisStatus {
   const [state, setState] = useState<AnalysisStatus>({ status: 'processing' })

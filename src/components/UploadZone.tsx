@@ -73,7 +73,7 @@ export default function UploadZone({ onFile, disabled }: Props) {
             {dragging ? 'Datei hier ablegen' : 'Video hier ablegen oder klicken'}
           </p>
           <p className="font-body text-sm text-neutral/50">
-            MP4 · WebM · MOV · AVI — max. 500 MB
+            MP4 (H.264) · WebM · MOV — Analyse direkt im Browser
           </p>
         </div>
 

@@ -1,15 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useAnalysis } from '../hooks/useAnalysis'
-
-const STEPS = [
-  'Video wird dekodiert & vorbereitet…',
-  'Anonymisierung: Gesichtsbereich maskieren…',
-  'MediaPipe Pose-Landmarks werden berechnet…',
-  'REBA-Subscores pro Körperregion ermitteln…',
-  'Bewegungsklassifikation (Bücken / Überkopf / Neutral)…',
-  'Kritische Bewegungs-Peaks & Bericht zusammenstellen…',
-]
 
 function SkeletonBlock({ className }: { className?: string }) {
   return <div className={`rounded-xl bg-bg-secondary animate-pulse ${className}`} />
@@ -18,8 +9,8 @@ function SkeletonBlock({ className }: { className?: string }) {
 export default function AnalyzingPage() {
   const { jobId } = useParams<{ jobId: string }>()
   const navigate = useNavigate()
-  const { status, error } = useAnalysis(jobId)
-  const [stepIndex, setStepIndex] = useState(0)
+  const { status, error, progress, stage } = useAnalysis(jobId)
+  const pct = Math.max(0, Math.min(100, progress ?? 0))
 
   useEffect(() => {
     if (status === 'done' && jobId) {
@@ -29,13 +20,6 @@ export default function AnalyzingPage() {
       return () => clearTimeout(timeout)
     }
   }, [status, jobId, navigate])
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setStepIndex((i) => (i + 1) % STEPS.length)
-    }, 1800)
-    return () => clearInterval(timer)
-  }, [])
 
   return (
     <div className="min-h-screen bg-bg-primary flex flex-col items-center justify-center px-6">
@@ -68,21 +52,27 @@ export default function AnalyzingPage() {
           </div>
         ) : (
           <>
-            {/* Animated scanner line */}
-            <div className="relative w-full h-1.5 rounded-full bg-bg-secondary overflow-hidden">
+            {/* Progress bar */}
+            <div
+              className="relative w-full h-1.5 rounded-full bg-bg-secondary overflow-hidden"
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={Math.round(pct)}
+            >
               <div
-                className="absolute top-0 h-full w-1/3 rounded-full bg-gradient-to-r from-transparent via-data to-transparent"
-                style={{ animation: 'scan 1.8s ease-in-out infinite' }}
+                className="absolute top-0 left-0 h-full rounded-full bg-data transition-all duration-300"
+                style={{ width: `${pct}%` }}
               />
             </div>
 
-            {/* Current step */}
+            {/* Current stage */}
             <div className="text-center flex flex-col items-center gap-2">
               <span className="inline-block px-3 py-1 rounded-full bg-data/10 border border-data/30 font-mono text-xs text-data">
-                Schritt {stepIndex + 1} von {STEPS.length}
+                {Math.round(pct)} %
               </span>
-              <p className="font-mono text-base text-white animate-pulse">
-                {STEPS[stepIndex]}
+              <p className="font-mono text-base text-white">
+                {stage || 'Analyse wird vorbereitet…'}
               </p>
             </div>
 
@@ -97,18 +87,11 @@ export default function AnalyzingPage() {
         )}
 
         {/* Footer */}
-        <p className="text-center font-body text-xs text-neutral/20">
-          Die Analyse läuft browser- und serverseitig — diese Seite kann geöffnet bleiben.
+        <p className="text-center font-body text-xs text-neutral/40">
+          Die Analyse läuft vollständig in Ihrem Browser — das Video verlässt Ihren Rechner nicht.
+          Bitte lassen Sie diese Seite bis zum Ende geöffnet und im Vordergrund.
         </p>
       </div>
-
-      {/* Scan animation */}
-      <style>{`
-        @keyframes scan {
-          0%   { left: -33%; }
-          100% { left: 100%; }
-        }
-      `}</style>
     </div>
   )
 }

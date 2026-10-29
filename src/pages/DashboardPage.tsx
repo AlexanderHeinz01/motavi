@@ -162,6 +162,23 @@ export default function DashboardPage() {
                   <span className="font-mono text-sm text-neutral/80">{result.worker_height_cm} cm</span>
                 </div>
               )}
+              {result.analysis_info && (
+                <div className="flex flex-col">
+                  <span className="font-body text-xs text-neutral/40">Messgrundlage</span>
+                  <span
+                    className={`font-mono text-sm ${
+                      result.analysis_info.detected_frames < result.analysis_info.sampled_frames * 0.5
+                        ? 'text-accent'
+                        : 'text-neutral/80'
+                    }`}
+                    title={result.analysis_info.model}
+                  >
+                    Person in {result.analysis_info.detected_frames} von {result.analysis_info.sampled_frames} Bildern
+                    erkannt · {Math.floor(result.analysis_info.video_duration_sec / 60)}:
+                    {String(Math.floor(result.analysis_info.video_duration_sec % 60)).padStart(2, '0')} min Video
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Summary strip */}

@@ -1,7 +1,7 @@
 /**
  * Motavi API layer.
- * Works seamlessly with local browser-authoritative ergonomics engine
- * while maintaining the exact interfaces expected by the frontend.
+ * Runs the analysis in the browser (MediaPipe, see services/poseAnalyzer.ts)
+ * while keeping the interfaces of the former HTTP API used by the pages.
  */
 
 import {
@@ -52,66 +52,73 @@ export interface AnalysisStatus {
   status: 'processing' | 'done' | 'error'
   result?: AnalysisResult
   error?: string
+  progress?: number
+  stage?: string
 }
 
-export function uploadVideoWithProgress(
+// Jobs whose analysis is running in this page; a "processing" job that is not
+// in here was cut off by a reload or a closed tab.
+const activeJobs = new Set<string>()
+
+/**
+ * Start the analysis of *file* in the browser. Resolves immediately with the
+ * job id; progress and result are read via getAnalysisStatus().
+ */
+export async function uploadVideoWithProgress(
   file: File,
   onProgress: (pct: number) => void,
   meta: UploadMeta = { shift_duration_min: 480 },
 ): Promise<UploadResponse> {
-  return new Promise((resolve) => {
-    const jobId = 'job_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36)
+  const jobId = 'job_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36)
+  const createdAt = Date.now()
+  saveStoredJob({ job_id: jobId, status: 'processing', progress: 0, stage: 'Analyse wird vorbereitet…', createdAt })
+  activeJobs.add(jobId)
 
-    // Initial job record
-    saveStoredJob({
-      job_id: jobId,
-      status: 'processing',
-      createdAt: Date.now(),
-    })
-
-    // Simulate progress animation smoothly
-    let p = 0
-    const interval = setInterval(() => {
-      p += 15
-      if (p >= 100) {
-        clearInterval(interval)
-        onProgress(100)
-
-        // Run analysis in background
-        processVideoJob(jobId, meta, file).then((result) => {
-          saveStoredJob({
-            job_id: jobId,
-            status: 'done',
-            result,
-            createdAt: Date.now(),
-          })
-        }).catch((err) => {
-          saveStoredJob({
-            job_id: jobId,
-            status: 'error',
-            error: err instanceof Error ? err.message : 'Analysefehler',
-            createdAt: Date.now(),
-          })
-        })
-
-        resolve({ job_id: jobId, status: 'processing' })
-      } else {
-        onProgress(p)
-      }
-    }, 120)
+  let lastPct = -1
+  let lastStage = ''
+  processVideoJob(jobId, meta, file, (pct, stage) => {
+    const rounded = Math.floor(pct)
+    if (rounded === lastPct && stage === lastStage) return
+    lastPct = rounded
+    lastStage = stage
+    saveStoredJob({ job_id: jobId, status: 'processing', progress: rounded, stage, createdAt })
   })
+    .then((result) => {
+      saveStoredJob({ job_id: jobId, status: 'done', result, progress: 100, createdAt })
+    })
+    .catch((err) => {
+      console.error('Analysis failed', err)
+      saveStoredJob({
+        job_id: jobId,
+        status: 'error',
+        error: err instanceof Error ? err.message : 'Bei der Analyse ist ein Fehler aufgetreten.',
+        createdAt,
+      })
+    })
+    .finally(() => activeJobs.delete(jobId))
+
+  onProgress(100)
+  return { job_id: jobId, status: 'processing' }
 }
 
 export async function getAnalysisStatus(jobId: string): Promise<AnalysisStatus> {
   const job = getStoredJob(jobId)
   if (!job) {
-    // If not found in store, create a simulated job or error
     return { status: 'error', error: `Job ${jobId} wurde nicht gefunden.` }
+  }
+  if (job.status === 'processing' && !activeJobs.has(jobId)) {
+    const error =
+      'Die Analyse wurde unterbrochen, weil die Seite neu geladen oder geschlossen wurde. ' +
+      'Bitte das Video erneut hochladen und die Seite bis zum Ende geöffnet lassen.'
+    saveStoredJob({ ...job, status: 'error', error })
+    return { status: 'error', error }
   }
   return {
     status: job.status,
     result: job.result,
     error: job.error,
+    progress: job.progress,
+    stage: job.stage,
   }
 }
 
