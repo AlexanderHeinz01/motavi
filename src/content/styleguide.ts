@@ -190,9 +190,11 @@ export const styleguide = {
 
   skelett: {
     titel: 'Skelett-Visual',
-    hinweis: 'Statische Fassung. Die Bewegung folgt in D2 und entfällt bei reduzierter Bewegung.',
-    zeichnungLabel: 'Bewegungsskelett an der Werkbank mit Bahnkurve, Greifraum und Zykluszeit',
-    zykluszeit: '38,4 s je Zyklus',
+    hinweis:
+      'Animiert mit Pausenknopf; bei reduzierter Bewegung und ohne JavaScript steht der Endzustand mit allen Werten. Weitere Zeitpunkte auf /_design/skelett.',
+    greifen: 'Animiert: Greifen und Platzieren (Hero)',
+    buecken: 'Animiert: Bücken (Gesundheit)',
+    trenner: 'Statisch: Abschnittstrenner',
     gebueckt: 'Gebückte Haltung auf dunklem Grund',
     gebuecktLabel: 'Bewegungsskelett in gebückter Haltung',
   },

@@ -5,7 +5,7 @@ import ButtonLink from '../../../ui/ButtonLink'
 import { PathIcon, TOKEN } from '../../../ui/EmpfehlungsLabel'
 import Icon from '../../../ui/Icon'
 import KategorieLabel from '../../../ui/KategorieLabel'
-import MessZeichnung from '../../../visuals/MessZeichnung'
+import SkelettAnimation from '../../../visuals/skeleton/SkelettAnimation'
 
 const { hero } = startseite
 
@@ -74,7 +74,7 @@ export default function StartHero() {
         </div>
         <figure className="lg:col-span-6">
           <div className="overflow-hidden rounded-card border border-line">
-            <MessZeichnung ariaLabel={hero.zeichnungLabel} cycleLabel={hero.zykluszeit} />
+            <SkelettAnimation szene="greifen" />
           </div>
           <figcaption className="mt-4">
             <Datenblatt />

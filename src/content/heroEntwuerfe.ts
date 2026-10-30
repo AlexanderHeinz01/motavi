@@ -61,3 +61,18 @@ export const entwuerfe: Record<'a' | 'b' | 'c', { meta: PageMeta; name: string; 
     note: 'Kurzer Kopf, darunter drei große Messwerte, jeder mit seinem Bewegungsdetail.',
   },
 }
+
+/** D2 review page for the skeleton visual (internal, noindex). */
+export const skelettEntwurf = {
+  meta: { title: 'Entwurf Skelett-Visual', description: 'Interner Designentwurf.' } satisfies PageMeta,
+  name: 'D2: Skelett-Visual',
+  note: 'Beide Bewegungen live und zu drei festen Zeitpunkten, darunter die statische Variante für Abschnittstrenner.',
+  szenen: { greifen: 'Greifen und Platzieren (Hero)', buecken: 'Bücken (Gesundheit)' },
+  live: 'Live, Schleife aus fünf Zyklen',
+  zeitpunkte: [
+    { sekunden: 1.1, text: '1,1 s: erster Zyklus, die Hand greift in den Behälter, die Bahn zeichnet sich nach.' },
+    { sekunden: 6.6, text: '6,6 s: dritter Zyklus, zwei Bahnen liegen schon, leicht verschieden wie echte Wiederholungen.' },
+    { sekunden: 10.4, text: '10,4 s: nach drei Zyklen stehen Zeit, Kosten und Belastung als Maßangaben.' },
+  ],
+  trenner: 'Statisch: Abschnittstrenner',
+}

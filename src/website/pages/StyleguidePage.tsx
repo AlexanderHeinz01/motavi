@@ -32,7 +32,8 @@ import ZyklusZeitleiste, { Legende } from '../../ui/ZyklusZeitleiste'
 import { CheckboxField, SelectField, TextareaField, TextField } from '../../ui/form/Formular'
 import Schieberegler from '../../ui/form/Schieberegler'
 import { GridPaper } from '../../visuals/drawing'
-import MessZeichnung from '../../visuals/MessZeichnung'
+import SkelettAnimation from '../../visuals/skeleton/SkelettAnimation'
+import SkelettTrenner from '../../visuals/skeleton/SkelettTrenner'
 import Skeleton from '../../visuals/skeleton/Skeleton'
 import { bendPose } from '../../visuals/skeleton/pose'
 import { footerLinkClass } from '../layout/Footer'
@@ -541,10 +542,18 @@ export default function StyleguidePage() {
 
       <Abschnitt id="skelett" hinweis={sg.skelett.hinweis}>
         <Raster cols="md:grid-cols-2">
-          <Zustand name={sg.tokens.hell}>
-            <div className="rounded-card border border-line bg-page p-4">
-              <MessZeichnung ariaLabel={sg.skelett.zeichnungLabel} cycleLabel={sg.skelett.zykluszeit} />
+          <Zustand name={sg.skelett.greifen}>
+            <div className="overflow-hidden rounded-card border border-line">
+              <SkelettAnimation szene="greifen" />
             </div>
+          </Zustand>
+          <Zustand name={sg.skelett.buecken}>
+            <div className="overflow-hidden rounded-card border border-line">
+              <SkelettAnimation szene="buecken" />
+            </div>
+          </Zustand>
+          <Zustand name={sg.skelett.trenner} className="md:col-span-2">
+            <SkelettTrenner />
           </Zustand>
           <Zustand name={sg.skelett.gebueckt}>
             <div className="surface-inverse rounded-card bg-page-inverse p-4">
