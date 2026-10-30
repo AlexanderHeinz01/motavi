@@ -1,4 +1,5 @@
 import type { Path } from './empfehlungen'
+import { pakete, paketListe } from './pakete'
 import type { Accent, PageMeta } from './types'
 
 /** Startseite (WEBSITE_PLAN §1 and §3). Headline and subline are fixed copy from §1. */
@@ -191,34 +192,22 @@ export const startseite = {
   },
 
   /**
-   * Section 11 "Pakete": placeholders until prices are set (WEBSITE_PLAN Phase 5).
+   * Section 11 "Pakete": prices and contents from src/content/pakete.ts (WEBSITE_PLAN Phase 5).
    * WEBSITE_PLAN §7.3 (decided 30.10.2026): package 3 gives measured values and the
    * Arbeitsplatz-Check; the recommendation with expert assessment comes with package 2.
    */
   pakete: {
     label: 'Pakete',
     title: 'Drei Pakete, von den Messwerten bis zur Begleitung',
-    karten: [
-      {
-        name: 'Video-Check',
-        preis: 'Preis folgt',
-        leistungen: ['Sie nehmen das Video selbst auf', 'Messwerte je Arbeitsplatz', 'Arbeitsplatz-Check'],
-        cta: { label: 'Mehr erfahren', to: '/pakete' },
-      },
-      {
-        name: 'Analyse und Validierung',
-        preis: 'Preis folgt',
-        leistungen: ['Messung und Expertenbewertung', 'Steckbrief mit Empfehlung und Report', 'Besprechung der Empfehlungen'],
-        cta: { label: 'Pilot anfragen', to: '/pilot' },
-        empfohlen: true,
-      },
-      {
-        name: 'Komplettbegleitung',
-        preis: 'Preis folgt',
-        leistungen: ['Aufnahme vor Ort', 'Steckbrief mit Empfehlung für alle Arbeitsplätze', 'Begleitung der Umsetzung'],
-        cta: { label: 'Mehr erfahren', to: '/pakete' },
-      },
-    ],
+    /** cards from src/content/pakete.ts (single source) */
+    karten: paketListe.map((p) => ({
+      name: p.name,
+      preis: p.preis,
+      preisHinweis: pakete.preisHinweis,
+      leistungen: p.leistungen,
+      cta: p.empfohlen ? { label: 'Pilot anfragen', to: '/pilot' } : { label: 'Mehr erfahren', to: '/pakete' },
+      empfohlen: p.empfohlen,
+    })),
     link: { label: 'Pakete vergleichen', to: '/pakete' },
   },
 

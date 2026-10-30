@@ -55,7 +55,8 @@ export const siteRoutes: SiteRoute[] = [
   { path: '/gesundheit', element: <GesundheitPage />, meta: gesundheit.meta, inSitemap: true },
   { path: '/so-funktionierts', element: <SoFunktioniertsPage />, meta: soFunktionierts.meta, inSitemap: true },
   // Not linked until providers confirm interest (WEBSITE_PLAN §7.1)
-  { path: '/fuer-robotik-anbieter', element: <RobotikAnbieterPage />, meta: robotikAnbieter.meta, inSitemap: false },
+  // not linked, not in the sitemap and noindex until WEBSITE_PLAN §7.1 is met
+  { path: '/fuer-robotik-anbieter', element: <RobotikAnbieterPage />, meta: robotikAnbieter.meta, inSitemap: false, noindex: true },
   { path: '/pakete', element: <PaketePage />, meta: pakete.meta, inSitemap: true },
   { path: '/betriebsrat', element: <BetriebsratPage />, meta: betriebsrat.meta, inSitemap: true },
   { path: '/pilot', element: <PilotPage />, meta: pilot.meta, inSitemap: true },

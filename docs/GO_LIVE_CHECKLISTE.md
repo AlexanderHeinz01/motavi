@@ -21,7 +21,8 @@ Betroffene Aussagen (vor dem Go-live erneut suchen: `grep -rn "gelöscht\|30 Tag
 |---|---|
 | Startseite, Sektion Betriebsrat (`src/content/startseite.ts`, `betriebsrat.nachweis`) | Originalvideo unmittelbar nach der Auswertung gelöscht, anonymisiertes Video und Gelenkpunkte 30 Tage |
 | Analyse-App, Datenweg Server (`src/content/datenweg.ts`, nur wenn `DATENWEG = 'server'`) | Originalvideo unmittelbar nach der Auswertung gelöscht |
-| `/betriebsrat` (Phase 5) | noch nicht geschrieben; gleiche Bedingung |
+| `/betriebsrat`, Abschnitt Anonymisierung und Speicherfristen (`src/content/betriebsrat.ts`) | Originalvideo unmittelbar nach der Auswertung gelöscht, auch bei Fehlschlag; anonymisiertes Video und Gelenkpunkte 30 Tage; Kennzahlen und Steckbrief 365 Tage |
+| `/so-funktionierts`, Schritt 02 (`src/content/soFunktionierts.ts`) | Originalvideo unmittelbar nach der Auswertung gelöscht |
 
 Abgehakt am: ________ von: ________
 
