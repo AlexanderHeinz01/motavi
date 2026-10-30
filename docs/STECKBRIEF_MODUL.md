@@ -87,7 +87,7 @@ Höchstens 15 Hz. Augen und Mund werden nicht gespeichert, Nase und Ohren bleibe
 **Signal:** Merkmalsvektor aus normierten Handgelenkpositionen, Rumpfneigung und Rumpfdrehung.
 
 **Verfahren:**
-1. Dominante Periode über Autokorrelation (Suchbereich konfigurierbar, Standard 3 bis 180 s).
+1. Dominante Periode über Autokorrelation (Suchbereich konfigurierbar, Standard 1,5 bis 180 s; Untergrenze am 30.10.2026 von 3 s gesenkt).
 2. Zyklusgrenzen über wiederkehrende Muster, z.B. Peak-Erkennung mit `scipy.signal`. Kein `stumpy` (bringt `numba` mit und vergrößert das Container-Image).
 3. Ausreißer markieren (Unterbrechungen, Nebentätigkeiten).
 
