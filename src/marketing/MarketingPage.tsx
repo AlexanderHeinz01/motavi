@@ -760,7 +760,7 @@ function Stats() {
     {
       val: '100 %',
       label: 'Datenschutzkonform',
-      sub: 'Anonymisierung vor Upload – kein Mitarbeiterbild verlässt den Betrieb.',
+      sub: 'Kopfbereich unkenntlich gemacht, Originalvideo direkt nach der Auswertung gelöscht.',
     },
   ]
   return (
@@ -1774,7 +1774,7 @@ function Trust() {
             ● Datenschutz & Compliance
           </div>
           {[
-            'Anonymisierung vor Upload (kein Personenbezug)',
+            'Originalvideo wird nach der Auswertung gelöscht',
             'DSGVO-konform',
             'Made in Germany',
             'On-Premise-Betrieb möglich',

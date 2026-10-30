@@ -204,7 +204,7 @@ export const styleguide = {
     methodeTitel: 'Zur Methode',
     methode: 'REBA bewertet Körperhaltungen anhand von Gelenkwinkeln. Wir messen die Winkel im Video und bewerten Tätigkeiten, nicht Personen.',
     datenschutzTitel: 'Datenschutz',
-    datenschutz: 'Gesichter werden vor jeder Auswertung unkenntlich gemacht. Es werden nur Gelenkpunkte gespeichert.',
+    datenschutz: 'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht. Aufbewahrt werden nur ein Video mit unkenntlich gemachtem Kopfbereich und die Gelenkpunkte, beides 30 Tage, sowie die Kennzahlen.',
   },
 
   partner: { titel: 'Partnerhinweis' },

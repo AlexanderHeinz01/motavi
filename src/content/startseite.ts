@@ -196,7 +196,12 @@ export const startseite = {
     ],
     nachweisTitel: 'So setzen wir es um',
     nachweis: [
-      { title: 'Anonymisierung', text: 'Gesichter werden vor jeder Auswertung unkenntlich gemacht, gespeichert werden nur Gelenkpunkte.' },
+      // Deletion concept of the backend (motavi-backend: docs/LOESCHKONZEPT.md);
+      // must be live before the website is released.
+      {
+        title: 'Anonymisierung',
+        text: 'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht. Aufbewahrt werden nur ein Video mit unkenntlich gemachtem Kopfbereich und die Gelenkpunkte, beides 30 Tage, sowie die Kennzahlen.',
+      },
       { title: 'Mitbestimmung', text: 'Einsatz nur mit Beteiligung des Betriebsrats nach § 87 BetrVG.' },
       { title: 'Zweckbindung', text: 'Die Daten dienen nur der Gestaltung der Arbeitsplätze.' },
     ],
