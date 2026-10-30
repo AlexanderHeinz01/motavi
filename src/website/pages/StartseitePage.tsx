@@ -13,17 +13,13 @@ import {
 import EntscheidungSection from '../sections/startseite/EntscheidungSection'
 import StartHero from '../sections/startseite/StartHero'
 
-/**
- * Start page (DESIGN_BRIEF §5, WEBSITE_PLAN §3). Deviation from the order in
- * §5: the decision section follows the hero directly (decision D0), the
- * problem section comes after it.
- */
+/** Start page: sections in exactly the order of WEBSITE_PLAN §3 (Phase 2). */
 export default function StartseitePage() {
   return (
     <>
       <StartHero />
-      <EntscheidungSection />
       <ProblemSection />
+      <EntscheidungSection />
       <BeispielSteckbriefSection />
       <BeweisSection />
       <PerspektivenSection />

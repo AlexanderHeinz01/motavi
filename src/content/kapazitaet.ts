@@ -13,7 +13,7 @@ export const kapazitaet: PageContent = {
     'Die Perspektive Kapazität zeigt, wie viel Zeit an einem Arbeitsplatz in Gehen, Suchen, Warten und ungünstigen Greifwegen steckt und wie viel davon sich durch Gestaltung zurückgewinnen lässt. Kapazität gewinnen trotz Fachkräftemangel.',
   planned: [
     'Zeit in nicht wertschöpfender Bewegung',
-    'ROI-Rechner: freisetzbare Kapazität in Stunden, Euro und Vollzeitäquivalenten pro Jahr',
+    'ROI-Rechner: gewonnene Kapazität in Stunden, Euro und Vollzeitäquivalenten pro Jahr',
     'Hinweis: Alle drei Perspektiven stammen aus derselben Messung',
   ],
   phase: 'Phase 4',

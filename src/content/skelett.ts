@@ -33,7 +33,7 @@ export const skelettText = {
       'Animation: anonymisiertes Bewegungsskelett greift Teile aus einem seitlichen Behälter und legt sie vorne ab. Die Handbahn zeichnet sich nach, nach drei Zyklen erscheinen Zeit, Kosten und Belastung als Beispielwerte.',
     werte: [
       { label: 'Zeit', accent: 'data-ink', wert: '38,4 s', einheit: 'je Zyklus' },
-      { label: 'Kosten', accent: 'gain-ink', wert: '23.400 €', einheit: 'pro Jahr' },
+      { label: 'Kosten', accent: 'gain-ink', wert: '15.000 €', einheit: 'pro Jahr' },
       { label: 'Belastung', accent: 'risk-ink', wert: 'REBA 5,8', einheit: 'Rumpf bis 45°' },
     ],
   } satisfies SkelettSzeneText,

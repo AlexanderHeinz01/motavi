@@ -21,11 +21,12 @@ export const startseite = {
     zykluszeit: '38,4 s je Zyklus',
     /**
      * Invented example values (DESIGN_BRIEF §2), marked as such (guideline 5).
-     * 23.400 € per year = 64 min per shift x 2 shifts x 220 days at 50 € per hour.
+     * Same example as the Steckbrief below (STECKBRIEF_MODUL §7, demo_steckbrief.json):
+     * 15.000 € per year = 41 avoidable min per shift x 2 shifts x 220 days at 50 € per hour (rounded).
      */
     werte: [
       { label: 'Zeit', accent: 'data-ink', value: '38,4 s', detail: 'je Zyklus, 690 Zyklen pro Schicht' },
-      { label: 'Kosten', accent: 'gain-ink', value: '23.400 €', detail: 'pro Jahr, 64 Minuten je Schicht ohne Wertschöpfung' },
+      { label: 'Kosten', accent: 'gain-ink', value: '15.000 €', detail: 'pro Jahr, 41 Minuten je Schicht durch Gestaltung vermeidbar' },
       { label: 'Belastung', accent: 'risk-ink', value: 'REBA 5,8', detail: 'Mittelwert, Rumpfwinkel bis 45 Grad' },
     ] satisfies { label: string; accent: Accent; value: string; detail: string }[],
     beispielHinweis: 'Beispielwerte',
@@ -49,14 +50,14 @@ export const startseite = {
       { label: 'Kosten', accent: 'gain-ink' },
       { label: 'Belastung', accent: 'risk-ink' },
     ] satisfies { label: string; accent: Accent }[],
-    /** "Wann" column of the table in WEBSITE_PLAN §1. */
+    /** "Wann" column of the table in WEBSITE_PLAN §1: one sentence per path, same kind for all three (guideline 4). */
     wege: [
       {
         path: 'improve',
         text: 'Verschwendung und Belastung lassen sich durch Gestaltung lösen: Greifwege, Höhen, Layout, Materialbereitstellung.',
       },
       { path: 'automate', text: 'Hohe Wiederholung, gleichförmige Zyklen, hohe Belastung, wenige Varianten.' },
-      { path: 'keep', text: 'Hohe Variantenvielfalt, kurze Zyklen ohne Muster, geringe Belastung. Keine Fehlinvestition.' },
+      { path: 'keep', text: 'Hohe Variantenvielfalt, kurze Zyklen ohne Muster, geringe Belastung.' },
     ] satisfies { path: Path; text: string }[],
   },
 
@@ -150,11 +151,12 @@ export const startseite = {
       { label: 'Arbeitstage pro Jahr', wert: '220' },
       { label: 'Vollkosten pro Stunde', wert: '50 €' },
     ],
-    ergebnisTitel: 'Freisetzbare Kapazität',
+    // "gewonnen" instead of "freisetzbar" (WEBSITE_PLAN §4.1): "Freisetzung" also means dismissal (guideline 6)
+    ergebnisTitel: 'Gewonnene Kapazität',
     ergebnisse: [
       { label: 'Stunden', value: '1.650', unit: 'pro Jahr', accent: 'gain-ink' },
       { label: 'Euro', value: '82.500 €', unit: 'pro Jahr', accent: 'gain-ink' },
-      { label: 'Vollzeitstellen', value: '1,0', unit: 'Äquivalent', accent: 'gain-ink' },
+      { label: 'Vollzeitäquivalente', value: '1,0', unit: 'pro Jahr', accent: 'gain-ink' },
     ] satisfies { label: string; value: string; unit: string; accent: Accent }[],
     hinweis: 'Beispielrechnung auf Basis typischer Annahmen. Die tatsächlichen Werte ermittelt die Analyse.',
     cta: { label: 'Mit eigenen Werten rechnen', to: '/kapazitaet' },
@@ -166,7 +168,7 @@ export const startseite = {
     title: 'Vom Video zur Empfehlung in vier Schritten',
     schritte: [
       { nr: '01', title: 'Video aufnehmen', text: 'Ein Smartphone-Video des Arbeitsplatzes über einige Zyklen. Keine Sensoren, keine Umbauten.' },
-      { nr: '02', title: 'KI misst', text: 'Zyklen, Zeiten, Greifraum und Belastung werden automatisch aus den Gelenkpunkten berechnet.' },
+      { nr: '02', title: 'KI misst', text: 'Zyklen, Zeiten, Greifraum und Belastung werden automatisch aus den Gelenkpunkten berechnet.', pilot: true },
       {
         nr: '03',
         title: 'Experte bewertet',
@@ -176,6 +178,9 @@ export const startseite = {
       { nr: '04', title: 'Steckbrief und Empfehlung', text: 'Sie erhalten den Steckbrief mit Empfehlung, Kennzahlen und einer groben Wirtschaftlichkeit.' },
     ],
     betontHinweis: 'Das Tool misst, der Experte bewertet.',
+    /** Guideline 7: cycles, process steps and reach are not validated yet (STECKBRIEF_MODUL §8). */
+    pilotLabel: 'Pilotphase',
+    pilotHinweis: 'Die automatische Messung von Zyklen, Ablaufschritten und Greifraum wird noch mit manuellen Messungen abgeglichen.',
     link: { label: 'Ablauf im Detail', to: '/so-funktionierts' },
   },
 
@@ -192,7 +197,7 @@ export const startseite = {
     versprechen: [
       'Motavi bewertet Tätigkeiten und Arbeitsplätze, nie Personen.',
       'Keine Leistungskontrolle und keine Vergleiche zwischen Mitarbeitenden.',
-      'Ziel ist, Abläufe besser zu gestalten und belastende Tätigkeiten zu entlasten.',
+      'Ziel ist, Abläufe besser zu gestalten und Belastungen zu verringern.',
     ],
     nachweisTitel: 'So setzen wir es um',
     nachweis: [

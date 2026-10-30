@@ -6,7 +6,7 @@ import MessZeichnung from '../../../visuals/MessZeichnung'
 
 const { entscheidung, hero } = startseite
 
-/** Section "Eine Messung, drei Empfehlungen" directly below the hero (decision D0). */
+/** Section 3 "Eine Messung, drei Empfehlungen" with the large decision path (WEBSITE_PLAN §3, DESIGN_BRIEF §5). */
 export default function EntscheidungSection() {
   return (
     <section id={entscheidung.id} className="scroll-mt-20 border-t border-line">

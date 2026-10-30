@@ -1,5 +1,5 @@
 /**
- * Start page sections 2 and 4 to 12 (DESIGN_BRIEF §5, WEBSITE_PLAN §3).
+ * Start page sections 2 and 4 to 12 (WEBSITE_PLAN §3, DESIGN_BRIEF §5); section 3 in EntscheidungSection.tsx.
  * Texts in src/content/startseite.ts.
  */
 import { ArrowRight, CalendarX, Cog, Gauge, Hourglass, Timer, type LucideIcon } from 'lucide-react'
@@ -195,11 +195,19 @@ export function AblaufSection() {
               <span className={`font-mono text-[32px] font-medium leading-none ${s.betont ? 'text-ink' : 'text-ink-muted'}`}>{s.nr}</span>
               <h3 className="t-h3 mt-4 text-ink">{s.title}</h3>
               <p className="t-body mt-2 text-ink-muted">{s.text}</p>
+              {'pilot' in s && s.pilot && (
+                <p className="mt-auto pt-4">
+                  <KategorieLabel accent="warn-ink">{a.pilotLabel}</KategorieLabel>
+                </p>
+              )}
               {s.betont && <p className="t-label mt-auto pt-4 text-ink">{a.betontHinweis}</p>}
             </li>
           ))}
         </ol>
-        <div className="mt-6">
+        <p className="t-body mt-6 max-w-[720px] text-ink-muted">
+          <span className="font-medium text-ink">{a.pilotLabel}:</span> {a.pilotHinweis}
+        </p>
+        <div className="mt-4">
           <TextLink to={a.link.to}>{a.link.label}</TextLink>
         </div>
       </div>

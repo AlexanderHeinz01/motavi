@@ -156,7 +156,7 @@ euro_jahr     = stunden_jahr * stundensatz
 vollzeit_aeq  = stunden_jahr / 1650
 ```
 
-Ausgabe: Stunden, Euro und Vollzeitäquivalente pro Jahr als "freisetzbare Kapazität". Pflichthinweis: "Beispielrechnung auf Basis Ihrer Annahmen. Die tatsächlichen Werte ermittelt die Analyse."
+Ausgabe: Stunden, Euro und Vollzeitäquivalente pro Jahr als "gewonnene Kapazität" (bis 30.10.2026 "freisetzbare Kapazität"; geändert wegen Leitplanke 6, "Freisetzung" bedeutet auch Entlassung). Pflichthinweis: "Beispielrechnung auf Basis Ihrer Annahmen. Die tatsächlichen Werte ermittelt die Analyse."
 
 ### 4.2 Arbeitsplatz-Check (`/arbeitsplatz-steckbrief`)
 
@@ -229,7 +229,7 @@ sichtbare Zeile gegen Abschnitt 2, besonders Leitplanke 4 und 6, und
 liste Formulierungen, bei denen du unsicher bist.
 ```
 
-**Abnahme:** Alle drei Empfehlungen sichtbar gleichwertig, Texte geprüft.
+**Abnahme:** Alle drei Empfehlungen sichtbar gleichwertig, Texte geprüft. Umgesetzt am 30.10.2026: Reihenfolge nach Abschnitt 3 (Problem vor "Eine Messung, drei Empfehlungen", die D0-Abweichung ist aufgehoben), Texte gegen Abschnitt 2 geprüft.
 
 ### Phase 3: Steckbrief-Seite und Arbeitsplatz-Check
 

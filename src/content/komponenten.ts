@@ -109,6 +109,6 @@ export const partnerText = {
 export const dashboardText = { titel: 'Analyse-App', demo: 'Demo-Daten' }
 
 export const rechnerText = {
-  ergebnis: 'Freisetzbare Kapazität',
+  ergebnis: 'Gewonnene Kapazität',
   pflichthinweis: 'Beispielrechnung auf Basis Ihrer Annahmen. Die tatsächlichen Werte ermittelt die Analyse.',
 }
