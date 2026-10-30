@@ -1,0 +1,70 @@
+/*
+ * Component styles that utility classes cannot express
+ * (native range input). Tokens: DESIGN_BRIEF §3 "Formen".
+ */
+
+/* Slider: track 1 px --border-strong, filled part --primary (--fill set inline) */
+.motavi-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 44px;
+  background: transparent;
+  cursor: pointer;
+}
+.motavi-range::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(var(--primary), var(--primary)) 0 / var(--fill, 50%) 100% no-repeat, var(--bg);
+  transition: border-color 150ms ease-out;
+}
+.motavi-range::-moz-range-track {
+  height: 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+}
+.motavi-range::-moz-range-progress {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--primary);
+}
+.motavi-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  background: var(--bg);
+}
+.motavi-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  background: var(--bg);
+}
+/* Hover: track border --text-muted */
+.motavi-range:hover::-webkit-slider-runnable-track,
+.motavi-range[data-force~='hover']::-webkit-slider-runnable-track {
+  border-color: var(--text-muted);
+}
+.motavi-range:hover::-moz-range-track,
+.motavi-range[data-force~='hover']::-moz-range-track {
+  border-color: var(--text-muted);
+}
+/* Focus: 2 px --primary on the thumb plus the global focus ring */
+.motavi-range:focus-visible::-webkit-slider-thumb,
+.motavi-range[data-force~='focus']::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.motavi-range:focus-visible::-moz-range-thumb,
+.motavi-range[data-force~='focus']::-moz-range-thumb {
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.motavi-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}

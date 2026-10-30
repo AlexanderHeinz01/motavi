@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom'
 import { footer, site } from '../../content/site'
 
+/** Footer link on dark ground; exported for the styleguide (states). */
+export const footerLinkClass = 't-body inline-flex min-h-[32px] items-center text-white/90 is-hover:text-white is-hover:underline'
+
 /** Dark footer with links and legal pages (DESIGN_BRIEF §4). */
 export default function Footer() {
   return (
@@ -19,7 +22,7 @@ export default function Footer() {
                   <li key={link.to}>
                     <Link
                       to={link.to}
-                      className="t-body inline-flex min-h-[32px] items-center text-white/90 hover:text-white hover:underline"
+                      className={footerLinkClass}
                     >
                       {link.label}
                     </Link>

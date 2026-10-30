@@ -1,5 +1,7 @@
+import { ArrowRight, Check, Cog, TrendingUp, type LucideIcon } from 'lucide-react'
 import type { CSSProperties, ReactNode } from 'react'
 import { empfehlungen, improveThenAutomateSegments, vorrangigLabel, type Path } from '../content/empfehlungen'
+import Icon from './Icon'
 
 export type Single = Exclude<Path, 'improve-then-automate'>
 type Variant = 'ruhig' | 'kraeftig'
@@ -10,43 +12,12 @@ export const TOKEN: Record<Single, string> = {
   keep: '--path-keep',
 }
 
-/** Line icons, 1.5 px stroke, in the path colour (DESIGN_BRIEF §4). */
-export function PathIcon({ path }: { path: Single }) {
-  const common = {
-    width: 16,
-    height: 16,
-    viewBox: '0 0 24 24',
-    fill: 'none',
-    stroke: 'currentColor',
-    strokeWidth: 1.5,
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
-    'aria-hidden': true,
-  }
-  if (path === 'improve') {
-    // rising line: better design of the workflow
-    return (
-      <svg {...common}>
-        <path d="M3 17l6-6 4 4 8-8" />
-        <path d="M15 7h6v6" />
-      </svg>
-    )
-  }
-  if (path === 'automate') {
-    // gear
-    return (
-      <svg {...common}>
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1L7 17M17 7l2.1-2.1" />
-      </svg>
-    )
-  }
-  // keep: check mark, a good result
-  return (
-    <svg {...common}>
-      <path d="M4 12.5l5 5L20 6.5" />
-    </svg>
-  )
+/** Icon per path (Lucide): rising line, gear, check mark (a good result). */
+const PATH_ICON: Record<Single, LucideIcon> = { improve: TrendingUp, automate: Cog, keep: Check }
+
+/** Line icon of a path, 1.5 px stroke, coloured by the caller (DESIGN_BRIEF §4). */
+export function PathIcon({ path, size = 16 }: { path: Single; size?: number }) {
+  return <Icon icon={PATH_ICON[path]} size={size} />
 }
 
 function Segment({ path, variant, children, size }: { path: Single; variant: Variant; children: ReactNode; size: 'md' | 'lg' }) {
@@ -99,9 +70,7 @@ export default function EmpfehlungsLabel({
           <Segment path="improve" variant={variant} size={size}>
             {improveThenAutomateSegments.first}
           </Segment>
-          <svg width="18" height="12" viewBox="0 0 18 12" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M1 6h15M11 1l5 5-5 5" />
-          </svg>
+          <Icon icon={ArrowRight} size={18} />
           <Segment path="automate" variant={variant} size={size}>
             {improveThenAutomateSegments.second}
           </Segment>

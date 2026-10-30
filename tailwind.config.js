@@ -1,8 +1,21 @@
+import plugin from 'tailwindcss/plugin'
+
 /**
  * Colour from a CSS variable that still supports opacity modifiers (bg-data-ink/10).
  * @param {string} name CSS custom property
  */
 const token = (name) => `color-mix(in srgb, var(${name}) calc(<alpha-value> * 100%), transparent)`
+
+/**
+ * State variants that react to the real state and can be forced with
+ * data-force="hover|focus" (used by /_styleguide to show every state).
+ */
+const forcedStates = plugin(({ addVariant }) => {
+  addVariant('is-hover', ['&:hover', '&[data-force~="hover"]'])
+  addVariant('is-focus', ['&:focus-visible', '&[data-force~="focus"]'])
+  addVariant('is-focus-within', ['&:focus-within', '&[data-force~="focus"]'])
+  addVariant('group-is-hover', [':merge(.group):hover &', ':merge(.group)[data-force~="hover"] &'])
+})
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -25,7 +38,12 @@ export default {
           subtle: 'var(--bg-subtle)',
           inverse: 'var(--bg-inverse)',
         },
-        line: 'var(--border)',
+        line: {
+          DEFAULT: 'var(--border)',
+          // Form elements only (DESIGN_BRIEF §3 "Formen")
+          strong: 'var(--border-strong)',
+        },
+        'error-ink': token('--error-ink'),
         ink: {
           DEFAULT: 'var(--text)',
           muted: 'var(--text-muted)',
@@ -63,5 +81,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [forcedStates],
 }

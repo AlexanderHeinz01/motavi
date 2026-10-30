@@ -1,0 +1,26 @@
+{
+  "arbeitsplatz": "Beispiel: Musterbau und Nacharbeit",
+  "empfehlung": "Beibehalten",
+  "vorrangig": false,
+  "verbesserungs_score": 31,
+  "automatisierungs_score": 22,
+  "zykluszeit_median_s": null,
+  "zykluszeit_vk": null,
+  "zyklen_pro_schicht": null,
+  "zeitanteil_in_zyklen": 0.24,
+  "anteile_ablauf": {"wertschoepfend": 0.46, "notwendig": 0.34, "verschwendung": 0.20},
+  "ablaufschritte": [
+    {"typ": "Bearbeiten", "anteil": 0.46, "klasse": "wertschoepfend"},
+    {"typ": "Prüfen", "anteil": 0.20, "klasse": "notwendig"},
+    {"typ": "Greifen", "anteil": 0.14, "klasse": "notwendig"},
+    {"typ": "Warten", "anteil": 0.08, "klasse": "verschwendung"},
+    {"typ": "Gehen", "anteil": 0.12, "klasse": "verschwendung"}
+  ],
+  "hoehenzonen": {"unter_knie": 0.05, "knie_huefte": 0.32, "huefte_schulter": 0.55, "ueber_schulter": 0.08},
+  "griffe_ausserhalb_greifraum": 0.12,
+  "reba_mittel": 3.4,
+  "drehungen_pro_zyklus": null,
+  "verbesserung_min_schicht": 7,
+  "typ_vorschlag": null,
+  "stunden_auto_jahr_bandbreite": null
+}

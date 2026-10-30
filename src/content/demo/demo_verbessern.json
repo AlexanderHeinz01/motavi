@@ -1,0 +1,28 @@
+{
+  "arbeitsplatz": "Beispiel: Verpackungsplatz Linie 2",
+  "empfehlung": "Verbessern",
+  "vorrangig": false,
+  "verbesserungs_score": 68,
+  "automatisierungs_score": 38,
+  "zykluszeit_median_s": 52.0,
+  "zykluszeit_vk": 0.31,
+  "zyklen_pro_schicht": 380,
+  "zeitanteil_in_zyklen": 0.71,
+  "anteile_ablauf": {"wertschoepfend": 0.28, "notwendig": 0.38, "verschwendung": 0.34},
+  "ablaufschritte": [
+    {"typ": "Greifen", "anteil": 0.16, "klasse": "notwendig"},
+    {"typ": "Suchen", "anteil": 0.14, "klasse": "verschwendung"},
+    {"typ": "Bringen", "anteil": 0.12, "klasse": "notwendig"},
+    {"typ": "Bearbeiten", "anteil": 0.28, "klasse": "wertschoepfend"},
+    {"typ": "Gehen", "anteil": 0.12, "klasse": "verschwendung"},
+    {"typ": "Umgreifen", "anteil": 0.08, "klasse": "verschwendung"},
+    {"typ": "Prüfen", "anteil": 0.10, "klasse": "notwendig"}
+  ],
+  "hoehenzonen": {"unter_knie": 0.21, "knie_huefte": 0.34, "huefte_schulter": 0.37, "ueber_schulter": 0.08},
+  "griffe_ausserhalb_greifraum": 0.38,
+  "reba_mittel": 6.4,
+  "drehungen_pro_zyklus": 5,
+  "verbesserung_min_schicht": 58,
+  "typ_vorschlag": null,
+  "stunden_auto_jahr_bandbreite": null
+}

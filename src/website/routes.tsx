@@ -32,6 +32,8 @@ import HeroAPage from './pages/design/HeroAPage'
 import HeroBPage from './pages/design/HeroBPage'
 import HeroCPage from './pages/design/HeroCPage'
 import { entwuerfe } from '../content/heroEntwuerfe'
+import { styleguide } from '../content/styleguide'
+import StyleguidePage from './pages/StyleguidePage'
 
 export interface SiteRoute {
   path: string
@@ -61,6 +63,8 @@ export const siteRoutes: SiteRoute[] = [
   { path: '/_design/hero-a', element: <HeroAPage />, meta: entwuerfe.a.meta, inSitemap: false, noindex: true },
   { path: '/_design/hero-b', element: <HeroBPage />, meta: entwuerfe.b.meta, inSitemap: false, noindex: true },
   { path: '/_design/hero-c', element: <HeroCPage />, meta: entwuerfe.c.meta, inSitemap: false, noindex: true },
+  // Component overview D1 (DESIGN_BRIEF §9): internal, not linked
+  { path: '/_styleguide', element: <StyleguidePage />, meta: styleguide.meta, inSitemap: false, noindex: true },
 ]
 
 export const notFoundMeta: PageMeta = notFound.meta

@@ -1,0 +1,27 @@
+{
+  "arbeitsplatz": "Beispiel: Montagearbeitsplatz Baugruppe A",
+  "empfehlung": "Erst verbessern, dann automatisieren",
+  "vorrangig": false,
+  "verbesserungs_score": 62,
+  "automatisierungs_score": 71,
+  "zykluszeit_median_s": 38.4,
+  "zykluszeit_vk": 0.14,
+  "zyklen_pro_schicht": 690,
+  "zeitanteil_in_zyklen": 0.82,
+  "anteile_ablauf": {"wertschoepfend": 0.34, "notwendig": 0.44, "verschwendung": 0.22},
+  "ablaufschritte": [
+    {"typ": "Greifen", "anteil": 0.18, "klasse": "notwendig"},
+    {"typ": "Suchen", "anteil": 0.09, "klasse": "verschwendung"},
+    {"typ": "Bringen", "anteil": 0.14, "klasse": "notwendig"},
+    {"typ": "Fügen", "anteil": 0.34, "klasse": "wertschoepfend"},
+    {"typ": "Gehen", "anteil": 0.13, "klasse": "verschwendung"},
+    {"typ": "Platzieren", "anteil": 0.12, "klasse": "notwendig"}
+  ],
+  "hoehenzonen": {"unter_knie": 0.08, "knie_huefte": 0.29, "huefte_schulter": 0.56, "ueber_schulter": 0.07},
+  "griffe_ausserhalb_greifraum": 0.21,
+  "reba_mittel": 5.8,
+  "drehungen_pro_zyklus": 3,
+  "verbesserung_min_schicht": 41,
+  "typ_vorschlag": "Pick and Place mit Fügeoperation",
+  "stunden_auto_jahr_bandbreite": [980, 1380]
+}

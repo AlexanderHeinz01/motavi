@@ -1,7 +1,9 @@
+import { ArrowDown } from 'lucide-react'
 import { empfehlungen } from '../../../content/empfehlungen'
 import { startseite } from '../../../content/startseite'
 import ButtonLink from '../../../ui/ButtonLink'
 import { PathIcon, TOKEN } from '../../../ui/EmpfehlungsLabel'
+import Icon from '../../../ui/Icon'
 import KategorieLabel from '../../../ui/KategorieLabel'
 import MessZeichnung from '../../../visuals/MessZeichnung'
 
@@ -49,9 +51,7 @@ function Bruecke() {
             {empfehlungen[p]}
           </span>
         ))}
-        <svg className="ml-auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 4v16M6 14l6 6 6-6" />
-        </svg>
+        <Icon icon={ArrowDown} size={16} className="ml-auto" />
       </span>
     </a>
   )

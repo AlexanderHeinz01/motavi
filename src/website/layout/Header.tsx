@@ -1,20 +1,24 @@
+import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { mainNav, navCta, navText } from '../../content/site'
 import ButtonLink from '../../ui/ButtonLink'
+import Icon from '../../ui/Icon'
 
 const MENU_ID = 'mobile-menu'
 
+/** Desktop navigation link; exported for the styleguide (states). */
+export const navLinkClass = (active: boolean) =>
+  `font-body text-[15px] transition-colors duration-150 ease-out is-hover:text-ink ${
+    active ? 'text-ink underline decoration-primary decoration-2 underline-offset-8' : 'text-ink-muted'
+  }`
+
+/** Link in the mobile menu. */
+export const mobileNavLinkClass = (active: boolean) =>
+  `t-h3 flex min-h-[56px] items-center ${active ? 'text-primary' : 'text-ink'}`
+
 function MenuIcon({ open }: { open: boolean }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-      {open ? (
-        <path d="M6 6l12 12M18 6L6 18" />
-      ) : (
-        <path d="M4 7h16M4 12h16M4 17h16" />
-      )}
-    </svg>
-  )
+  return <Icon icon={open ? X : Menu} size={24} />
 }
 
 /** Site header: wordmark, main navigation, CTA "Pilot anfragen" (always visible). */
@@ -55,11 +59,7 @@ export default function Header() {
               <li key={item.to}>
                 <NavLink
                   to={item.to}
-                  className={({ isActive }) =>
-                    `font-body text-[15px] transition-colors duration-150 ease-out hover:text-ink ${
-                      isActive ? 'text-ink underline decoration-primary decoration-2 underline-offset-8' : 'text-ink-muted'
-                    }`
-                  }
+                  className={({ isActive }) => navLinkClass(isActive)}
                 >
                   {item.label}
                 </NavLink>
@@ -93,9 +93,7 @@ export default function Header() {
                 <li key={item.to} className="border-b border-line">
                   <NavLink
                     to={item.to}
-                    className={({ isActive }) =>
-                      `t-h3 flex min-h-[56px] items-center ${isActive ? 'text-primary' : 'text-ink'}`
-                    }
+                    className={({ isActive }) => mobileNavLinkClass(isActive)}
                   >
                     {item.label}
                   </NavLink>

@@ -1,0 +1,25 @@
+{
+  "arbeitsplatz": "Beispiel: Bestückung Kleinteile",
+  "empfehlung": "Automatisieren",
+  "vorrangig": false,
+  "verbesserungs_score": 34,
+  "automatisierungs_score": 78,
+  "zykluszeit_median_s": 12.6,
+  "zykluszeit_vk": 0.08,
+  "zyklen_pro_schicht": 2100,
+  "zeitanteil_in_zyklen": 0.9,
+  "anteile_ablauf": {"wertschoepfend": 0.52, "notwendig": 0.40, "verschwendung": 0.08},
+  "ablaufschritte": [
+    {"typ": "Greifen", "anteil": 0.22, "klasse": "notwendig"},
+    {"typ": "Fügen", "anteil": 0.52, "klasse": "wertschoepfend"},
+    {"typ": "Platzieren", "anteil": 0.18, "klasse": "notwendig"},
+    {"typ": "Umgreifen", "anteil": 0.08, "klasse": "verschwendung"}
+  ],
+  "hoehenzonen": {"unter_knie": 0.02, "knie_huefte": 0.18, "huefte_schulter": 0.76, "ueber_schulter": 0.04},
+  "griffe_ausserhalb_greifraum": 0.09,
+  "reba_mittel": 6.9,
+  "drehungen_pro_zyklus": 2,
+  "verbesserung_min_schicht": 9,
+  "typ_vorschlag": "Pick and Place",
+  "stunden_auto_jahr_bandbreite": [1450, 1900]
+}

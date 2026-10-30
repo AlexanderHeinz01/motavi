@@ -11,7 +11,9 @@
   --bg: #ffffff;
   --bg-subtle: #f6f7f9;
   --bg-inverse: #0a0f1e;
-  --border: #e4e6eb;
+  --border: #e4e6eb; /* cards, dividers (decorative) */
+  --border-strong: #868fa6; /* form elements incl. slider track, at least 3:1 */
+  --error-ink: #9b3d3d; /* form errors, always with icon and text; never --risk-ink */
 
   /* Text */
   --text: #1a1a1a;
@@ -104,11 +106,11 @@
 .site-root { hyphens: auto; overflow-wrap: break-word; }
 .site-root :is(.t-display, .t-h1, .t-h2, .t-h3) { hyphens: manual; text-wrap: balance; }
 
-/* Visible focus everywhere on the website */
-.site-root :focus-visible {
+/* Visible focus everywhere on the website (data-force: styleguide shows the state) */
+.site-root :focus-visible,
+.site-root [data-force~='focus'] {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
-  border-radius: 4px;
 }
 
 /* Anchor links (e.g. hero bridge) glide only if motion is welcome */
