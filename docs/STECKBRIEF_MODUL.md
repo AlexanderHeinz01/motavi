@@ -193,8 +193,9 @@ euro_verbesserung_jahr = min_verbesserung * schichten * tage / 60 * stundensatz
 
 # Automatisieren
 stunden_auto_jahr = zykluszeit_s * zyklen_schicht * schichten * tage / 3600 * automatisierbarer_anteil
-euro_auto_jahr    = stunden_auto_jahr * stundensatz
-amortisation      = investition_bandbreite / euro_auto_jahr      # in Jahren, als Bandbreite
+euro_auto_brutto  = stunden_auto_jahr * stundensatz
+euro_auto_netto   = euro_auto_brutto * (1 - betriebskosten_anteil)   # je Typ, Bandbreite (seit 30.10.2026)
+amortisation      = investition_bandbreite / euro_auto_netto     # in Jahren, als Bandbreite
 ```
 
 Bei "Erst verbessern, dann automatisieren" wird die Automatisierung auf Basis des **verbesserten** Ablaufs gerechnet (Zykluszeit minus vermeidbare Verschwendung). Pflichthinweis: "Grobe Abschätzung, ersetzt kein Angebot."
