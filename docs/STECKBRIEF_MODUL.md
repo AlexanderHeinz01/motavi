@@ -314,7 +314,7 @@ mit Zeitleiste, Segmenttypen und Einstufung wertschöpfend, notwendig,
 Verschwendung. Übertragung auf alle Zyklen. Nur für angemeldete Berater.
 ```
 
-**Abnahme:** An einem Video Segmente bestätigt, Anteile plausibel.
+**Abnahme:** An einem Video Segmente bestätigt, Anteile plausibel. Umgesetzt am 30.10.2026 (Backend `segments.py`, `/api/v1/workplace/{job_id}/ablauf` und `/review`, Expertenansicht `/app/experte/{job_id}`); Abnahme an einem echten Video steht aus.
 
 ### S4: Scores, Empfehlung, Wirtschaftlichkeit
 
