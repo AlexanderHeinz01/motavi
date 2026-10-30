@@ -17,7 +17,7 @@ import KategorieLabel from '../../../ui/KategorieLabel'
 import NutzenKarte, { NutzenKarten } from '../../../ui/NutzenKarte'
 import PaketKarte from '../../../ui/PaketKarte'
 import Partnerhinweis from '../../../ui/Partnerhinweis'
-import RechnerPanel from '../../../ui/RechnerPanel'
+import KapazitaetsRechner from '../../../ui/KapazitaetsRechner'
 import { SteckbriefUmschalter } from '../../../ui/SteckbriefVorschau'
 
 const ICONS: Record<string, LucideIcon> = { hourglass: Hourglass, cog: Cog, calendar: CalendarX, timer: Timer, gauge: Gauge }
@@ -141,7 +141,7 @@ export function PerspektivenSection() {
   )
 }
 
-/** Calculator teaser with fixed example values; no calculation logic yet. */
+/** Mini version of the calculator (WEBSITE_PLAN §4.1): three sliders, the rest fixed. */
 export function RechnerTeaser() {
   const r = startseite.rechner
   return (
@@ -149,30 +149,7 @@ export function RechnerTeaser() {
       <div className="site-container site-section">
         <Kopf label={r.label} accent="gain-ink" title={r.title} intro={r.intro} />
         <div className="mt-12">
-          <RechnerPanel
-            titel={r.ergebnisTitel}
-            hinweis={r.hinweis}
-            klebend={false}
-            ergebnisse={r.ergebnisse}
-            eingaben={
-              <div>
-                <p className="t-label text-ink-muted">{r.annahmenTitel}</p>
-                <dl className="mt-3">
-                  {r.annahmen.map((a) => (
-                    <div key={a.label} className="flex items-baseline justify-between gap-4 border-b border-line py-2.5">
-                      <dt className="font-body text-[15px] text-ink">{a.label}</dt>
-                      <dd className="whitespace-nowrap font-mono text-[16px] font-medium text-ink">{a.wert}</dd>
-                    </div>
-                  ))}
-                </dl>
-                <div className="mt-6">
-                  <ButtonLink to={r.cta.to} variant="secondary">
-                    {r.cta.label}
-                  </ButtonLink>
-                </div>
-              </div>
-            }
-          />
+          <KapazitaetsRechner variante="mini" />
         </div>
       </div>
     </section>
@@ -196,9 +173,9 @@ export function AblaufSection() {
               <h3 className="t-h3 mt-4 text-ink">{s.title}</h3>
               <p className="t-body mt-2 text-ink-muted">{s.text}</p>
               {'pilot' in s && s.pilot && (
-                <p className="mt-auto pt-4">
+                <div className="mt-auto pt-4">
                   <KategorieLabel accent="warn-ink">{a.pilotLabel}</KategorieLabel>
-                </p>
+                </div>
               )}
               {s.betont && <p className="t-label mt-auto pt-4 text-ink">{a.betontHinweis}</p>}
             </li>

@@ -132,34 +132,11 @@ export const startseite = {
     ] satisfies { icon: 'timer' | 'cog' | 'gauge'; title: string; text: string; link: { label: string; to: string } }[],
   },
 
-  /**
-   * Section 7 "Kapazität berechnen": teaser with fixed example values
-   * (defaults of WEBSITE_PLAN §4.1); the calculator itself follows on /kapazitaet.
-   * 10 x 45 min x 50 % = 22,5 min per workplace and shift;
-   * x 2 shifts x 220 days / 60 = 1.650 h; x 50 € = 82.500 €; / 1.650 h = 1,0 FTE.
-   */
+  /** Section 7 "Kapazität berechnen": mini version of the calculator on /kapazitaet (src/ui/KapazitaetsRechner.tsx). */
   rechner: {
     label: 'Kapazität berechnen',
     title: 'Was steckt in Ihren Arbeitsplätzen?',
-    intro: 'Eine Beispielrechnung mit typischen Annahmen. Mit Ihren eigenen Werten rechnen Sie auf der Seite Kapazität.',
-    annahmenTitel: 'Annahmen',
-    annahmen: [
-      { label: 'Arbeitsplätze', wert: '10' },
-      { label: 'Nicht wertschöpfende Bewegung je Schicht', wert: '45 min' },
-      { label: 'Davon durch Gestaltung vermeidbar', wert: '50 %' },
-      { label: 'Schichten pro Tag', wert: '2' },
-      { label: 'Arbeitstage pro Jahr', wert: '220' },
-      { label: 'Vollkosten pro Stunde', wert: '50 €' },
-    ],
-    // "gewonnen" instead of "freisetzbar" (WEBSITE_PLAN §4.1): "Freisetzung" also means dismissal (guideline 6)
-    ergebnisTitel: 'Gewonnene Kapazität',
-    ergebnisse: [
-      { label: 'Stunden', value: '1.650', unit: 'pro Jahr', accent: 'gain-ink' },
-      { label: 'Euro', value: '82.500 €', unit: 'pro Jahr', accent: 'gain-ink' },
-      { label: 'Kapazität in Vollzeitstellen', value: '1,0', unit: 'z. B. für offene Stellen', accent: 'gain-ink' },
-    ] satisfies { label: string; value: string; unit: string; accent: Accent }[],
-    hinweis: 'Beispielrechnung auf Basis typischer Annahmen. Die tatsächlichen Werte ermittelt die Analyse.',
-    cta: { label: 'Mit eigenen Werten rechnen', to: '/kapazitaet' },
+    intro: 'Stellen Sie drei Werte ein, der Rest ist typisch angenommen. Mit allen Werten rechnen Sie auf der Seite Kapazität.',
   },
 
   /** Section 8 "So funktioniert es" (WEBSITE_PLAN §3). Step 03 is emphasised. */

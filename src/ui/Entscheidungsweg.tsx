@@ -55,7 +55,26 @@ export default function Entscheidungsweg({ messung, wege }: { messung: ReactNode
  * active, the others are muted. "Erst verbessern, dann automatisieren"
  * activates both, numbered in order.
  */
-export function EntscheidungswegKompakt({ aktiv }: { aktiv: Path }) {
+export function EntscheidungswegKompakt({ aktiv }: { aktiv?: Path }) {
+  // without an active path all three are shown equally (perspective pages)
+  if (!aktiv) {
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="t-label inline-flex items-center gap-2 text-ink">
+          <span className="h-2 w-2 rounded-full bg-ink" aria-hidden="true" />
+          {entscheidungswegText.messung}
+        </span>
+        <span className="h-px w-5 bg-ink-muted" aria-hidden="true" />
+        <ul className="flex flex-wrap items-center gap-2" aria-label={entscheidungswegText.liste}>
+          {WEGE.map((p) => (
+            <li key={p} className="text-ink">
+              <EmpfehlungsLabel path={p} />
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
   const aktive: Single[] = aktiv === 'improve-then-automate' ? ['improve', 'automate'] : [aktiv]
   return (
     <div className="flex flex-wrap items-center gap-2">

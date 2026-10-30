@@ -258,7 +258,7 @@ dass alle drei Perspektiven aus derselben Messung stammen, und verlinkt
 auf den Steckbrief. Keine Herstellernamen.
 ```
 
-**Abnahme:** Rechner von Hand nachgerechnet, Seiten gegen Leitplanken geprüft.
+**Abnahme:** Rechner von Hand nachgerechnet, Seiten gegen Leitplanken geprüft. Umgesetzt am 31.10.2026: `src/lib/kapazitaet.test.ts` rechnet drei Fälle von Hand nach, im Browser geprüft (20 Plätze, 3 Schichten: 4.950 h, 247.500 €, 3,0 Vollzeitstellen); `src/content/leitplanken.test.ts` prüft alle Inhaltsdateien. Entscheidungen in `docs/ENTSCHEIDUNGEN_NACHT.md`.
 
 ### Phase 5: Restliche Seiten
 
