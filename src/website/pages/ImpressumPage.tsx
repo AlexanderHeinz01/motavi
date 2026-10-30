@@ -1,6 +1,6 @@
 import { impressum } from '../../content/rechtliches'
-import PlaceholderPage from '../layout/PlaceholderPage'
+import RechtsSeite from './RechtsSeite'
 
 export default function ImpressumPage() {
-  return <PlaceholderPage content={impressum} />
+  return <RechtsSeite inhalt={impressum} />
 }

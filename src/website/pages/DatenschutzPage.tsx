@@ -1,6 +1,6 @@
 import { datenschutz } from '../../content/rechtliches'
-import PlaceholderPage from '../layout/PlaceholderPage'
+import RechtsSeite from './RechtsSeite'
 
 export default function DatenschutzPage() {
-  return <PlaceholderPage content={datenschutz} />
+  return <RechtsSeite inhalt={datenschutz} />
 }

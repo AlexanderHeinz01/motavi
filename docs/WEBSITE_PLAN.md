@@ -184,7 +184,7 @@ Ergebnis wird nicht gespeichert. Hinweis: "Im Steckbrief messen wir diese Kriter
 - SEO: Vorab-Generierung, Titel und Meta-Description pro Seite, `sitemap.xml`, `robots.txt`, Open-Graph-Bilder. Suchbegriffe: Automatisierungspotenzial, Arbeitsplatzanalyse, Ergonomie Analyse Video, Zykluszeitanalyse, Physical AI Produktion, Lean Automatisierung.
 - Texte in `src/content/*.ts`.
 - Scoring-Konfiguration als gemeinsame JSON-Datei für Website und Analysemodul. Quelle ist `config/workplace_scoring.json` im Repo `motavi-backend`; die Website liest beim Build eine Kopie unter demselben Pfad (`npm run sync:scoring`). Tests in beiden Repos schlagen fehl, wenn die Kopie abweicht. Die Fragen des Arbeitsplatz-Checks und ihre Kennzahlwerte stehen im Abschnitt `arbeitsplatz_check` dieser Datei, die sichtbaren Texte in `src/content/steckbrief.ts`.
-- Formular: `POST /api/v1/contact`, Honeypot, Rate-Limit, Zugangsdaten aus Umgebungsvariablen. Offen: welcher Server den Endpunkt bereitstellt (das Repo hat bisher keinen).
+- Formular: `POST /api/v1/contact`, Honeypot, Rate-Limit, Zugangsdaten aus Umgebungsvariablen. Der Endpunkt liegt im Backend (`motavi-backend`, `docs/KONTAKT.md`); die Website sendet an `VITE_API_BASE_URL`.
 - Website und Analyse-App getrennt deployen. Stand Phase 0: vorerst eine Vite-App (Bereitstellung über Google AI Studio), Website vorgerendert, App unter `/app` nachgeladen; die Ordnerstruktur erlaubt die spätere Trennung.
 - Lighthouse mindestens 90, mobil ab 360 px, WCAG AA.
 
@@ -286,7 +286,7 @@ Honeypot, Rate-Limit. /impressum und /datenschutz mit markierten
 Platzhaltern.
 ```
 
-**Abnahme:** Testanfragen aus beiden Zielgruppen kommen an.
+**Abnahme:** Testanfragen aus beiden Zielgruppen kommen an. Umgesetzt am 31.10.2026: Endpunkt im Repo `motavi-backend` (`docs/KONTAKT.md`, 16 Tests); im Browser je eine Anfrage als Hersteller und als Robotik-Anbieter über das echte Formular an ein lokal laufendes Backend gesendet, beide gespeichert. Für den Betrieb fehlen Firestore-TTL-Regel, `VITE_API_BASE_URL` und optional SMTP (`docs/ENTSCHEIDUNGEN_NACHT.md`).
 
 ### Phase 7: Qualität und Go-live-Vorbereitung
 
