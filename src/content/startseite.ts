@@ -60,18 +60,180 @@ export const startseite = {
     ] satisfies { path: Path; text: string }[],
   },
 
-  /** Sections still to come (WEBSITE_PLAN §3); hero and decision section are built. */
-  planned: [
-    'Problem: Jeder Arbeitsplatz verliert Zeit. Niemand weiß genau, wo und warum.',
-    'Beispiel-Steckbrief mit Demo-Daten',
-    'Beweis: Fallbeispiel Abfülllinie mit Methodenhinweis',
-    'Drei Perspektiven: Kapazität, Automatisierung, Gesundheit',
-    'Kapazität berechnen: Mini-Rechner',
-    'So funktioniert es: Video, Messung, Expertenbewertung, Steckbrief',
-    'Herstellerneutral: Wir verkaufen keine Roboter.',
-    'Betriebsrat als Partner',
-    'Pakete',
-    'Abschluss: Finden Sie heraus, was sich an Ihren Arbeitsplätzen lohnt.',
-  ],
-  phase: 'Phase 2',
+  /** Section 2 "Problem" (WEBSITE_PLAN §3). */
+  problem: {
+    label: 'Ausgangslage',
+    title: 'Jeder Arbeitsplatz verliert Zeit. Niemand weiß genau, wo und warum.',
+    karten: [
+      {
+        icon: 'hourglass',
+        title: 'Fachkräftemangel',
+        text: 'Stellen bleiben unbesetzt, Arbeit bleibt liegen. Jede Minute, die in Suchen, Gehen und Umgreifen steckt, fehlt in der Wertschöpfung.',
+      },
+      {
+        icon: 'cog',
+        title: 'Automatisierungsdruck',
+        text: 'Investitionen in Automatisierung werden oft ohne Datengrundlage entschieden. Wer einen unklaren Ablauf automatisiert, bezahlt für unnötige Bewegungen.',
+      },
+      {
+        icon: 'calendar',
+        title: 'Fehlzeiten',
+        text: 'Belastende Haltungen und Hebevorgänge kosten Gesundheit und Kapazität. Oft ist nicht bekannt, an welchem Arbeitsplatz die Belastung entsteht.',
+      },
+    ] satisfies { icon: 'hourglass' | 'cog' | 'calendar'; title: string; text: string }[],
+  },
+
+  /** Section 4 "Beispiel-Steckbrief", dark (DESIGN_BRIEF §5). */
+  beispiel: {
+    id: 'beispiel-steckbrief',
+    label: 'Beispiel-Steckbrief',
+    title: 'Ein Datenblatt je Arbeitsplatz',
+    intro:
+      'So sieht das Ergebnis aus: Empfehlung mit Begründung, beide Scores, Kennzahlen, Ablauf, Greifraum und was die Empfehlung bringt. Wählen Sie eines der vier Beispiele.',
+    link: { label: 'Jede Kennzahl erklärt', to: '/arbeitsplatz-steckbrief' },
+  },
+
+  /** Section 5 "Beweis" (WEBSITE_PLAN §3 and guideline 5). */
+  beweis: {
+    label: 'Fallbeispiel',
+    title: 'Abfülllinie, produzierende Industrie',
+    intro:
+      'Die Analyse fand die Ursache in einem einzelnen Prozessschritt. Gelöst wurde sie durch Gestaltung, ohne Investition in Automatisierung.',
+    empfehlung: 'Empfehlung:',
+    path: 'improve' as Path,
+    zahlen: [
+      { wert: 4800, einheit: 'Drehbewegungen', text: 'pro Schicht, verursacht durch einen ungünstig angeordneten Prozessschritt', accent: 'risk-ink' },
+      { wert: 57, einheit: 'Minuten', text: 'Potenzial pro Schicht, bei 265 Minuten Bezugszeit', accent: 'gain-ink' },
+    ] satisfies { wert: number; einheit: string; text: string; accent: Accent }[],
+    methodeTitel: 'Zur Methode',
+    methode: 'Ergebnis einer Analyse mit bewährter Methodik, 2020.',
+    botschaft: 'Hier lautete die Antwort nicht Automatisieren, sondern Verbessern.',
+  },
+
+  /** Section 6 "Drei Perspektiven" (WEBSITE_PLAN §1). */
+  perspektiven: {
+    label: 'Drei Perspektiven',
+    title: 'Drei Einstiege in dieselbe Analyse',
+    karten: [
+      { icon: 'timer', title: 'Kapazität', text: 'Wie viele Stunden stecken in nicht wertschöpfender Bewegung?', link: { label: 'Zur Kapazität', to: '/kapazitaet' } },
+      {
+        icon: 'cog',
+        title: 'Automatisierung',
+        text: 'Welcher Arbeitsplatz lohnt sich für einen Roboter, welcher nicht?',
+        link: { label: 'Zur Automatisierung', to: '/automatisierung' },
+      },
+      {
+        icon: 'gauge',
+        title: 'Gesundheit und Compliance',
+        text: 'Wo ist die Belastung am höchsten, und was hilft am schnellsten?',
+        link: { label: 'Zur Gesundheit', to: '/gesundheit' },
+      },
+    ] satisfies { icon: 'timer' | 'cog' | 'gauge'; title: string; text: string; link: { label: string; to: string } }[],
+  },
+
+  /**
+   * Section 7 "Kapazität berechnen": teaser with fixed example values
+   * (defaults of WEBSITE_PLAN §4.1); the calculator itself follows on /kapazitaet.
+   * 10 x 45 min x 50 % = 22,5 min per workplace and shift;
+   * x 2 shifts x 220 days / 60 = 1.650 h; x 50 € = 82.500 €; / 1.650 h = 1,0 FTE.
+   */
+  rechner: {
+    label: 'Kapazität berechnen',
+    title: 'Was steckt in Ihren Arbeitsplätzen?',
+    intro: 'Eine Beispielrechnung mit typischen Annahmen. Mit Ihren eigenen Werten rechnen Sie auf der Seite Kapazität.',
+    annahmenTitel: 'Annahmen',
+    annahmen: [
+      { label: 'Arbeitsplätze', wert: '10' },
+      { label: 'Nicht wertschöpfende Bewegung je Schicht', wert: '45 min' },
+      { label: 'Davon durch Gestaltung vermeidbar', wert: '50 %' },
+      { label: 'Schichten pro Tag', wert: '2' },
+      { label: 'Arbeitstage pro Jahr', wert: '220' },
+      { label: 'Vollkosten pro Stunde', wert: '50 €' },
+    ],
+    ergebnisTitel: 'Freisetzbare Kapazität',
+    ergebnisse: [
+      { label: 'Stunden', value: '1.650', unit: 'pro Jahr', accent: 'gain-ink' },
+      { label: 'Euro', value: '82.500 €', unit: 'pro Jahr', accent: 'gain-ink' },
+      { label: 'Vollzeitstellen', value: '1,0', unit: 'Äquivalent', accent: 'gain-ink' },
+    ] satisfies { label: string; value: string; unit: string; accent: Accent }[],
+    hinweis: 'Beispielrechnung auf Basis typischer Annahmen. Die tatsächlichen Werte ermittelt die Analyse.',
+    cta: { label: 'Mit eigenen Werten rechnen', to: '/kapazitaet' },
+  },
+
+  /** Section 8 "So funktioniert es" (WEBSITE_PLAN §3). Step 03 is emphasised. */
+  ablauf: {
+    label: 'So funktioniert es',
+    title: 'Vom Video zur Empfehlung in vier Schritten',
+    schritte: [
+      { nr: '01', title: 'Video aufnehmen', text: 'Ein Smartphone-Video des Arbeitsplatzes über einige Zyklen. Keine Sensoren, keine Umbauten.' },
+      { nr: '02', title: 'KI misst', text: 'Zyklen, Zeiten, Greifraum und Belastung werden automatisch aus den Gelenkpunkten berechnet.' },
+      {
+        nr: '03',
+        title: 'Experte bewertet',
+        text: 'Ein Experte prüft Ablaufschritte, Einstufung und Empfehlung und bestätigt oder korrigiert sie.',
+        betont: true,
+      },
+      { nr: '04', title: 'Steckbrief und Empfehlung', text: 'Sie erhalten den Steckbrief mit Empfehlung, Kennzahlen und einer groben Wirtschaftlichkeit.' },
+    ],
+    betontHinweis: 'Das Tool misst, der Experte bewertet.',
+    link: { label: 'Ablauf im Detail', to: '/so-funktionierts' },
+  },
+
+  /** Section 9 "Herstellerneutral" (WEBSITE_PLAN §3). */
+  neutral: {
+    satz: 'Wir verkaufen keine Roboter. Wir sagen Ihnen, wo sich einer lohnt, und wo nicht.',
+  },
+
+  /** Section 10 "Betriebsrat als Partner": promise left, proof right. */
+  betriebsrat: {
+    label: 'Betriebsrat',
+    title: 'Mit dem Betriebsrat, nicht an ihm vorbei',
+    versprechenTitel: 'Unser Versprechen',
+    versprechen: [
+      'Motavi bewertet Tätigkeiten und Arbeitsplätze, nie Personen.',
+      'Keine Leistungskontrolle und keine Vergleiche zwischen Mitarbeitenden.',
+      'Ziel ist, Abläufe besser zu gestalten und belastende Tätigkeiten zu entlasten.',
+    ],
+    nachweisTitel: 'So setzen wir es um',
+    nachweis: [
+      { title: 'Anonymisierung', text: 'Gesichter werden vor jeder Auswertung unkenntlich gemacht, gespeichert werden nur Gelenkpunkte.' },
+      { title: 'Mitbestimmung', text: 'Einsatz nur mit Beteiligung des Betriebsrats nach § 87 BetrVG.' },
+      { title: 'Zweckbindung', text: 'Die Daten dienen nur der Gestaltung der Arbeitsplätze.' },
+    ],
+    link: { label: 'Alles zu Datenschutz und Betriebsrat', to: '/betriebsrat' },
+  },
+
+  /** Section 11 "Pakete": placeholders until prices are set (WEBSITE_PLAN Phase 5). */
+  pakete: {
+    label: 'Pakete',
+    title: 'Drei Pakete, alle mit Steckbrief',
+    karten: [
+      {
+        name: 'Video-Check',
+        preis: 'Preis folgt',
+        leistungen: ['Sie nehmen das Video selbst auf', 'Automatische Messung', 'Steckbrief je Arbeitsplatz'],
+        cta: { label: 'Mehr erfahren', to: '/pakete' },
+      },
+      {
+        name: 'Analyse und Validierung',
+        preis: 'Preis folgt',
+        leistungen: ['Messung und Expertenbewertung', 'Steckbrief und Report', 'Besprechung der Empfehlungen'],
+        cta: { label: 'Pilot anfragen', to: '/pilot' },
+        empfohlen: true,
+      },
+      {
+        name: 'Komplettbegleitung',
+        preis: 'Preis folgt',
+        leistungen: ['Aufnahme vor Ort', 'Analyse und Bewertung aller Arbeitsplätze', 'Begleitung der Umsetzung'],
+        cta: { label: 'Mehr erfahren', to: '/pakete' },
+      },
+    ],
+    link: { label: 'Pakete vergleichen', to: '/pakete' },
+  },
+
+  /** Section 12 "Abschluss-CTA". */
+  abschluss: {
+    satz: 'Finden Sie heraus, was sich an Ihren Arbeitsplätzen lohnt.',
+    cta: { label: 'Pilot anfragen', to: '/pilot' },
+  },
 }

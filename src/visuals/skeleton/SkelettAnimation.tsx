@@ -163,20 +163,39 @@ export default function SkelettAnimation({
     return () => io.disconnect()
   }, [bewegung])
 
+  // Start only once the page is idle, so the animation does not compete with loading
+  const [bereit, setBereit] = useState(false)
   useEffect(() => {
-    if (!bewegung || pausiert || !sichtbar) return
+    if (!bewegung || bereit) return
+    const start = () => setBereit(true)
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(start, { timeout: 2500 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const id = window.setTimeout(start, 1500)
+    return () => window.clearTimeout(id)
+  }, [bewegung, bereit])
+
+  useEffect(() => {
+    if (!bewegung || !bereit || pausiert || !sichtbar) return
     let raf = 0
     let last = performance.now()
+    let offen = 0
     const tick = (now: number) => {
       const dt = Math.min(now - last, 50) / 1000
       last = now
       zeitRef.current = (zeitRef.current + dt) % LOOP
-      setZeit(zeitRef.current)
+      // about 30 frames per second are enough for a line drawing
+      offen += dt
+      if (offen >= 1 / 30) {
+        offen = 0
+        setZeit(zeitRef.current)
+      }
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [bewegung, pausiert, sichtbar])
+  }, [bewegung, bereit, pausiert, sichtbar])
 
   const zyklus = Math.floor(zeit / ZYKLUS)
   const phase = zeit / ZYKLUS - zyklus

@@ -1,6 +1,7 @@
 import { ArrowRight, type LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+import type { Accent } from '../content/types'
 import type { Force } from './Button'
 import Icon from './Icon'
 
@@ -10,17 +11,20 @@ export default function NutzenKarte({
   title,
   text,
   link,
+  accent = 'data-ink',
   force,
 }: {
   icon: LucideIcon
   title: string
   text: string
   link?: { label: string; to: string }
+  /** Colour of the icon (ink or path token) */
+  accent?: Accent
   force?: Force
 }) {
   return (
     <div className="flex flex-col rounded-card border border-line bg-page p-6">
-      <span className="text-data-ink">
+      <span style={{ color: `var(--${accent})` }}>
         <Icon icon={icon} size={24} />
       </span>
       <h3 className="t-h3 mt-4 text-ink">{title}</h3>

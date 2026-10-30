@@ -19,18 +19,21 @@ export default function RechnerPanel({
   ergebnisse,
   titel = rechnerText.ergebnis,
   hinweis = rechnerText.pflichthinweis,
+  klebend = true,
 }: {
   eingaben: ReactNode
   ergebnisse: RechnerErgebnis[]
   titel?: string
   hinweis?: string
+  /** Mobile: result sticks to the bottom; off for fixed example values */
+  klebend?: boolean
 }) {
   return (
     <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-start">
       <div className="space-y-5">{eingaben}</div>
       <aside
         aria-live="polite"
-        className="max-lg:sticky max-lg:bottom-0 max-lg:z-10 max-lg:-mx-6 max-lg:border-t max-lg:border-line max-lg:bg-page max-lg:px-6 max-lg:py-3 lg:rounded-card lg:border lg:border-line lg:bg-page-subtle lg:p-6"
+        className={`${klebend ? 'max-lg:sticky max-lg:bottom-0 max-lg:z-10' : ''} max-lg:-mx-6 max-lg:border-t max-lg:border-line max-lg:bg-page max-lg:px-6 max-lg:py-3 lg:rounded-card lg:border lg:border-line lg:bg-page-subtle lg:p-6`}
       >
         <p className="t-label text-ink-muted max-lg:hidden">{titel}</p>
         <dl className="grid grid-cols-3 gap-3 lg:mt-4 lg:grid-cols-1 lg:gap-5">
