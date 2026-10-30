@@ -9,6 +9,7 @@
     "lint": "tsc --noEmit",
     "test": "vitest run",
     "sync:scoring": "node scripts/sync-scoring.mjs",
+    "golive:check": "node scripts/golive-check.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

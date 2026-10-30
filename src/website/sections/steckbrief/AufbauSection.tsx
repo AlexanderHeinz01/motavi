@@ -22,17 +22,18 @@ export function PilotMarke() {
 
 function Eintrag({ k, children }: { k: Kennzahl; children?: ReactNode }) {
   return (
-    <div className="border-b border-line py-4 last:border-b-0">
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <dt className="font-body text-[16px] font-medium text-ink">{k.name}</dt>
+    // one list per metric, so that the notes between them stay valid HTML
+    <dl className="border-b border-line py-4 last:border-b-0">
+      <dt className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="font-body text-[16px] font-medium text-ink">{k.name}</span>
         <span className="font-mono text-[12px] uppercase tracking-wide text-ink-muted">{steckbrief.quelle[k.quelle]}</span>
         {k.pilot && <PilotMarke />}
-      </div>
+      </dt>
       <dd className="t-body mt-1.5 text-ink-muted">
         {k.text}
         {children}
       </dd>
-    </div>
+    </dl>
   )
 }
 
@@ -57,7 +58,7 @@ function Gruppe({ nr, titel, children }: { nr: string; titel: string; children: 
         <span className="font-mono text-[14px] font-medium text-ink">{nr}</span>
         <span className="t-label text-ink">{titel}</span>
       </h3>
-      <dl className="mt-1">{children}</dl>
+      <div className="mt-1">{children}</div>
     </section>
   )
 }

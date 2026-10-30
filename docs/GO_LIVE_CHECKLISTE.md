@@ -1,6 +1,6 @@
 # Go-live-Checkliste
 
-Stand: 30.10.2026. Wird in Phase 7 (`docs/WEBSITE_PLAN.md`, Abschnitt 6) vervollständigt.
+Stand: 31.10.2026, in Phase 7 vervollständigt.
 
 Die Website geht erst live, wenn jede **harte Bedingung** erfüllt und mit Datum und Namen abgehakt ist. Eine nicht erfüllte harte Bedingung lässt sich nicht durch eine Ausnahme ersetzen: Entweder wird sie erfüllt, oder die betroffene Aussage wird vor dem Go-live von der Website entfernt.
 
@@ -26,12 +26,51 @@ Betroffene Aussagen (vor dem Go-live erneut suchen: `grep -rn "gelöscht\|30 Tag
 
 Abgehakt am: ________ von: ________
 
-## Weitere Punkte
+### 2. Rechtstexte vollständig
 
-Aus Entscheidungen, die schon gefallen sind; Phase 7 ergänzt Lighthouse, Barrierefreiheit und Analytics.
+- [ ] Impressum und Datenschutzerklärung durch Anwalt oder Generator (§7.6), ohne Platzhalter. Fakten für den Verfasser: `docs/RECHTSTEXTE_FAKTEN.md`.
+- [ ] Die Datenschutzerklärung nennt Kontaktformular, Analyse-App, gegebenenfalls Reichweitenmessung und das Laden des Erkennungsmodells von Google (oder das Modell wird selbst gehostet).
 
-- [ ] Kein "DSGVO-konform" auf der Website, bis die Aussage juristisch geprüft ist (Entscheidung vom 30.10.2026).
-- [ ] Kein Link zur Partnerseite `/fuer-robotik-anbieter`, bis `docs/WEBSITE_PLAN.md` §7.1 erfüllt ist (mindestens zwei Anbieter bestätigen Interesse).
-- [ ] `noindex` erst entfernen, wenn Name und Projekt intern geklärt sind (§7.4).
-- [ ] Impressum und Datenschutzerklärung durch Anwalt oder Generator (§7.6).
-- [ ] Label "Pilotphase" an allen Kennzahlen, die laut `docs/validierung_steckbrief.md` (Repo `motavi-backend`) noch nicht validiert sind.
+Abgehakt am: ________ von: ________
+
+### 3. Kontaktformular funktioniert im Betrieb
+
+- [ ] Website mit `VITE_API_BASE_URL` (https-Adresse des Backends) gebaut.
+- [ ] Je eine Testanfrage als Hersteller und als Robotik-Anbieter über das echte Formular gesendet und in Firestore (`kontaktanfragen`) gefunden; bei konfiguriertem SMTP auch die E-Mail erhalten.
+- [ ] Firestore-TTL-Regel auf `loeschen_am` angelegt (`motavi-backend/docs/KONTAKT.md`).
+- [ ] CORS im Backend auf die Website-Domain beschränkt (`backend/app/main.py`, derzeit `*`).
+
+Abgehakt am: ________ von: ________
+
+### 4. Keine ungeprüften Aussagen
+
+- [ ] Kein „DSGVO-konform“ auf Website, App und in den PDFs, bis die Aussage juristisch geprüft ist (Entscheidung vom 30.10.2026).
+- [ ] Kein Link zur Partnerseite `/fuer-robotik-anbieter`, bis `docs/WEBSITE_PLAN.md` §7.1 erfüllt ist; die Seite bleibt bis dahin `noindex`.
+- [ ] Label „Pilotphase“ an allen Kennzahlen, die laut `docs/validierung_steckbrief.md` (Repo `motavi-backend`) noch nicht validiert sind.
+- [ ] „Server in Deutschland“ stimmt für alle Daten, die die Website und der Dienst verarbeiten (Backend `europe-west3`, Firestore-Region, Hosting der Website).
+- [ ] Zusagen auf `/betriebsrat` und im Formular (Antwort innerhalb von zwei Werktagen) intern bestätigt.
+
+Abgehakt am: ________ von: ________
+
+### 5. Freigabe der Indexierung
+
+- [ ] Name, Projekt und Domain geklärt (§7.4, §7.5); `VITE_SITE_URL` gesetzt, Sitemap und Canonical-Links zeigen auf die Domain.
+- [ ] Erst dann `VITE_SITE_INDEXABLE=true`.
+
+Abgehakt am: ________ von: ________
+
+## Maschinelle Prüfung
+
+`npm run build && npm run golive:check` mit denselben Umgebungsvariablen wie für den Build prüft am fertigen Build: Rechtsseiten ohne Platzhalter, Seiten indexierbar, kein „DSGVO-konform“, Partnerseite nicht verlinkt und `noindex`, Sitemap mit Domain, Backend-Adresse für das Formular. Exit-Code 1, solange eine Bedingung fehlt. Der Rest dieser Liste ist Handarbeit.
+
+## Qualität (Phase 7)
+
+Stand 31.10.2026, Bericht in `docs/QUALITAET.md`.
+
+Lokal am 31.10.2026 erfüllt (Details im Bericht); vor dem Go-live auf dem echten Hosting wiederholen und hier abhaken.
+
+- [ ] Lighthouse auf allen Seiten in allen vier Kategorien mindestens 90, mobil und Desktop. Ausnahme: SEO auf den `noindex`-Seiten (Partnerseite, 404).
+- [ ] Keine Seite mit seitlichem Scrollen ab 360 px Breite.
+- [ ] Tastaturbedienung: Sprunglink, sichtbarer Fokus, Rechner, Arbeitsplatz-Check und Formular vollständig per Tastatur.
+- [ ] Kontrasttest (`src/styles/tokens.test.ts`, Werte aus `src/styles/contrastReport.ts`) grün.
+- [ ] Reichweitenmessung: aus, oder ein cookieloser, in der EU betriebener Dienst über `VITE_ANALYTICS_SRC` und `VITE_ANALYTICS_DOMAIN`, in der Datenschutzerklärung genannt.

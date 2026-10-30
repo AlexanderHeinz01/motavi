@@ -1,6 +1,7 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { navText } from '../../content/site'
+import { analyticsConfig, analyticsEinbinden } from '../../lib/analytics'
 import { findSiteRoute, normalizePath, notFoundMeta } from '../routes'
 import { headFor } from '../seo'
 import Footer from './Footer'
@@ -16,6 +17,11 @@ export default function SiteLayout() {
       ? headFor(route.path, route.meta, { noindex: route.noindex })
       : headFor(normalizePath(pathname), notFoundMeta, { noindex: true })
   }, [pathname])
+
+  // cookieless reach measurement, only if configured at build time (default off)
+  useEffect(() => {
+    analyticsEinbinden(analyticsConfig(import.meta.env))
+  }, [])
 
   return (
     <div className="site-root flex min-h-screen flex-col bg-page font-body text-ink">

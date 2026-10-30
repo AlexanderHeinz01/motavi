@@ -30,6 +30,13 @@ Stand: 31.10.2026, eigenständig umgesetzt in der Nacht. Teil A: Entscheidungen,
 16. **Pflichtseiten:** `/impressum` und `/datenschutz` zeigen die üblichen Abschnitte als markierte Platzhalter, ohne Rechtstext. Die technischen Fakten für den Verfasser stehen in `docs/RECHTSTEXTE_FAKTEN.md`.
 17. **Aufgeräumt:** Die Platzhalter-Bausteine aus Phase 1 (`PlaceholderPage`, `PlaceholderBlock`, `PageContent`) werden nicht mehr gebraucht und sind entfernt.
 
+### Phase 7: Qualität und Go-live-Vorbereitung
+
+18. **Reichweitenmessung:** standardmäßig aus. Eingeschaltet wird sie nur beim Build über `VITE_ANALYTICS_SRC` (https) und `VITE_ANALYTICS_DOMAIN`; eingebunden wird ein einzelnes Skript im Stil cookieloser Dienste (`data-domain`), ohne Cookie-Banner. Kein Anbieter festgelegt.
+19. **Maschinelle Go-live-Prüfung:** `npm run golive:check` prüft am fertigen Build Rechtsseiten ohne Platzhalter, Indexierbarkeit, kein „DSGVO-konform“, Partnerseite nicht verlinkt und `noindex`, Sitemap mit Domain und die Backend-Adresse des Formulars. Die Freigabe der Partnerseite erfolgt bewusst über `PARTNERSEITE_FREIGEGEBEN=true`.
+20. **Lighthouse:** Gemessen am indexierbaren Build, weil `noindex` die SEO-Kategorie sonst immer unter 90 drückt. SEO 66 auf Partnerseite und 404 bleibt, weil beide absichtlich `noindex` sind. Die Startseite mobil schwankt mit der Last (einmal 77, danach 91 bis 94); Code-Splitting der Seiten habe ich deshalb nicht eingebaut, der Weg steht in `docs/QUALITAET.md`.
+21. **Überschrift über den Paketkarten:** nur für Screenreader („Die drei Pakete“), damit die Folge h1, h2, h3 stimmt, ohne das Layout zu ändern.
+
 ## B. Von Ihnen zu klären
 
 1. **REBA ohne „Pilotphase“?** Steckbrief- und Gesundheitsseite kennzeichnen REBA nicht als Pilotphase, weil es aus der bestehenden Ergonomie-Analyse stammt. Gegen eine manuelle REBA-Bewertung geprüft ist die Berechnung aus dem 2D-Video aber ebenfalls nicht. Soll REBA auch das Label tragen, bis das geprüft ist?
@@ -44,6 +51,8 @@ Stand: 31.10.2026, eigenständig umgesetzt in der Nacht. Teil A: Entscheidungen,
 9. **`VITE_API_BASE_URL`** beim Bauen der Website auf die Adresse des Backends setzen, sonst sendet das Formular an die eigene Domain. CORS erlaubt im Backend derzeit alle Ursprünge; vor dem Go-live auf die Website-Domain beschränken.
 10. **Erkennungsmodell der Analyse-App:** Es wird von `storage.googleapis.com` geladen (Google sieht dabei die IP-Adresse, keine Videodaten). Selbst hosten oder in der Datenschutzerklärung nennen?
 11. **Impressum und Datenschutzerklärung:** Texte durch Anwalt oder Generator, Fakten in `docs/RECHTSTEXTE_FAKTEN.md`; dort sind auch die offenen Angaben markiert (Hosting der Website, Analytics-Anbieter, SMTP-Anbieter).
+12. **Reichweitenmessung:** Ganz verzichten oder einen cookielosen, in der EU betriebenen Dienst wählen? Wenn ja: welchen, dann `VITE_ANALYTICS_SRC` und `VITE_ANALYTICS_DOMAIN` setzen und in der Datenschutzerklärung nennen.
+13. **Hosting der Website:** Wo läuft sie (Server in Deutschland, passend zur Fußzeile)? Danach Lighthouse dort wiederholen.
 
 ## C. TODO-Stellen im Code
 

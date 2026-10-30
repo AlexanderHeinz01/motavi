@@ -58,6 +58,8 @@ export const pakete = {
   title: 'Pakete und Preise',
   intro:
     'Drei Pakete, von den Messwerten bis zur Begleitung. Die Empfehlung mit Bewertung durch einen Experten gibt es ab dem Paket Analyse und Validierung.',
+  /** heading above the cards, for screen readers only (heading order h1, h2, h3) */
+  kartenTitel: 'Die drei Pakete',
   preisHinweis: 'netto, zuzüglich Umsatzsteuer',
   umfang: 'Den genauen Umfang, etwa die Zahl der Arbeitsplätze, stimmen wir im Angebot mit Ihnen ab.',
   cta: { label: 'Pilot anfragen', to: '/pilot' },

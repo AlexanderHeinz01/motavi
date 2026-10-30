@@ -10,6 +10,7 @@ export default function PaketePage() {
   return (
     <div className="site-container site-section">
       <PageHeader label={t.label} accent={t.accent} title={t.title} intro={t.intro} />
+      <h2 className="sr-only">{t.kartenTitel}</h2>
       <div className="mt-12 grid gap-6 lg:grid-cols-3 lg:items-start">
         {paketListe.map((p) => (
           <PaketKarte

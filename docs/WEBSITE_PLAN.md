@@ -298,7 +298,7 @@ Go-live-Checkliste in docs/GO_LIVE_CHECKLISTE.md vervollständigen; die
 harten Bedingungen dort sind Voraussetzung für das Go-live.
 ```
 
-**Abnahme:** Lighthouse-Bericht und Checkliste.
+**Abnahme:** Lighthouse-Bericht und Checkliste. Umgesetzt am 31.10.2026: Bericht in `docs/QUALITAET.md` (alle Seiten mobil und Desktop mindestens 90, außer SEO 66 auf den absichtlich `noindex` gesetzten Seiten Partnerseite und 404), 360 px und Tastatur geprüft, Reichweitenmessung per `VITE_ANALYTICS_SRC` und `VITE_ANALYTICS_DOMAIN`, standardmäßig aus. Checkliste vervollständigt, `npm run golive:check` prüft den Build maschinell.
 
 ---
 
