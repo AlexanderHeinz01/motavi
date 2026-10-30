@@ -54,6 +54,7 @@ export const steckbriefText = {
   stundenAuto: 'Automatisierungspotenzial',
   stundenAutoEinheit: 'Stunden pro Jahr',
   euroAuto: 'Potenzial in Euro pro Jahr',
+  nachBetriebskosten: 'nach Abzug der Betriebskosten der Anlage',
   typ: 'Automatisierungstyp (Vorschlag)',
   aufVerbessertemAblauf: 'Automatisierung gerechnet auf den verbesserten Ablauf.',
   ergebnis: 'Ergebnis',

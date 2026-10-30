@@ -183,7 +183,7 @@ Ergebnis wird nicht gespeichert. Hinweis: "Im Steckbrief messen wir diese Kriter
 - Bestehendes React + Vite + Tailwind, Routing mit `react-router-dom`.
 - SEO: Vorab-Generierung, Titel und Meta-Description pro Seite, `sitemap.xml`, `robots.txt`, Open-Graph-Bilder. Suchbegriffe: Automatisierungspotenzial, Arbeitsplatzanalyse, Ergonomie Analyse Video, Zykluszeitanalyse, Physical AI Produktion, Lean Automatisierung.
 - Texte in `src/content/*.ts`.
-- Scoring-Konfiguration als gemeinsame JSON-Datei für Website und Analysemodul.
+- Scoring-Konfiguration als gemeinsame JSON-Datei für Website und Analysemodul. Quelle ist `config/workplace_scoring.json` im Repo `motavi-backend`; die Website liest beim Build eine Kopie unter demselben Pfad (`npm run sync:scoring`). Tests in beiden Repos schlagen fehl, wenn die Kopie abweicht. Die Fragen des Arbeitsplatz-Checks und ihre Kennzahlwerte stehen im Abschnitt `arbeitsplatz_check` dieser Datei, die sichtbaren Texte in `src/content/steckbrief.ts`.
 - Formular: `POST /api/v1/contact`, Honeypot, Rate-Limit, Zugangsdaten aus Umgebungsvariablen. Offen: welcher Server den Endpunkt bereitstellt (das Repo hat bisher keinen).
 - Website und Analyse-App getrennt deployen. Stand Phase 0: vorerst eine Vite-App (Bereitstellung über Google AI Studio), Website vorgerendert, App unter `/app` nachgeladen; die Ordnerstruktur erlaubt die spätere Trennung.
 - Lighthouse mindestens 90, mobil ab 360 px, WCAG AA.
@@ -244,7 +244,7 @@ die config/workplace_scoring.json liest. Nicht validierte Funktionen mit
 "Pilotphase" kennzeichnen.
 ```
 
-**Abnahme:** Vier Testprofile ergeben jeweils eine andere Empfehlung: verschwendungsreich, repetitiv und bereinigt, repetitiv mit Verschwendung, hochvariabel.
+**Abnahme:** Vier Testprofile ergeben jeweils eine andere Empfehlung: verschwendungsreich, repetitiv und bereinigt, repetitiv mit Verschwendung, hochvariabel. Umgesetzt am 30.10.2026: Die vier Profile ergeben Verbessern (82/40), Automatisieren (21/87), Erst verbessern, dann automatisieren (64/77) und Beibehalten (31/8), in `src/lib/scoring.test.ts` und im Backend (`test_arbeitsplatz_check.py`) mit denselben Werten. Über alle 65.536 Antwortkombinationen: Verbessern 36 %, Beibehalten 31 %, Erst verbessern, dann automatisieren 22 %, Automatisieren 12 %.
 
 ### Phase 4: Perspektivseiten
 

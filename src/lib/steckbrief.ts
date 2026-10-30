@@ -8,6 +8,7 @@ import type { Path } from '../content/empfehlungen'
 import { steckbriefText as t } from '../content/komponenten'
 import { euro, prozent, zahl } from './format'
 import { STANDARD_SCHWELLEN } from './empfehlung'
+import { config } from './scoring'
 
 /** REBA action levels: 1 negligible, 2 to 3 low, 4 to 7 medium, 8 to 10 high, 11+ very high. */
 export function rebaStufe(reba: number): string {
@@ -60,10 +61,17 @@ export interface Annahmen {
   stundensatz: number
 }
 
-/** Rough economics (STECKBRIEF_MODUL §5.5). */
+/**
+ * Rough economics (STECKBRIEF_MODUL §5.5), like the backend: the automation
+ * savings are net of the running costs of the type (config/workplace_scoring.json,
+ * betriebskosten_anteil); cautious bound = few hours with high running costs.
+ */
 export function wirtschaft(s: Steckbrief, a: Annahmen) {
   const euroVerbesserung =
     s.verbesserung_min_schicht === null ? null : ((s.verbesserung_min_schicht * a.schichtenProTag * a.arbeitstage) / 60) * a.stundensatz
-  const euroAuto = s.stunden_auto_jahr_bandbreite?.map((h) => h * a.stundensatz) as [number, number] | undefined
+  const typ = config.automatisierungstypen.regeln.find((r) => r.name === s.typ_vorschlag)
+  const h = s.stunden_auto_jahr_bandbreite
+  const euroAuto: [number, number] | undefined =
+    h && typ ? [h[0] * a.stundensatz * (1 - typ.betriebskosten_anteil[1]), h[1] * a.stundensatz * (1 - typ.betriebskosten_anteil[0])] : undefined
   return { euroVerbesserung, euroAuto }
 }

@@ -138,7 +138,7 @@ Aus der bestehenden Pipeline: REBA-Mittelwert und Maximum, Anteile Bücken, Übe
 
 ## 5. Bewertung und Empfehlung
 
-Alle Gewichte, Schwellen und Regeln in `config/workplace_scoring.json` (Repo `motavi-backend`, seit S4). Dieselbe Datei nutzt der Arbeitsplatz-Check der Website; wie sie ins Website-Repo kommt (Kopie beim Build oder Abruf vom Backend), wird in Phase 3 der Website entschieden.
+Alle Gewichte, Schwellen und Regeln in `config/workplace_scoring.json` (Repo `motavi-backend`, seit S4). Dieselbe Datei nutzt der Arbeitsplatz-Check der Website: Sie liegt dort als Kopie unter demselben Pfad (`npm run sync:scoring`), Tests in beiden Repos prüfen, dass die Kopie gleich ist. `src/lib/scoring.ts` rechnet wie `scoring.py`; die Website-Tests nutzen die Ergebnisse des Backends als Sollwerte.
 
 Ein Kriterium ohne Messwert fällt weg, sein Gewicht verteilt sich auf die übrigen, die Empfehlung ist dann vorläufig. "Kein wiederkehrender Zyklus" zählt bei Wiederholungen, Gleichförmigkeit und Zeitanteil in Zyklen als 0.
 

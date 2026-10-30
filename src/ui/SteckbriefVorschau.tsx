@@ -46,11 +46,12 @@ function Zeile({ label, wert, einheit, text = false }: { label: string; wert: st
 }
 
 /** Headline figure of the economics section (savings in --gain-ink). */
-function Kernzahl({ label, wert }: { label: string; wert: string }) {
+function Kernzahl({ label, wert, zusatz }: { label: string; wert: string; zusatz?: string }) {
   return (
     <div>
       <p className="font-body text-[14px] text-ink-muted">{label}</p>
       <p className="mt-1 font-mono text-[24px] font-medium leading-tight text-gain-ink">{wert}</p>
+      {zusatz && <p className="mt-0.5 font-body text-[13px] text-ink-muted">{zusatz}</p>}
     </div>
   )
 }
@@ -96,7 +97,7 @@ function Wirtschaft({ s, path, variante }: { s: Steckbrief; path: Path; variante
       )}
       {automatisieren && stunden && euroAuto && (
         <div>
-          <Kernzahl label={t.euroAuto} wert={`${euroGerundet(euroAuto[0])} ${t.bis} ${euroGerundet(euroAuto[1])}`} />
+          <Kernzahl label={t.euroAuto} wert={`${euroGerundet(euroAuto[0])} ${t.bis} ${euroGerundet(euroAuto[1])}`} zusatz={t.nachBetriebskosten} />
           {voll && (
             <dl className="mt-2">
               <Zeile label={t.stundenAuto} wert={`${zahl(stunden[0])} ${t.bis} ${zahl(stunden[1])}`} einheit={t.stundenAutoEinheit} />

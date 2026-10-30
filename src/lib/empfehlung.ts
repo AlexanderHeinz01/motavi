@@ -1,8 +1,10 @@
 /**
- * Recommendation from the two scores (STECKBRIEF_MODUL.md §5.3).
- * TODO (Phase 3): read thresholds from config/workplace_scoring.json.
+ * Recommendation from the two scores (STECKBRIEF_MODUL §5.3). Thresholds,
+ * decision table and priority come from config/workplace_scoring.json
+ * (src/lib/scoring.ts).
  */
 import type { Path } from '../content/empfehlungen'
+import { config, empfehlung } from './scoring'
 
 export interface Schwellen {
   /** Improvement score from which "verbessern" applies */
@@ -13,15 +15,18 @@ export interface Schwellen {
   rebaVorrangig: number
 }
 
-export const STANDARD_SCHWELLEN: Schwellen = { verbesserung: 50, automatisierung: 60, rebaVorrangig: 8 }
+export const STANDARD_SCHWELLEN: Schwellen = {
+  verbesserung: config.empfehlung.schwelle_verbesserung,
+  automatisierung: config.empfehlung.schwelle_automatisierung,
+  rebaVorrangig: config.vorrang.reba_mittel_ab,
+}
 
 export function empfehlungAus(verbesserung: number, automatisierung: number, s: Schwellen = STANDARD_SCHWELLEN): Path {
-  const v = verbesserung >= s.verbesserung
-  const a = automatisierung >= s.automatisierung
-  if (v && a) return 'improve-then-automate'
-  if (v) return 'improve'
-  if (a) return 'automate'
-  return 'keep'
+  return empfehlung(verbesserung, automatisierung, {
+    ...config.empfehlung,
+    schwelle_verbesserung: s.verbesserung,
+    schwelle_automatisierung: s.automatisierung,
+  })
 }
 
 export function istVorrangig(rebaMittel: number, s: Schwellen = STANDARD_SCHWELLEN): boolean {

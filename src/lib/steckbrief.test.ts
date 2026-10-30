@@ -21,7 +21,8 @@ describe('Steckbrief: abgeleitete Aussagen', () => {
     const w = wirtschaft(ita.data, annahmen)
     // 41 min x 2 shifts x 220 days / 60 x 50 €
     expect(w.euroVerbesserung).toBeCloseTo(15033.33, 1)
-    expect(w.euroAuto).toEqual([49000, 69000])
+    // 980 to 1,380 h x 50 €, net of the running costs of Pick and Place (15 to 25 %)
+    expect(w.euroAuto).toEqual([980 * 50 * 0.75, 1380 * 50 * 0.85])
     expect(euroGerundet(w.euroVerbesserung!)).toBe('15.000 €')
   })
 
