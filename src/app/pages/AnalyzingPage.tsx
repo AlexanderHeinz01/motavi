@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { DATENWEG, datenwegText } from '../../content/datenweg'
 import { useAnalysis } from '../hooks/useAnalysis'
 
 function SkeletonBlock({ className }: { className?: string }) {
@@ -88,8 +89,7 @@ export default function AnalyzingPage() {
 
         {/* Footer */}
         <p className="text-center font-body text-xs text-neutral/40">
-          Die Analyse läuft vollständig in Ihrem Browser — das Video verlässt Ihren Rechner nicht.
-          Bitte lassen Sie diese Seite bis zum Ende geöffnet und im Vordergrund.
+          {datenwegText[DATENWEG]}
         </p>
       </div>
     </div>

@@ -69,7 +69,7 @@ S0 hat gezeigt, dass die Pipeline die Pose auf jedem Frame erkennt, die Gelenkpu
 
 Höchstens 15 Hz. Augen und Mund werden nicht gespeichert, Nase und Ohren bleiben für die Kopfhaltung. Nur Koordinaten, keine Bilddaten.
 
-**`pose.npz` unterliegt derselben Löschfrist wie das Video.** Details in `docs/POSE_DATEN.md` (Repo `motavi-backend`).
+**`pose.npz` unterliegt derselben Löschfrist wie das anonymisierte Video: 30 Tage.** Das Originalvideo wird direkt nach der Auswertung gelöscht. Details in `docs/POSE_DATEN.md` und `docs/LOESCHKONZEPT.md` (Repo `motavi-backend`).
 
 ### 3.2 Normierung
 
