@@ -123,7 +123,7 @@ Höchstens 15 Hz. Augen und Mund werden nicht gespeichert, Nase und Ohren bleibe
 
 ### 4.4 Belastung
 
-Aus der bestehenden Pipeline: REBA-Mittelwert und Maximum, Anteile Bücken, Überkopf, Drehung. Zusätzlich Drehungen pro Zyklus.
+Aus der bestehenden Pipeline: REBA-Mittelwert und Maximum, Anteile Bücken, Überkopf, Drehung. Zusätzlich Drehungen pro Zyklus. Die Drehung liefert die Pipeline nicht; das Modul misst sie seit S4 aus `pose.npz` (Schulter- gegen Hüftlinie über die geschätzte Tiefe, grober Wert, Pilotphase).
 
 ### 4.5 Kundenangaben
 
@@ -138,7 +138,9 @@ Aus der bestehenden Pipeline: REBA-Mittelwert und Maximum, Anteile Bücken, Übe
 
 ## 5. Bewertung und Empfehlung
 
-Alle Gewichte, Schwellen und Regeln in `config/workplace_scoring.json`. Dieselbe Datei nutzt der Arbeitsplatz-Check der Website.
+Alle Gewichte, Schwellen und Regeln in `config/workplace_scoring.json` (Repo `motavi-backend`, seit S4). Dieselbe Datei nutzt der Arbeitsplatz-Check der Website; wie sie ins Website-Repo kommt (Kopie beim Build oder Abruf vom Backend), wird in Phase 3 der Website entschieden.
+
+Ein Kriterium ohne Messwert fällt weg, sein Gewicht verteilt sich auf die übrigen, die Empfehlung ist dann vorläufig. "Kein wiederkehrender Zyklus" zählt bei Wiederholungen, Gleichförmigkeit und Zeitanteil in Zyklen als 0.
 
 ### 5.1 Verbesserungs-Score (0 bis 100)
 
@@ -326,7 +328,7 @@ Wirtschaftlichkeit inklusive der Rechnung auf Basis des verbesserten
 Ablaufs.
 ```
 
-**Abnahme:** Vier Testprofile ergeben die vier Empfehlungen.
+**Abnahme:** Vier Testprofile ergeben die vier Empfehlungen. Umgesetzt am 30.10.2026 (Backend `scoring.py`, `wirtschaft.py`, `steckbrief.py`, `belastung.py`, Konfiguration `config/workplace_scoring.json`, Erläuterung `docs/SCORING.md` im Repo `motavi-backend`). Die vier Profile ergeben die vier Empfehlungen. Die Startwerte der Konfiguration sind Annahmen und werden nach Abschnitt 8 nachjustiert.
 
 ### S5: Dashboard, PDF, Export
 
