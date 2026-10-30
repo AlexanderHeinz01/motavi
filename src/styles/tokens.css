@@ -65,6 +65,16 @@
   --path-keep: #9aa0ac;
   /* Never white text on bright cyan: dark text on bright path fills */
   --on-path: var(--bg-inverse);
+
+  /* Neutrals on dark ground, so the same components work in the dashboard
+     (Steckbrief dark). --bg-subtle stays the ground colour: any lighter
+     surface would push --risk text below 4.5:1. */
+  --bg: var(--bg-inverse);
+  --bg-subtle: var(--bg-inverse);
+  --text: var(--text-inverse);
+  --text-muted: #a7aebd; /* 8.57 on --bg-inverse */
+  --border: #2a3348; /* decorative */
+  --border-strong: #7a849c; /* 5.10 */
 }
 
 /* Typography scale: mobile first, desktop from 768 px */

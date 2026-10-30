@@ -66,7 +66,10 @@ export function kombinationen(): Combo[] {
   for (const p of PATHS) add('Empfehlungs-Label kräftig', `--on-path auf ${p}-Fläche (hell)`, hex(light, '--on-path'), hex(light, p))
 
   const dark = hex(inverse, '--bg-inverse')
-  for (const t of ['--text-inverse', ...INK, ...PATHS]) add('Dunkler Grund (.surface-inverse)', `${t} auf --bg-inverse`, hex(inverse, t), dark)
+  for (const t of ['--text-inverse', '--text', '--text-muted', ...INK, ...PATHS]) add('Dunkler Grund (.surface-inverse)', `${t} auf --bg-inverse`, hex(inverse, t), dark)
+  for (const t of ['--border-strong', '--text-muted']) add('Dunkler Grund (.surface-inverse)', `${t} (Linie, Rahmen) auf --bg-inverse`, hex(inverse, t), dark, GRAPHIC_MIN)
+  // --bg-subtle stays the ground colour on dark, so every check on --bg-inverse covers it
+  add('Dunkler Grund (.surface-inverse)', '--risk-ink auf --bg-subtle (dunkel)', hex(inverse, '--risk-ink'), hex(inverse, '--bg-subtle'))
   for (const p of PATHS) {
     for (const a of TINTS) {
       const tint = blend(hex(inverse, p), a, dark)

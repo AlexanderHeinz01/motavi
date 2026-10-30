@@ -26,10 +26,12 @@ function Segment({ path, variant, children, size }: { path: Single; variant: Var
     variant === 'kraeftig'
       ? { background: color, color: 'var(--on-path)' }
       : {
-          // "ruhig": 12 % tint, text inherits the surrounding text colour,
-          // the path colour carries icon and 1 px border
+          // "ruhig": 12 % tint, text in --text (set here, not inherited, so it
+          // also switches inside .surface-inverse); the path colour carries
+          // icon and 1 px border
           background: `color-mix(in srgb, ${color} 12%, transparent)`,
           border: `1px solid ${color}`,
+          color: 'var(--text)',
         }
   return (
     <span
@@ -48,7 +50,7 @@ function Segment({ path, variant, children, size }: { path: Single; variant: Var
 
 /**
  * Recommendation label (DESIGN_BRIEF §3 and §4).
- * "ruhig" (default): tint, text in the surrounding text colour.
+ * "ruhig" (default): tint, text in --text.
  * "kraeftig": full path fill, only for the one main statement (head of the Steckbrief).
  */
 export default function EmpfehlungsLabel({
@@ -63,7 +65,7 @@ export default function EmpfehlungsLabel({
   vorrangig?: boolean
 }) {
   return (
-    <span className="inline-flex flex-wrap items-center gap-2">
+    <span className="inline-flex flex-wrap items-center gap-2 text-ink">
       <span className="sr-only">{empfehlungen[path]}</span>
       {path === 'improve-then-automate' ? (
         <span className="inline-flex flex-wrap items-center gap-1.5" aria-hidden="true">

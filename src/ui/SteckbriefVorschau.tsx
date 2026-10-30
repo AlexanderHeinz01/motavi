@@ -1,132 +1,219 @@
 import { useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { annahmen, demoSteckbriefe, type Steckbrief } from '../content/demo/steckbriefe'
 import { empfehlungen, type Path } from '../content/empfehlungen'
-import { steckbriefText } from '../content/komponenten'
-import { euro, prozent, zahl } from '../lib/format'
+import { steckbriefText as t } from '../content/komponenten'
+import { prozent, zahl } from '../lib/format'
+import { begruendung, euroGerundet, wirtschaft } from '../lib/steckbrief'
 import DoppelScore from './DoppelScore'
 import EmpfehlungsLabel from './EmpfehlungsLabel'
 import { EntscheidungswegKompakt } from './Entscheidungsweg'
 import GreifraumGrafik from './GreifraumGrafik'
 import ZyklusZeitleiste from './ZyklusZeitleiste'
 
-const nichtMessbar = steckbriefText.nichtMessbar
+/** hell: website; dunkel: dashboard tab (same structure, .surface-inverse switches the tokens) */
+export type SteckbriefTheme = 'hell' | 'dunkel'
+type Variante = 'kompakt' | 'vollstaendig'
 
-function Kennzahl({ label, wert }: { label: string; wert: string | null }) {
+/** Numbered section like in a technical data sheet. */
+function Abschnitt({ nr, titel, children, className = '' }: { nr: string; titel: string; children: ReactNode; className?: string }) {
   return (
-    <div className="border-t border-line py-2">
-      <dt className="font-body text-[13px] text-ink-muted">{label}</dt>
-      <dd className={wert === null ? 'font-body text-[14px] italic text-ink-muted' : 'font-mono text-[18px] font-medium text-ink'}>
-        {wert ?? nichtMessbar}
-      </dd>
-    </div>
-  )
-}
-
-function Abschnitt({ titel, children }: { titel: string; children: ReactNode }) {
-  return (
-    <section className="border-t border-line p-6">
-      <h4 className="t-label text-ink-muted">{titel}</h4>
+    <section className={`border-t border-line p-5 md:p-6 ${className}`}>
+      <h4 className="t-label flex gap-3 text-ink-muted">
+        <span className="text-ink">{nr}</span>
+        {titel}
+      </h4>
       <div className="mt-4">{children}</div>
     </section>
   )
 }
 
+/** One row of the spec table: label left, value in mono right. */
+function Zeile({ label, wert, einheit, text = false }: { label: string; wert: string | null; einheit?: string; text?: boolean }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4 border-b border-line py-2 last:border-b-0">
+      <dt className="font-body text-[14px] text-ink-muted">{label}</dt>
+      {wert === null ? (
+        <dd className="text-right font-body text-[14px] text-ink-muted">{t.nichtMessbar}</dd>
+      ) : (
+        <dd className={`text-right font-mono text-[16px] font-medium text-ink ${text ? '' : 'whitespace-nowrap'}`}>
+          {wert}
+          {einheit && <span className="ml-1 font-body text-[13px] font-normal text-ink-muted">{einheit}</span>}
+        </dd>
+      )}
+    </div>
+  )
+}
+
+/** Headline figure of the economics section (savings in --gain-ink). */
+function Kernzahl({ label, wert }: { label: string; wert: string }) {
+  return (
+    <div>
+      <p className="font-body text-[14px] text-ink-muted">{label}</p>
+      <p className="mt-1 font-mono text-[24px] font-medium leading-tight text-gain-ink">{wert}</p>
+    </div>
+  )
+}
+
+function Kennzahlen({ s, variante }: { s: Steckbrief; variante: Variante }) {
+  const zyklus = s.zykluszeit_median_s !== null ? zahl(s.zykluszeit_median_s, 1) : null
+  const voll = variante === 'vollstaendig'
+  return (
+    <dl>
+      <Zeile label={t.zykluszeit} wert={zyklus} einheit="s" />
+      {voll && <Zeile label={t.schwankung} wert={s.zykluszeit_vk !== null ? prozent(s.zykluszeit_vk) : null} />}
+      <Zeile label={t.zyklen} wert={s.zyklen_pro_schicht !== null ? zahl(s.zyklen_pro_schicht) : null} />
+      {voll && (
+        <>
+          <Zeile label={t.zeitanteil} wert={prozent(s.zeitanteil_in_zyklen)} />
+          <Zeile label={t.drehungen} wert={s.drehungen_pro_zyklus !== null ? zahl(s.drehungen_pro_zyklus) : null} />
+        </>
+      )}
+      <Zeile label={t.ausserhalb} wert={prozent(s.griffe_ausserhalb_greifraum)} />
+      <Zeile label={t.reba} wert={zahl(s.reba_mittel, 1)} />
+    </dl>
+  )
+}
+
+/** What the recommendation brings: euros by design, by automation, or no investment; all equally prominent. */
+function Wirtschaft({ s, path, variante }: { s: Steckbrief; path: Path; variante: Variante }) {
+  const { euroVerbesserung, euroAuto } = wirtschaft(s, annahmen)
+  const stunden = s.stunden_auto_jahr_bandbreite
+  const verbessern = path === 'improve' || path === 'improve-then-automate'
+  const automatisieren = path === 'automate' || path === 'improve-then-automate'
+  const voll = variante === 'vollstaendig'
+  return (
+    <div className="space-y-5">
+      {verbessern && (
+        <div>
+          <Kernzahl label={t.euroVerbesserung} wert={euroGerundet(euroVerbesserung)} />
+          {voll && (
+            <dl className="mt-2">
+              <Zeile label={t.minutenVerbesserung} wert={zahl(s.verbesserung_min_schicht)} einheit="min" />
+            </dl>
+          )}
+        </div>
+      )}
+      {automatisieren && stunden && euroAuto && (
+        <div>
+          <Kernzahl label={t.euroAuto} wert={`${euroGerundet(euroAuto[0])} ${t.bis} ${euroGerundet(euroAuto[1])}`} />
+          {voll && (
+            <dl className="mt-2">
+              <Zeile label={t.stundenAuto} wert={`${zahl(stunden[0])} ${t.bis} ${zahl(stunden[1])}`} einheit="h" />
+              {s.typ_vorschlag && <Zeile label={t.typ} wert={s.typ_vorschlag} text />}
+            </dl>
+          )}
+          {voll && path === 'improve-then-automate' && <p className="mt-2 font-body text-[13px] text-ink-muted">{t.aufVerbessertemAblauf}</p>}
+        </div>
+      )}
+      {path === 'keep' && (
+        <div>
+          {/* same slot and size as the figures of the other recommendations, a statement instead of a number */}
+          <p className="font-body text-[14px] text-ink-muted">{t.ergebnis}</p>
+          <p className="t-h3 mt-1 text-ink">{t.keineInvestition}</p>
+          <p className="mt-2 font-body text-[14px] text-ink">{t.keineInvestitionText}</p>
+          {voll && (
+            <dl className="mt-2">
+              <Zeile label={t.gestaltungspotenzial} wert={zahl(s.verbesserung_min_schicht)} einheit="min" />
+            </dl>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 /**
- * Steckbrief preview (DESIGN_BRIEF §4): looks like a technical data sheet.
- * Head with workplace and recommendation, double score, key figures in mono,
- * cycle timeline, reach graphic, minutes and euros. Values that could not be
- * measured reliably show "nicht belastbar messbar" (STECKBRIEF_MODUL §2.3).
+ * Steckbrief preview (DESIGN_BRIEF §4, STECKBRIEF_MODUL §6): a technical
+ * data sheet in the order of the later dashboard tab: head with
+ * recommendation and reasons, scores, key figures, cycle, reach, economics.
+ * Values that could not be measured reliably show "nicht belastbar messbar".
  */
 export default function SteckbriefVorschau({
-  data,
+  data: s,
   path,
   variante = 'vollstaendig',
+  theme = 'hell',
 }: {
   data: Steckbrief
   path: Path
-  variante?: 'kompakt' | 'vollstaendig'
+  variante?: Variante
+  theme?: SteckbriefTheme
 }) {
-  const s = data
-  const zyklus = s.zykluszeit_median_s !== null ? `${zahl(s.zykluszeit_median_s, 1)} s` : null
-  const euroVerbesserung =
-    ((s.verbesserung_min_schicht * annahmen.schichtenProTag * annahmen.arbeitstage) / 60) * annahmen.stundensatz
+  const voll = variante === 'vollstaendig'
   return (
-    <article className="overflow-hidden rounded-card border border-line bg-page text-ink" aria-label={`${steckbriefText.titel}: ${s.arbeitsplatz}`}>
-      <header className="p-6">
-        <div className="flex flex-wrap items-center gap-2">
-          <p className="t-label text-ink">{steckbriefText.titel}</p>
-          <span className="t-label rounded-full border border-line px-2 py-0.5 text-ink-muted">{steckbriefText.beispiel}</span>
-          <span className="t-label rounded-full border border-line px-2 py-0.5 text-ink-muted">{steckbriefText.pilot}</span>
-        </div>
-        <h3 className="t-h3 mt-3">{s.arbeitsplatz}</h3>
+    <article
+      className={`flex h-full flex-col overflow-hidden rounded-card border border-line bg-page text-ink ${theme === 'dunkel' ? 'surface-inverse' : ''}`}
+      aria-label={`${t.titel}: ${s.arbeitsplatz}`}
+    >
+      {/* document bar */}
+      <div className="t-label flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-b border-line px-5 py-2.5 text-ink-muted md:px-6">
+        <span className="text-ink">{t.titel}</span>
+        <span>
+          {t.beispiel} · {t.pilot}
+        </span>
+      </div>
+
+      <header className="p-5 md:p-6">
+        <h3 className="t-h3 [hyphens:auto]">{s.arbeitsplatz}</h3>
         <div className="mt-4">
           <EmpfehlungsLabel path={path} variant="kraeftig" size="lg" vorrangig={s.vorrangig} />
         </div>
         <div className="mt-4">
-          <EntscheidungswegKompakt aktiv={path} />
+          <p className="t-label text-ink-muted">{t.begruendung}</p>
+          <ul className="mt-2 space-y-1">
+            {begruendung(s, path).map((g) => (
+              <li key={g} className="flex gap-2.5 font-body text-[15px] text-ink">
+                <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-ink-muted" aria-hidden="true" />
+                {g}
+              </li>
+            ))}
+          </ul>
         </div>
+        {voll && (
+          <div className="mt-5">
+            <EntscheidungswegKompakt aktiv={path} />
+          </div>
+        )}
       </header>
 
-      <div className="grid gap-8 border-t border-line p-6 md:grid-cols-2">
-        <DoppelScore verbesserung={s.verbesserungs_score} automatisierung={s.automatisierungs_score} mitEmpfehlung={false} />
-        <div>
-          <h4 className="t-label text-ink-muted">{steckbriefText.kennzahlen}</h4>
-          <dl className="mt-2 grid grid-cols-2 gap-x-6">
-            <Kennzahl label={steckbriefText.zykluszeit} wert={zyklus} />
-            <Kennzahl label={steckbriefText.zyklen} wert={s.zyklen_pro_schicht !== null ? zahl(s.zyklen_pro_schicht) : null} />
-            <Kennzahl label={steckbriefText.reba} wert={zahl(s.reba_mittel, 1)} />
-            <Kennzahl label={steckbriefText.minutenVerbesserung} wert={`${zahl(s.verbesserung_min_schicht)} min`} />
-            {variante === 'vollstaendig' && (
-              <>
-                <Kennzahl label={steckbriefText.schwankung} wert={s.zykluszeit_vk !== null ? prozent(s.zykluszeit_vk) : null} />
-                <Kennzahl label={steckbriefText.zeitanteil} wert={prozent(s.zeitanteil_in_zyklen)} />
-                <Kennzahl label={steckbriefText.drehungen} wert={s.drehungen_pro_zyklus !== null ? zahl(s.drehungen_pro_zyklus) : null} />
-                <Kennzahl label={steckbriefText.ausserhalb} wert={prozent(s.griffe_ausserhalb_greifraum)} />
-              </>
-            )}
-          </dl>
-        </div>
+      <div className={`grid border-t border-line ${voll ? 'md:grid-cols-2' : ''}`}>
+        <Abschnitt nr="01" titel={t.bewertung} className="border-t-0">
+          <DoppelScore verbesserung={s.verbesserungs_score} automatisierung={s.automatisierungs_score} mitEmpfehlung={false} />
+        </Abschnitt>
+        <Abschnitt nr="02" titel={t.kennzahlen} className={voll ? 'md:border-l md:border-t-0' : ''}>
+          <Kennzahlen s={s} variante={variante} />
+        </Abschnitt>
       </div>
 
-      {variante === 'vollstaendig' && (
+      {voll ? (
         <>
-          <Abschnitt titel={steckbriefText.ablauf}>
+          <Abschnitt nr="03" titel={t.ablauf}>
             <ZyklusZeitleiste schritte={s.ablaufschritte} zykluszeit={s.zykluszeit_median_s} />
           </Abschnitt>
           <div className="grid border-t border-line md:grid-cols-2">
-            <section className="p-6">
-              <h4 className="t-label text-ink-muted">{steckbriefText.greifraum}</h4>
-              <div className="mt-4">
-                <GreifraumGrafik hoehenzonen={s.hoehenzonen} ausserhalb={s.griffe_ausserhalb_greifraum} />
-              </div>
-            </section>
-            <section className="border-t border-line p-6 md:border-l md:border-t-0">
-              <h4 className="t-label text-ink-muted">{steckbriefText.wirtschaft}</h4>
-              <dl className="mt-2">
-                <Kennzahl label={steckbriefText.minutenVerbesserung} wert={`${zahl(s.verbesserung_min_schicht)} min`} />
-                <Kennzahl label={steckbriefText.euroVerbesserung} wert={euro(euroVerbesserung)} />
-                {s.stunden_auto_jahr_bandbreite && (
-                  <Kennzahl
-                    label={steckbriefText.stundenAuto}
-                    wert={`${zahl(s.stunden_auto_jahr_bandbreite[0])} bis ${zahl(s.stunden_auto_jahr_bandbreite[1])} h`}
-                  />
-                )}
-                {s.typ_vorschlag && <Kennzahl label={steckbriefText.typ} wert={s.typ_vorschlag} />}
-              </dl>
-              <p className="mt-4 font-body text-[13px] text-ink-muted">
-                {steckbriefText.annahmen(annahmen.schichtenProTag, annahmen.arbeitstage, annahmen.stundensatz)}{' '}
-                {steckbriefText.pflichthinweis}
-              </p>
-            </section>
+            <Abschnitt nr="04" titel={t.greifraum} className="border-t-0">
+              <GreifraumGrafik hoehenzonen={s.hoehenzonen} ausserhalb={s.griffe_ausserhalb_greifraum} />
+            </Abschnitt>
+            <Abschnitt nr="05" titel={t.wirtschaft} className="md:border-l md:border-t-0">
+              <Wirtschaft s={s} path={path} variante={variante} />
+            </Abschnitt>
           </div>
         </>
+      ) : (
+        <Abschnitt nr="03" titel={t.wirtschaft}>
+          <Wirtschaft s={s} path={path} variante={variante} />
+        </Abschnitt>
       )}
+
+      <footer className="mt-auto border-t border-line px-5 py-3 font-body text-[13px] text-ink-muted md:px-6">
+        {t.annahmen(annahmen.schichtenProTag, annahmen.arbeitstage, annahmen.stundensatz)} {t.pflichthinweis} {t.taetigkeit}
+      </footer>
     </article>
   )
 }
 
 /** Switcher between the four demo examples (tabs, arrow keys). */
-export function SteckbriefUmschalter({ variante = 'vollstaendig' }: { variante?: 'kompakt' | 'vollstaendig' }) {
+export function SteckbriefUmschalter({ variante = 'vollstaendig', theme = 'hell' }: { variante?: Variante; theme?: SteckbriefTheme }) {
   const [aktiv, setAktiv] = useState(0)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
   const onKey = (e: KeyboardEvent) => {
@@ -139,8 +226,8 @@ export function SteckbriefUmschalter({ variante = 'vollstaendig' }: { variante?:
   }
   const { data, path } = demoSteckbriefe[aktiv]
   return (
-    <div>
-      <div role="tablist" aria-label={steckbriefText.umschalter} className="mb-4 flex flex-wrap gap-2" onKeyDown={onKey}>
+    <div className={theme === 'dunkel' ? 'surface-inverse' : ''}>
+      <div role="tablist" aria-label={t.umschalter} className="mb-4 flex flex-wrap gap-2" onKeyDown={onKey}>
         {demoSteckbriefe.map((d, i) => (
           <button
             key={d.path}
@@ -148,9 +235,9 @@ export function SteckbriefUmschalter({ variante = 'vollstaendig' }: { variante?:
               tabs.current[i] = el
             }}
             role="tab"
-            id={`steckbrief-tab-${d.path}`}
+            id={`steckbrief-tab-${theme}-${d.path}`}
             aria-selected={i === aktiv}
-            aria-controls="steckbrief-panel"
+            aria-controls={`steckbrief-panel-${theme}`}
             tabIndex={i === aktiv ? 0 : -1}
             onClick={() => setAktiv(i)}
             className={`min-h-[44px] rounded-btn border px-4 font-body text-[14px] transition-colors duration-150 ease-out ${
@@ -161,8 +248,8 @@ export function SteckbriefUmschalter({ variante = 'vollstaendig' }: { variante?:
           </button>
         ))}
       </div>
-      <div role="tabpanel" id="steckbrief-panel" aria-labelledby={`steckbrief-tab-${path}`}>
-        <SteckbriefVorschau data={data} path={path} variante={variante} />
+      <div role="tabpanel" id={`steckbrief-panel-${theme}`} aria-labelledby={`steckbrief-tab-${theme}-${path}`}>
+        <SteckbriefVorschau data={data} path={path} variante={variante} theme={theme} />
       </div>
     </div>
   )

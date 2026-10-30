@@ -76,3 +76,15 @@ export const skelettEntwurf = {
   ],
   trenner: 'Statisch: Abschnittstrenner',
 }
+
+/** D2b review page for the Steckbrief preview (internal, noindex). */
+export const steckbriefEntwurf = {
+  meta: { title: 'Entwurf Steckbrief-Vorschau', description: 'Interner Designentwurf.' } satisfies PageMeta,
+  name: 'D2b: Steckbrief-Vorschau',
+  note: 'Hell für die Website, dunkel für den Dashboard-Tab. Gleiche Struktur, gleiche Komponenten.',
+  hell: 'Hell (Website), vollständig mit Umschalter',
+  dunkel: 'Dunkel (Dashboard-Tab), vollständig mit Umschalter',
+  vergleich: 'Alle vier Empfehlungen nebeneinander, kompakt',
+  vergleichDunkel: 'Alle vier Empfehlungen, kompakt, dunkel',
+  labels: 'Empfehlungs-Labels im Vergleich',
+}

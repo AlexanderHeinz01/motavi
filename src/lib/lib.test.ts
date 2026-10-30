@@ -24,6 +24,6 @@ describe('deutsche Zahlenformate', () => {
     expect(zahl(38.4, 1)).toBe('38,4')
     expect(zahl(23400)).toBe('23.400')
   })
-  it('Prozent', () => expect(prozent(0.14)).toBe('14 %'))
-  it('Euro', () => expect(euro(15033.3)).toBe('15.033 €'))
+  it('Prozent, untrennbar', () => expect(prozent(0.14)).toBe('14\u00a0%'))
+  it('Euro, untrennbar', () => expect(euro(15033.3)).toBe('15.033\u00a0€'))
 })

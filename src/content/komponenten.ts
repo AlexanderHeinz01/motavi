@@ -32,9 +32,12 @@ export const doppelScoreText = {
 
 export const steckbriefText = {
   titel: 'Arbeitsplatz-Steckbrief',
-  beispiel: 'Beispiel',
+  beispiel: 'Beispieldaten',
   pilot: 'Pilotphase',
   umschalter: 'Beispiel wählen',
+  empfehlung: 'Empfehlung',
+  begruendung: 'Begründung',
+  bewertung: 'Bewertung',
   kennzahlen: 'Kennzahlen',
   zykluszeit: 'Zykluszeit (Median)',
   schwankung: 'Schwankung (VK)',
@@ -48,13 +51,35 @@ export const steckbriefText = {
   wirtschaft: 'Was die Empfehlung bringt',
   minutenVerbesserung: 'Minuten pro Schicht durch Gestaltung',
   euroVerbesserung: 'Euro pro Jahr durch Gestaltung',
-  stundenAuto: 'Stunden pro Jahr für Automatisierung',
+  stundenAuto: 'Stunden pro Jahr automatisierbar',
+  euroAuto: 'Euro pro Jahr automatisierbar',
   typ: 'Automatisierungstyp (Vorschlag)',
+  aufVerbessertemAblauf: 'Automatisierung gerechnet auf den verbesserten Ablauf.',
+  ergebnis: 'Ergebnis',
+  keineInvestition: 'Keine Investition nötig',
+  keineInvestitionText:
+    'Der Arbeitsplatz passt zu seiner Aufgabe. Weder Gestaltung noch Automatisierung brächten nennenswerten Nutzen; das vermeidet eine Fehlinvestition.',
+  gestaltungspotenzial: 'Gestaltungspotenzial',
   keinZyklus: 'Kein wiederkehrender Zyklus erkannt',
   nichtMessbar: 'nicht belastbar messbar',
   annahmen: (schichten: number, tage: number, satz: number) =>
     `Annahmen: ${schichten} Schichten, ${tage} Arbeitstage, ${satz} € je Stunde.`,
   pflichthinweis: 'Grobe Abschätzung, ersetzt kein Angebot.',
+  taetigkeit: 'Bewertet wird die Tätigkeit am Arbeitsplatz, nicht die Person.',
+  bis: 'bis',
+  reba_stufen: { vernachlaessigbar: 'vernachlässigbar', niedrig: 'niedrig', mittel: 'mittel', hoch: 'hoch', sehrHoch: 'sehr hoch' },
+  /** Reasons, each built on a measured value (src/lib/steckbrief.ts). */
+  gruende: {
+    verschwendung: (anteil: string, typen: string) => `${anteil} des Zyklus ohne Wertschöpfung (${typen})`,
+    greifraum: (anteil: string) => `${anteil} der Griffe außerhalb des günstigen Greifraums`,
+    wiederholung: (zyklen: string, vk: string) => `${zyklen} gleichförmige Zyklen pro Schicht, Schwankung ${vk}`,
+    schlank: (anteil: string) => `Ablauf bereits schlank, nur ${anteil} ohne Wertschöpfung`,
+    keinZyklus: 'Kein wiederkehrender Zyklus: wechselnde Aufgaben ohne festes Muster',
+    wenigZyklen: (anteil: string) => `Nur ${anteil} der Zeit in wiederkehrenden Zyklen`,
+    wenigPotenzial: (min: string) => `Gestaltung brächte ${min} Minuten pro Schicht`,
+    belastung: (reba: string, stufe: string) => `Belastung REBA ${reba}, ${stufe}`,
+    vorrangig: 'Hohe Belastung: unabhängig von der Empfehlung vorrangig angehen',
+  },
 }
 
 export const zeitleisteText = {

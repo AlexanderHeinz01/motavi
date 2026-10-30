@@ -7,12 +7,12 @@ function Balken({ label, wert, schwelle, farbe }: { label: string; wert: number;
     <div>
       <div className="flex items-baseline justify-between gap-4">
         <span className="font-body text-[15px] text-ink">{label}</span>
-        <span className="font-mono text-[15px] font-medium text-ink">
+        <span className="whitespace-nowrap font-mono text-[15px] font-medium text-ink">
           {wert} <span className="text-ink-muted">/ 100</span>
         </span>
       </div>
       <div
-        className="relative mt-2 h-3 rounded-full bg-page-subtle"
+        className="relative mt-2 h-3 rounded-full bg-line"
         role="meter"
         aria-label={label}
         aria-valuemin={0}

@@ -55,7 +55,7 @@ export default function GreifraumGrafik({
           strokeWidth="1"
           strokeDasharray="4 3"
         />
-        <text x="108" y="74" fill="var(--text)" style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>
+        <text x="236" y="74" textAnchor="end" fill="var(--text)" style={{ fontFamily: 'var(--font-mono)', fontSize: 11 }}>
           {greifraumText.guenstig}
         </text>
         {/* zone borders */}
