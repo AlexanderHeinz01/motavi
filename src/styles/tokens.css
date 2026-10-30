@@ -111,6 +111,11 @@
   border-radius: 4px;
 }
 
+/* Anchor links (e.g. hero bridge) glide only if motion is welcome */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .site-root *, .site-root *::before, .site-root *::after {
     transition-duration: 0ms !important;

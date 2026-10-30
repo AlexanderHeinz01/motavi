@@ -1,17 +1,17 @@
 import type { CSSProperties, ReactNode } from 'react'
 import { empfehlungen, improveThenAutomateSegments, vorrangigLabel, type Path } from '../content/empfehlungen'
 
-type Single = Exclude<Path, 'improve-then-automate'>
+export type Single = Exclude<Path, 'improve-then-automate'>
 type Variant = 'ruhig' | 'kraeftig'
 
-const TOKEN: Record<Single, string> = {
+export const TOKEN: Record<Single, string> = {
   improve: '--path-improve',
   automate: '--path-automate',
   keep: '--path-keep',
 }
 
 /** Line icons, 1.5 px stroke, in the path colour (DESIGN_BRIEF §4). */
-function PathIcon({ path }: { path: Single }) {
+export function PathIcon({ path }: { path: Single }) {
   const common = {
     width: 16,
     height: 16,

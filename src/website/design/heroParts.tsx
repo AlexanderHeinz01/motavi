@@ -1,11 +1,8 @@
-import { useId } from 'react'
 import { beispielHinweis, heroWerte, zeichnung } from '../../content/heroEntwuerfe'
 import { startseite } from '../../content/startseite'
 import ButtonLink from '../../ui/ButtonLink'
 import KategorieLabel from '../../ui/KategorieLabel'
-import { DimensionLine, GridPaper, ReachEnvelope, Trajectory, Workbench } from '../../visuals/drawing'
-import Skeleton from '../../visuals/skeleton/Skeleton'
-import { reachPose } from '../../visuals/skeleton/pose'
+import Zeichnung from '../../visuals/MessZeichnung'
 
 /** Headline, subline and both CTAs of the start page (WEBSITE_PLAN §1). */
 export function HeroText({
@@ -32,19 +29,9 @@ export function HeroText({
   )
 }
 
-/** Technical drawing: skeleton at the workbench, trajectory, reach envelope, cycle time. */
+/** Technical drawing used by the drafts (see src/visuals/MessZeichnung.tsx). */
 export function MessZeichnung({ annotated = true }: { annotated?: boolean }) {
-  const grid = useId().replace(/:/g, '')
-  return (
-    <svg viewBox="0 0 400 320" className="h-auto w-full" role="img" aria-label={zeichnung.ariaLabel}>
-      <GridPaper id={`grid-${grid}`} />
-      <Workbench />
-      {annotated && <ReachEnvelope />}
-      <Skeleton pose={reachPose} />
-      <Trajectory />
-      {annotated && <DimensionLine x1={244} x2={372} y={40} label={zeichnung.zykluszeit} />}
-    </svg>
-  )
+  return <Zeichnung ariaLabel={zeichnung.ariaLabel} cycleLabel={zeichnung.zykluszeit} annotated={annotated} />
 }
 
 /** The three values like rows of a data sheet. */
