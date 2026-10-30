@@ -273,7 +273,7 @@ mit Abschnitt "Automatisierung und Beschäftigung" nach Leitplanke 6.
 Keine Rechtsberatung formulieren. Liste alle TODO-Stellen.
 ```
 
-**Abnahme:** TODO-Liste vorhanden, Paketpreise korrekt, Partnerseite neutral.
+**Abnahme:** TODO-Liste vorhanden, Paketpreise korrekt, Partnerseite neutral. Umgesetzt am 31.10.2026: Preise 990 €, 2.150 €, 3.350 € netto aus einer Quelle (`src/content/pakete.ts`) für `/pakete` und Startseite; Partnerseite neutral, `noindex`, nicht verlinkt; TODO-Liste in `docs/ENTSCHEIDUNGEN_NACHT.md`, Abschnitt C.
 
 ### Phase 6: Formular und Pflichtseiten
 
