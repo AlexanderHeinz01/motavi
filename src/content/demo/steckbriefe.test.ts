@@ -9,6 +9,13 @@ describe.each(demoSteckbriefe.map((d) => [d.data.arbeitsplatz, d] as const))('%s
   it('Empfehlung folgt aus den Scores (§5.3) und passt zum Umschalter', () => {
     expect(empfehlungAus(data.verbesserungs_score, data.automatisierungs_score)).toBe(path)
     expect(data.empfehlung).toBe(empfehlungen[path])
+    expect(data.empfehlung_id).toBe(path)
+  })
+  it('ist als Beispiel im Exportformat 1.0 gekennzeichnet', () => {
+    expect(data.beispiel).toBe(true)
+    expect(data.format).toBe('motavi-arbeitsplatz-steckbrief')
+    expect(data.schema_version).toBe('1.0')
+    expect(data.arbeitsplatz.startsWith('Beispiel')).toBe(true)
   })
   it('Vorrang-Markierung folgt aus REBA', () => {
     expect(data.vorrangig).toBe(istVorrangig(data.reba_mittel))

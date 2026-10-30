@@ -1,5 +1,9 @@
 {
+  "format": "motavi-arbeitsplatz-steckbrief",
+  "schema_version": "1.0",
+  "beispiel": true,
   "arbeitsplatz": "Beispiel: Musterbau und Nacharbeit",
+  "empfehlung_id": "keep",
   "empfehlung": "Beibehalten",
   "vorrangig": false,
   "verbesserungs_score": 31,

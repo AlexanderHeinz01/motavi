@@ -1,6 +1,6 @@
 /**
  * Demo data of the Arbeitsplatz-Steckbrief (STECKBRIEF_MODUL.md §7):
- * invented, plausible values, clearly marked as examples.
+ * invented, plausible values, clearly marked as examples (beispiel: true).
  */
 import type { Path } from '../empfehlungen'
 import automatisieren from './demo_automatisieren.json'
@@ -10,8 +10,18 @@ import verbessern from './demo_verbessern.json'
 
 export type Klasse = 'wertschoepfend' | 'notwendig' | 'verschwendung'
 
+/**
+ * Export format 1.0 of the backend (motavi-backend, docs/steckbrief_schema.json);
+ * only the fields the website uses. The demo files are valid exports with
+ * beispiel = true.
+ */
 export interface Steckbrief {
+  format: 'motavi-arbeitsplatz-steckbrief'
+  schema_version: '1.0'
+  /** true: invented example values, no measurement */
+  beispiel: boolean
   arbeitsplatz: string
+  empfehlung_id: Path
   empfehlung: string
   vorrangig: boolean
   verbesserungs_score: number

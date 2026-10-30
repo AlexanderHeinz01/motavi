@@ -1,5 +1,9 @@
 {
+  "format": "motavi-arbeitsplatz-steckbrief",
+  "schema_version": "1.0",
+  "beispiel": true,
   "arbeitsplatz": "Beispiel: Verpackungsplatz Linie 2",
+  "empfehlung_id": "improve",
   "empfehlung": "Verbessern",
   "vorrangig": false,
   "verbesserungs_score": 68,

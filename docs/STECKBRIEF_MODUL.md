@@ -225,7 +225,7 @@ Ergebnisse unter `results/{job_id}/workplace.json`.
 
 ## 7. Demo-Daten für die Website
 
-Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar als Beispiel gekennzeichnet. Zusätzlich drei kürzere Varianten für die anderen Empfehlungen (`demo_verbessern.json`, `demo_automatisieren.json`, `demo_beibehalten.json`), damit die Website alle Wege zeigen kann.
+Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar als Beispiel gekennzeichnet. Seit S5 sind die Demo-Dateien gültige Exporte im Format 1.0 (`format`, `schema_version`, `beispiel: true`, `empfehlung_id`). Zusätzlich drei kürzere Varianten für die anderen Empfehlungen (`demo_verbessern.json`, `demo_automatisieren.json`, `demo_beibehalten.json`), damit die Website alle Wege zeigen kann.
 
 ```json
 {
@@ -340,7 +340,7 @@ Demo-Daten aus Abschnitt 7 inklusive der drei Varianten anlegen.
 Screenshots von Dashboard-Tab und PDF für alle vier Empfehlungen.
 ```
 
-**Abnahme:** Steckbrief ohne Erklärung verständlich, Export gegen Schema gültig.
+**Abnahme:** Steckbrief ohne Erklärung verständlich, Export gegen Schema gültig. Umgesetzt am 30.10.2026 (Repo `motavi-backend`: Dashboard-Tab `?tab=steckbrief`, PDF `pdf_steckbrief.py`, Export mit Schema `docs/steckbrief_schema.json`, Bestätigung von Empfehlung und Typ in der Expertenansicht, Erläuterung `docs/STECKBRIEF_AUSGABE.md`). Exporte aller Testprofile und die vier Demo-Dateien sind gegen das Schema gültig. Ob der Steckbrief ohne Erklärung verständlich ist, entscheidet die Durchsicht der Screenshots.
 
 ### S6: Validierung
 

@@ -1,5 +1,9 @@
 {
+  "format": "motavi-arbeitsplatz-steckbrief",
+  "schema_version": "1.0",
+  "beispiel": true,
   "arbeitsplatz": "Beispiel: Montagearbeitsplatz Baugruppe A",
+  "empfehlung_id": "improve-then-automate",
   "empfehlung": "Erst verbessern, dann automatisieren",
   "vorrangig": false,
   "verbesserungs_score": 62,

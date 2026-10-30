@@ -1,5 +1,9 @@
 {
+  "format": "motavi-arbeitsplatz-steckbrief",
+  "schema_version": "1.0",
+  "beispiel": true,
   "arbeitsplatz": "Beispiel: Bestückung Kleinteile",
+  "empfehlung_id": "automate",
   "empfehlung": "Automatisieren",
   "vorrangig": false,
   "verbesserungs_score": 34,
