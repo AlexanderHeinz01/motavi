@@ -69,7 +69,9 @@ Das Skelett wird als SVG gebaut (keine Fotos, keine echten Videos). Gelenkpunkte
   --bg:            #FFFFFF;
   --bg-subtle:     #F6F7F9;   /* abgesetzte Sektionen */
   --bg-inverse:    #0A0F1E;   /* dunkle Sektionen, Footer, Dashboard-Vorschau */
-  --border:        #E4E6EB;
+  --border:        #E4E6EB;   /* Karten, Trennlinien (dekorativ) */
+  --border-strong: #868FA6;   /* Formularelemente: 3,23 auf Weiß, 3,02 auf subtle */
+  --error-ink:     #9B3D3D;   /* Formularfehler: 6,71 auf Weiß, 6,26 auf subtle */
 
   /* Text */
   --text:          #1A1A1A;
@@ -128,7 +130,7 @@ Nie Text in der Pfadfarbe auf der eigenen Tönung, nie weiße Schrift auf Bright
 
 **Regeln:**
 - `--primary` nur für Interaktion (Buttons, Links, Fokus). Nicht für Daten.
-- `--risk-ink` nur für Belastung und kritische Werte, nie für Fehlermeldungen im Formular (dafür eine gedämpfte Variante).
+- `--risk-ink` nur für Belastung und kritische Werte, nie für Fehlermeldungen im Formular. Dafür gilt `--error-ink` #9B3D3D (6,71:1 auf Weiß, 6,26:1 auf subtle), immer mit Icon und Text unter dem Feld.
 - `--gain-ink` für alle Einsparungswerte. Die wichtigste Zahl der Seite (freisetzbare Minuten) ist immer grün oder neutral, nie rot.
 - Text mindestens 4,5:1, auch bei großen Zahlen (strenger als WCAG verlangt, damit eine Regel für alles gilt). Linien, Symbole und Grafikelemente mindestens 3:1. Claude Code prüft alle Kombinationen automatisiert (Test im Repo) und meldet Verstöße.
 
@@ -165,7 +167,8 @@ Schriften selbst hosten (keine Google-Fonts-Einbindung zur Laufzeit), damit kein
 ### Formen
 
 - Radius: 8 px für Buttons und Eingabefelder, 12 px für Karten.
-- Rahmen: 1 px `--border`. Schatten sparsam, nur bei hervorgehobenen Karten.
+- Rahmen: 1 px `--border` für Karten und Trennlinien (dekorativ, kein Kontrastzwang). Schatten sparsam, nur bei hervorgehobenen Karten.
+- Formularelemente (Eingabefelder, Auswahlfelder, Checkboxen, Radiobuttons, Spur des Schiebereglers): 1 px `--border-strong`. Hover: `--text-muted`. Fokus: 2 px `--primary` plus Fokusring. Fehler: 2 px `--error-ink` plus Icon und Fehlertext in `--error-ink` unter dem Feld. Formularelemente nur auf `--bg` oder `--bg-subtle` platzieren, nicht auf `--primary-soft` (dort nur 2,80:1).
 - **Kategorie-Label:** kleiner Punkt (●) in Datenfarbe plus Label in Mono-Großbuchstaben, z.B. "● KAPAZITÄT".
 - **Trennlinie:** feine gepunktete Linie (SVG, 1 px, Punktabstand 4 px) zwischen Abschnitten.
 
