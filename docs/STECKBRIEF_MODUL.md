@@ -263,7 +263,7 @@ Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar a
 
 1. Auf Videos mit geklärten Nutzungsrechten Zyklen und Ablaufschritte manuell erfassen.
 2. Vergleich: Abweichung Median-Zykluszeit, Anzahl Zyklen, Anteil falsch erkannter Zyklen, Abweichung Zeitanteil Verschwendung.
-3. Zielwert Pilotphase: Median-Zykluszeit innerhalb ±10 % der manuellen Messung.
+3. Zielwert Pilotphase: Median-Zykluszeit innerhalb ±10 % der manuellen Messung. Weitere Zielwerte (bestätigt am 30.10.2026): Anzahl Zyklen innerhalb ±10 % bei höchstens 10 % falsch erkannten Zyklen, Zeitanteil Verschwendung innerhalb ±5 Prozentpunkte, kein Zyklus erkannt, wo von Hand keiner gesehen wird. Entschieden wird je Kennzahl ab drei Videos, und nur wenn alle im Ziel liegen.
 4. Ergebnis in `docs/validierung_steckbrief.md`. Erst danach entfällt das Label "Pilotphase" für die jeweilige Kennzahl.
 
 Zusätzlich: Die Empfehlungslogik an drei bis fünf Arbeitsplätzen gegen deine eigene Expertenbewertung prüfen und Schwellen in der Konfiguration nachjustieren.
