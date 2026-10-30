@@ -350,7 +350,7 @@ start_s, ende_s, typ) mit den erkannten vergleicht und die Kennzahlen aus
 Abschnitt 8 ausgibt. Ergebnisse in docs/validierung_steckbrief.md.
 ```
 
-**Abnahme:** Validierungsbericht liegt vor. Danach entscheiden, welche Kennzahlen das Label "Pilotphase" verlieren.
+**Abnahme:** Validierungsbericht liegt vor. Danach entscheiden, welche Kennzahlen das Label "Pilotphase" verlieren. Skript umgesetzt am 30.10.2026 (`backend/scripts/validate_steckbrief.py` im Repo `motavi-backend`). `docs/validierung_steckbrief.md` enthält bisher nur einen Prüflauf mit synthetischen Daten, keine Validierung: Das Label "Pilotphase" bleibt für alle Kennzahlen, bis Videos mit geklärten Nutzungsrechten von Hand erfasst sind. Der Prüflauf hat einen Fehler in der Periodenwahl gefunden (kurze Wiederholbewegung innerhalb eines Schritts), der behoben ist.
 
 ---
 
