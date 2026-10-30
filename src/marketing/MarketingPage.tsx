@@ -1775,7 +1775,6 @@ function Trust() {
           </div>
           {[
             'Originalvideo wird nach der Auswertung gelöscht',
-            'DSGVO-konform',
             'Made in Germany',
             'On-Premise-Betrieb möglich',
           ].map((item) => (

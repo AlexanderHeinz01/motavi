@@ -30,12 +30,13 @@ function Abschnitt({ nr, titel, children, className = '' }: { nr: string; titel:
 /** One row of the spec table: label left, value in mono right. */
 function Zeile({ label, wert, einheit, text = false }: { label: string; wert: string | null; einheit?: string; text?: boolean }) {
   return (
-    <div className="flex items-baseline justify-between gap-4 border-b border-line py-2 last:border-b-0">
-      <dt className="font-body text-[14px] text-ink-muted">{label}</dt>
+    // the value moves below the label when both do not fit (long labels on phones)
+    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-0.5 border-b border-line py-2 last:border-b-0">
+      <dt className="min-w-[9rem] flex-1 font-body text-[14px] text-ink-muted">{label}</dt>
       {wert === null ? (
-        <dd className="text-right font-body text-[14px] text-ink-muted">{t.nichtMessbar}</dd>
+        <dd className="ml-auto text-right font-body text-[14px] text-ink-muted">{t.nichtMessbar}</dd>
       ) : (
-        <dd className={`text-right font-mono text-[16px] font-medium text-ink ${text ? '' : 'whitespace-nowrap'}`}>
+        <dd className={`ml-auto text-right font-mono text-[16px] font-medium text-ink ${text ? '' : 'whitespace-nowrap'}`}>
           {wert}
           {einheit && <span className="ml-1 font-body text-[13px] font-normal text-ink-muted">{einheit}</span>}
         </dd>
@@ -64,7 +65,7 @@ function Kennzahlen({ s, variante }: { s: Steckbrief; variante: Variante }) {
       <Zeile label={t.zyklen} wert={s.zyklen_pro_schicht !== null ? zahl(s.zyklen_pro_schicht) : null} />
       {voll && (
         <>
-          <Zeile label={t.zeitanteil} wert={prozent(s.zeitanteil_in_zyklen)} />
+          <Zeile label={t.zeitanteil} wert={s.zeitanteil_in_zyklen !== null ? prozent(s.zeitanteil_in_zyklen) : null} />
           <Zeile label={t.drehungen} wert={s.drehungen_pro_zyklus !== null ? zahl(s.drehungen_pro_zyklus) : null} />
         </>
       )}
@@ -83,7 +84,7 @@ function Wirtschaft({ s, path, variante }: { s: Steckbrief; path: Path; variante
   const voll = variante === 'vollstaendig'
   return (
     <div className="space-y-5">
-      {verbessern && (
+      {verbessern && euroVerbesserung !== null && s.verbesserung_min_schicht !== null && (
         <div>
           <Kernzahl label={t.euroVerbesserung} wert={euroGerundet(euroVerbesserung)} />
           {voll && (
@@ -98,7 +99,7 @@ function Wirtschaft({ s, path, variante }: { s: Steckbrief; path: Path; variante
           <Kernzahl label={t.euroAuto} wert={`${euroGerundet(euroAuto[0])} ${t.bis} ${euroGerundet(euroAuto[1])}`} />
           {voll && (
             <dl className="mt-2">
-              <Zeile label={t.stundenAuto} wert={`${zahl(stunden[0])} ${t.bis} ${zahl(stunden[1])}`} einheit="h" />
+              <Zeile label={t.stundenAuto} wert={`${zahl(stunden[0])} ${t.bis} ${zahl(stunden[1])}`} einheit={t.stundenAutoEinheit} />
               {s.typ_vorschlag && <Zeile label={t.typ} wert={s.typ_vorschlag} text />}
             </dl>
           )}
@@ -111,7 +112,7 @@ function Wirtschaft({ s, path, variante }: { s: Steckbrief; path: Path; variante
           <p className="font-body text-[14px] text-ink-muted">{t.ergebnis}</p>
           <p className="t-h3 mt-1 text-ink">{t.keineInvestition}</p>
           <p className="mt-2 font-body text-[14px] text-ink">{t.keineInvestitionText}</p>
-          {voll && (
+          {voll && s.verbesserung_min_schicht !== null && (
             <dl className="mt-2">
               <Zeile label={t.gestaltungspotenzial} wert={zahl(s.verbesserung_min_schicht)} einheit="min" />
             </dl>
@@ -212,22 +213,45 @@ export default function SteckbriefVorschau({
   )
 }
 
-/** Switcher between the four demo examples (tabs, arrow keys). */
+/**
+ * Switcher between the four demo examples (tabs, arrow keys). The tab bar
+ * sticks below the site header while the Steckbrief is in view, so the
+ * other examples are always reachable without scrolling back (compact
+ * 2 x 2 grid on phones).
+ */
 export function SteckbriefUmschalter({ variante = 'vollstaendig', theme = 'hell' }: { variante?: Variante; theme?: SteckbriefTheme }) {
   const [aktiv, setAktiv] = useState(0)
   const tabs = useRef<(HTMLButtonElement | null)[]>([])
+  const leiste = useRef<HTMLDivElement | null>(null)
+  const panel = useRef<HTMLDivElement | null>(null)
+  const waehlen = (i: number) => {
+    setAktiv(i)
+    // deep inside a long Steckbrief: show the new one from its start
+    const l = leiste.current?.getBoundingClientRect()
+    const top = panel.current?.getBoundingClientRect().top
+    if (l && top !== undefined && top < l.bottom) {
+      const ruhig = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      window.scrollBy({ top: top - l.bottom - 8, behavior: ruhig ? 'auto' : 'smooth' })
+    }
+  }
   const onKey = (e: KeyboardEvent) => {
     const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
     if (!step) return
     e.preventDefault()
     const next = (aktiv + step + demoSteckbriefe.length) % demoSteckbriefe.length
-    setAktiv(next)
+    waehlen(next)
     tabs.current[next]?.focus()
   }
   const { data, path } = demoSteckbriefe[aktiv]
   return (
     <div className={theme === 'dunkel' ? 'surface-inverse' : ''}>
-      <div role="tablist" aria-label={t.umschalter} className="mb-4 flex flex-wrap gap-2" onKeyDown={onKey}>
+      <div
+        ref={leiste}
+        role="tablist"
+        aria-label={t.umschalter}
+        className="sticky top-16 z-20 mb-4 grid grid-cols-2 gap-2 border-b border-line bg-page py-3 sm:flex sm:flex-wrap"
+        onKeyDown={onKey}
+      >
         {demoSteckbriefe.map((d, i) => (
           <button
             key={d.path}
@@ -239,8 +263,8 @@ export function SteckbriefUmschalter({ variante = 'vollstaendig', theme = 'hell'
             aria-selected={i === aktiv}
             aria-controls={`steckbrief-panel-${theme}`}
             tabIndex={i === aktiv ? 0 : -1}
-            onClick={() => setAktiv(i)}
-            className={`min-h-[44px] rounded-btn border px-4 font-body text-[14px] transition-colors duration-150 ease-out ${
+            onClick={() => waehlen(i)}
+            className={`min-h-[44px] rounded-btn border px-3 py-1 font-body text-[13px] leading-tight transition-colors duration-150 ease-out sm:px-4 sm:text-[14px] ${
               i === aktiv ? 'border-ink bg-page text-ink' : 'border-line bg-page text-ink-muted is-hover:border-ink-muted'
             }`}
           >
@@ -248,7 +272,7 @@ export function SteckbriefUmschalter({ variante = 'vollstaendig', theme = 'hell'
           </button>
         ))}
       </div>
-      <div role="tabpanel" id={`steckbrief-panel-${theme}`} aria-labelledby={`steckbrief-tab-${theme}-${path}`}>
+      <div ref={panel} role="tabpanel" id={`steckbrief-panel-${theme}`} aria-labelledby={`steckbrief-tab-${theme}-${path}`}>
         <SteckbriefVorschau data={data} path={path} variante={variante} theme={theme} />
       </div>
     </div>

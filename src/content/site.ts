@@ -10,7 +10,7 @@ export const site = {
    */
   indexable: import.meta.env.VITE_SITE_INDEXABLE === 'true',
   /** Leitsatz (WEBSITE_PLAN §1) */
-  leitsatz: 'Erst verstehen, dann automatisieren.',
+  leitsatz: 'Erst verstehen, dann entscheiden.',
   ogImage: '/og/motavi.png',
   contactEmail: 'hello@motavi.ai',
 }
@@ -45,7 +45,7 @@ export const navText = {
  * TODO: Hint "Server in der EU" (DESIGN_BRIEF §4) only once the hosting region is confirmed.
  */
 export const footer = {
-  claim: 'Motavi macht jede Bewegung messbar: als Zeit, als Kosten und als Belastung.',
+  claim: 'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung.',
   groups: [
     {
       title: 'Perspektiven',

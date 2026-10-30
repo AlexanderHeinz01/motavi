@@ -38,7 +38,7 @@ export const styleguide = {
     hell: 'Heller Grund',
     dunkel: 'Dunkler Grund (.surface-inverse)',
     typo: 'Typografie',
-    typoBeispiel: 'Jede Bewegung messbar',
+    typoBeispiel: 'Jede Bewegung im Arbeitsablauf messbar',
     kpiBeispiel: '23.400 €',
     vorschau: 'Aa',
     formen: 'Radien und Trennlinie',

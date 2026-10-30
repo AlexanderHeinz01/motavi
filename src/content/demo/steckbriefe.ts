@@ -30,14 +30,17 @@ export interface Steckbrief {
   zykluszeit_median_s: number | null
   zykluszeit_vk: number | null
   zyklen_pro_schicht: number | null
-  zeitanteil_in_zyklen: number
-  anteile_ablauf: Record<Klasse, number>
+  /** null without a recurring cycle */
+  zeitanteil_in_zyklen: number | null
+  /** null and no process steps without a recurring cycle (the steps are confirmed per cycle) */
+  anteile_ablauf: Record<Klasse, number> | null
   ablaufschritte: { typ: string; anteil: number; klasse: Klasse }[]
   hoehenzonen: { unter_knie: number; knie_huefte: number; huefte_schulter: number; ueber_schulter: number }
   griffe_ausserhalb_greifraum: number
   reba_mittel: number
   drehungen_pro_zyklus: number | null
-  verbesserung_min_schicht: number
+  /** null without process steps */
+  verbesserung_min_schicht: number | null
   typ_vorschlag: string | null
   stunden_auto_jahr_bandbreite: [number, number] | null
 }

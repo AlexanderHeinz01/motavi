@@ -44,9 +44,11 @@ Website (hell, vorgerendert) und Analyse-App (dunkel, `/app`) in einer Vite-App.
    - Motavi bewertet Tätigkeiten und Arbeitsplätze, nie Personen.
    - Keine Formulierungen wie "Personal einsparen", "Mitarbeiter ersetzen", "Leistung messen", "schneller arbeiten".
    - Stattdessen: "Abläufe besser gestalten", "belastende und monotone Tätigkeiten automatisieren", "Kapazität gewinnen trotz Fachkräftemangel".
+   - Verschwendung dem Ablauf zuschreiben, nicht den Beschäftigten: "Jede Minute, die der Ablauf für Suchen, Gehen und Umgreifen verlangt" statt "die in Suchen, Gehen und Umgreifen steckt".
+   - Kapazität als Kapazität ausdrücken, nicht als Stellenabbau: "gewonnene Kapazität", "Kapazität in Vollzeitstellen, z. B. für offene Stellen", "Automatisierungspotenzial" statt "freisetzbar" oder "automatisierbare Stunden".
    - Jede Seite zu Kapazität oder Automatisierung verlinkt auf `/betriebsrat`.
 7. **Pilotphase kennzeichnen:** Nicht validierte Funktionen des Steckbrief-Moduls tragen das Label "Pilotphase".
 8. **Designsystem:** Vorhandene Tokens lesen und `docs/DESIGN_BRIEF.md` folgen.
 9. **Kein Tracking mit Cookie-Pflicht:** Analytics nur cookielos und EU-gehostet.
 
-Zusätzlich gilt: Die Website darf nichts versprechen, was das Analysemodul nicht kann (`docs/WEBSITE_PLAN.md`, Einleitung). Neue sichtbare Texte gehören nach `src/content/` und werden vor dem Commit gegen diese Leitplanken geprüft.
+Zusätzlich gilt: Die Website darf nichts versprechen, was das Analysemodul nicht kann (`docs/WEBSITE_PLAN.md`, Einleitung). Kein "DSGVO-konform", bis die Aussage juristisch geprüft ist; Aussagen zu Löschfristen nur nach den harten Bedingungen in `docs/GO_LIVE_CHECKLISTE.md`. Kein Link zur Partnerseite, bis `docs/WEBSITE_PLAN.md` §7.1 erfüllt ist. Neue sichtbare Texte gehören nach `src/content/` und werden vor dem Commit gegen diese Leitplanken geprüft.

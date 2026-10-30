@@ -263,7 +263,7 @@ export default function UploadPage() {
 
         {/* Footer note */}
         <p className="text-center font-body text-xs text-neutral/25">
-          DSGVO-konform · Automatische Gesichtsanonymisierung · DIN EN ISO 10075 konform
+          Automatische Gesichtsanonymisierung · DIN EN ISO 10075 konform
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 # Motavi Website Relaunch: Implementierungsplan für Claude Code
 
-Stand: 29.10.2026 (Version 3: eine Messung, drei Empfehlungen)
+Stand: 30.10.2026 (Version 3: eine Messung, drei Empfehlungen; Entscheidungen zu Phase 2 eingearbeitet)
 Ablage im Repo: `docs/WEBSITE_PLAN.md`
 Zugehörig: `docs/DESIGN_BRIEF.md` (Gestaltung), `docs/STECKBRIEF_MODUL.md` (Analysemodul Arbeitsplatz-Steckbrief)
 
@@ -27,7 +27,7 @@ Die Website darf nichts versprechen, was das Modul nicht kann. Unfertige Funktio
 
 ### Markenversprechen
 
-**Motavi macht jede Bewegung messbar: als Zeit, als Kosten und als Belastung.**
+**Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung.**
 
 ### Nutzen für den Kunden
 
@@ -59,9 +59,9 @@ Das sind keine getrennten Produkte, sondern drei Einstiege in dieselbe Analyse.
 
 **Headline:** Verbessern, automatisieren oder beibehalten? Motavi misst, was sich an jedem Arbeitsplatz lohnt.
 
-**Subline:** Motavi macht jede Bewegung messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, DSGVO-konform.
+**Subline:** Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Server in Deutschland.
 
-**Wiederkehrender Leitsatz für Abschnitte und LinkedIn:** Erst verstehen, dann automatisieren.
+**Wiederkehrender Leitsatz für Abschnitte und LinkedIn:** Erst verstehen, dann entscheiden.
 
 ### Zweite Zielgruppe
 
@@ -69,7 +69,7 @@ Robotik-Anbieter und Integratoren erhalten über Motavi Arbeitsplätze, die nach
 
 ### Nicht versprechen
 
-Liquidität und Bestandsreduktion. Konkrete Hersteller oder Produkte. Genauigkeitswerte vor abgeschlossener Validierung.
+Liquidität und Bestandsreduktion. Konkrete Hersteller oder Produkte. Genauigkeitswerte vor abgeschlossener Validierung. "DSGVO-konform", bis die Aussage juristisch geprüft ist. Löschfristen, bevor die Lifecycle-Regel im Bucket angewendet und geprüft ist (`docs/GO_LIVE_CHECKLISTE.md`).
 
 ---
 
@@ -86,6 +86,8 @@ Diese Regeln gehören zusätzlich in die `CLAUDE.md` des Repos.
    - Motavi bewertet Tätigkeiten und Arbeitsplätze, nie Personen.
    - Keine Formulierungen wie "Personal einsparen", "Mitarbeiter ersetzen", "Leistung messen", "schneller arbeiten".
    - Stattdessen: "Abläufe besser gestalten", "belastende und monotone Tätigkeiten automatisieren", "Kapazität gewinnen trotz Fachkräftemangel".
+   - Verschwendung dem Ablauf zuschreiben, nicht den Beschäftigten: "Jede Minute, die der Ablauf für Suchen, Gehen und Umgreifen verlangt" statt "die in Suchen, Gehen und Umgreifen steckt".
+   - Kapazität als Kapazität ausdrücken, nicht als Stellenabbau: "gewonnene Kapazität", "Kapazität in Vollzeitstellen, z. B. für offene Stellen", "Automatisierungspotenzial" statt "freisetzbar" oder "automatisierbare Stunden".
    - Jede Seite zu Kapazität oder Automatisierung verlinkt auf `/betriebsrat`.
 7. **Pilotphase kennzeichnen:** Nicht validierte Funktionen des Steckbrief-Moduls tragen das Label "Pilotphase".
 8. **Designsystem:** Vorhandene Tokens lesen und `docs/DESIGN_BRIEF.md` folgen.
@@ -100,11 +102,11 @@ Diese Regeln gehören zusätzlich in die `CLAUDE.md` des Repos.
 | `/` | Startseite | Markenversprechen, eine Messung und drei Empfehlungen, Beispiel-Steckbrief, Beweis, Pakete |
 | `/arbeitsplatz-steckbrief` | Der Steckbrief | Jede Kennzahl erklärt, Entscheidungslogik, Arbeitsplatz-Check |
 | `/kapazitaet` | Perspektive Kapazität | Zeit in nicht wertschöpfender Bewegung, ROI-Rechner |
-| `/automatisierung` | Perspektive Automatisierung | Physical-AI-Kontext, "Erst verstehen, dann automatisieren", Kriterien |
+| `/automatisierung` | Perspektive Automatisierung | Physical-AI-Kontext, "Erst verstehen, dann entscheiden", Kriterien |
 | `/gesundheit` | Perspektive Gesundheit | REBA, LMM, CSRD, Fehltage |
 | `/so-funktionierts` | Ablauf | Video, Messung, Expertenbewertung, Steckbrief und Report |
-| `/fuer-robotik-anbieter` | Partnerseite | Angebot für Robotik-Anbieter und Integratoren |
-| `/pakete` | Pakete und Preise | Pakete, alle mit Steckbrief |
+| `/fuer-robotik-anbieter` | Partnerseite | Angebot für Robotik-Anbieter und Integratoren. Wird erst verlinkt, wenn §7.1 erfüllt ist |
+| `/pakete` | Pakete und Preise | Paket 3 mit Messwerten und Arbeitsplatz-Check, Steckbrief mit Empfehlung und Expertenbewertung ab Paket 2 (§7.3) |
 | `/betriebsrat` | Datenschutz und Betriebsrat | Anonymisierung, § 87 BetrVG, Zweckbindung, Umgang mit Automatisierung |
 | `/pilot` | Pilot anfragen | Formular mit Auswahl Hersteller oder Robotik-Anbieter |
 | `/impressum`, `/datenschutz` | Pflichtseiten | Platzhalter, Texte durch Anwalt oder Generator |
@@ -114,16 +116,16 @@ Navigation: Steckbrief, Kapazität, Automatisierung, Gesundheit, Pakete, Betrieb
 ### Startseite: Sektionen in Reihenfolge
 
 1. **Hero:** Headline und Subline aus Abschnitt 1. CTA "Pilot anfragen", zweiter CTA "Beispiel-Steckbrief ansehen". Visual: Bewegungsskelett, aus dem Zeit, Kosten und Belastung entstehen.
-2. **Problem:** "Jeder Arbeitsplatz verliert Zeit. Niemand weiß genau, wo und warum." Drei Kacheln: Fachkräftemangel (Arbeit bleibt liegen), Automatisierungsdruck (Investitionen ohne Datengrundlage), Fehlzeiten (Belastung kostet).
-3. **Eine Messung, drei Empfehlungen:** Grafik: Messung in der Mitte, drei Wege (Verbessern, Automatisieren, Beibehalten) mit je einem Satz, wann er passt. Darunter: "Erst verstehen, dann automatisieren."
-4. **Beispiel-Steckbrief:** Interaktive Vorschau mit Demo-Daten.
+2. **Problem:** "Jeder Arbeitsplatz verliert Zeit. Niemand weiß genau, wo und warum." Drei Kacheln: Fachkräftemangel (Arbeit bleibt liegen; "Jede Minute, die der Ablauf für Suchen, Gehen und Umgreifen verlangt, fehlt in der Wertschöpfung."), Automatisierungsdruck (Investitionen ohne Datengrundlage), Fehlzeiten (Belastung kostet).
+3. **Eine Messung, drei Empfehlungen:** Grafik: Messung in der Mitte, drei Wege (Verbessern, Automatisieren, Beibehalten) mit je einem Satz, wann er passt. Darunter: "Erst verstehen, dann entscheiden."
+4. **Beispiel-Steckbrief:** Interaktive Vorschau mit Demo-Daten (`docs/STECKBRIEF_MODUL.md` Abschnitt 7). Startet mit "Erst verbessern, dann automatisieren"; der Umschalter auf die anderen drei Beispiele ist ohne Scrollen sichtbar, auch beim Lesen weiter unten im Steckbrief. Beschriftung der Wirtschaftlichkeit: "Automatisierungspotenzial: X Stunden pro Jahr", "Potenzial in Euro pro Jahr".
 5. **Beweis:** Fallbeispiel Abfülllinie: 4.800 Drehbewegungen pro Schicht, 57 Minuten Potenzial pro Schicht, Ursache im Prozessschritt erkannt und durch Gestaltung gelöst. Mit Methodenhinweis. Botschaft: Hier lautete die Antwort "Verbessern".
 6. **Drei Perspektiven:** Drei Karten (Kapazität, Automatisierung, Gesundheit) mit Kernfrage und Link.
-7. **Kapazität berechnen:** Mini-Rechner.
+7. **Kapazität berechnen:** Mini-Rechner. Ergebnis als "gewonnene Kapazität" in Stunden, Euro und "Kapazität in Vollzeitstellen, z. B. für offene Stellen".
 8. **So funktioniert es:** 01 Video aufnehmen, 02 KI misst, 03 Experte bewertet, 04 Steckbrief und Empfehlung.
-9. **Herstellerneutral:** "Wir verkaufen keine Roboter. Wir sagen Ihnen, wo sich einer lohnt, und wo nicht." Kleiner Link für Robotik-Anbieter.
+9. **Herstellerneutral:** "Wir verkaufen keine Roboter. Wir sagen Ihnen, wo sich einer lohnt, und wo nicht." Kein Link zur Partnerseite, bis §7.1 erfüllt ist; danach ein kleiner Link für Robotik-Anbieter.
 10. **Betriebsrat als Partner:** Kurzfassung, Link.
-11. **Pakete.**
+11. **Pakete:** Paket 3 mit Messwerten je Arbeitsplatz und Arbeitsplatz-Check, Steckbrief mit Empfehlung und Expertenbewertung ab Paket 2 (§7.3).
 12. **Abschluss-CTA:** "Finden Sie heraus, was sich an Ihren Arbeitsplätzen lohnt."
 
 ### `/fuer-robotik-anbieter`
@@ -156,7 +158,7 @@ euro_jahr     = stunden_jahr * stundensatz
 vollzeit_aeq  = stunden_jahr / 1650
 ```
 
-Ausgabe: Stunden, Euro und Vollzeitäquivalente pro Jahr als "gewonnene Kapazität" (bis 30.10.2026 "freisetzbare Kapazität"; geändert wegen Leitplanke 6, "Freisetzung" bedeutet auch Entlassung). Pflichthinweis: "Beispielrechnung auf Basis Ihrer Annahmen. Die tatsächlichen Werte ermittelt die Analyse."
+Ausgabe: Stunden, Euro und "Kapazität in Vollzeitstellen, z. B. für offene Stellen" pro Jahr als "gewonnene Kapazität" (bis 30.10.2026 "freisetzbare Kapazität" und "Vollzeitäquivalente"; geändert wegen Leitplanke 6, "Freisetzung" bedeutet auch Entlassung). Pflichthinweis: "Beispielrechnung auf Basis Ihrer Annahmen. Die tatsächlichen Werte ermittelt die Analyse."
 
 ### 4.2 Arbeitsplatz-Check (`/arbeitsplatz-steckbrief`)
 
@@ -250,7 +252,7 @@ die config/workplace_scoring.json liest. Nicht validierte Funktionen mit
 Baue /kapazitaet mit dem ROI-Rechner nach Abschnitt 4.1 (getestete
 Rechenfunktion, deutsche Zahlenformate, Pflichthinweis, Mini-Version für
 die Startseite), /automatisierung mit Physical-AI-Kontext und dem
-Grundsatz "Erst verstehen, dann automatisieren", /gesundheit mit REBA,
+Grundsatz "Erst verstehen, dann entscheiden", /gesundheit mit REBA,
 Leitmerkmalmethode, CSRD. Jede Perspektivseite endet mit dem Hinweis,
 dass alle drei Perspektiven aus derselben Messung stammen, und verlinkt
 auf den Steckbrief. Keine Herstellernamen.
@@ -264,8 +266,9 @@ auf den Steckbrief. Keine Herstellernamen.
 Setze /so-funktionierts, /fuer-robotik-anbieter, /pakete und /betriebsrat
 um. Pakete: Paket 1 Komplettbegleitung 3.350 €, Paket 2 Analyse und
 Validierung 2.150 €, Paket 3 Video-Check 990 €, netto. Paket 1 und 2
-enthalten den Arbeitsplatz-Steckbrief mit Empfehlung, Paket 3 die
-Messwerte ohne Expertenbewertung (TODO: bestätigen). Betriebsrat-Seite
+enthalten den Arbeitsplatz-Steckbrief mit Empfehlung und
+Expertenbewertung, Paket 3 die Messwerte je Arbeitsplatz und den
+Arbeitsplatz-Check (entschieden, §7.3). Betriebsrat-Seite
 mit Abschnitt "Automatisierung und Beschäftigung" nach Leitplanke 6.
 Keine Rechtsberatung formulieren. Liste alle TODO-Stellen.
 ```
@@ -291,7 +294,8 @@ Platzhaltern.
 Lighthouse für alle Seiten, alles unter 90 beheben. Mobil ab 360 px,
 Kontraste, Alt-Texte, Tastaturbedienung. Cookieloses Analytics per
 Umgebungsvariable, standardmäßig aus. noindex bleibt bis zur Freigabe.
-Go-live-Checkliste erstellen.
+Go-live-Checkliste in docs/GO_LIVE_CHECKLISTE.md vervollständigen; die
+harten Bedingungen dort sind Voraussetzung für das Go-live.
 ```
 
 **Abnahme:** Lighthouse-Bericht und Checkliste.
@@ -300,10 +304,10 @@ Go-live-Checkliste erstellen.
 
 ## 7. Offene Entscheidungen
 
-1. **Markttest:** Gespräche mit drei bis fünf Robotik-Anbietern oder Integratoren. Partnerseite erst verlinken, wenn mindestens zwei Interesse bestätigen.
+1. **Markttest:** Gespräche mit drei bis fünf Robotik-Anbietern oder Integratoren. Partnerseite erst verlinken, wenn mindestens zwei Interesse bestätigen. Bis dahin auf keiner Seite ein Link zur Partnerseite, auch nicht auf der Startseite (§3 Punkt 9).
 2. **Rolle gegenüber Anbietern:** Empfehlungsprovision, Auftragsanalyse oder rein neutral. Muss gegenüber Endkunden offengelegt werden.
-3. **Paket 3:** Enthält es eine automatische Empfehlung ohne Expertenbewertung oder nur Messwerte? Empfehlung: nur Messwerte plus Arbeitsplatz-Check, die Empfehlung gibt es ab Paket 2.
-4. **Veröffentlichung:** noindex, bis Name und Projekt intern geklärt sind.
+3. **Paket 3 (entschieden am 30.10.2026):** Paket 3 enthält Messwerte je Arbeitsplatz und den Arbeitsplatz-Check. Die Empfehlung mit Expertenbewertung gibt es ab Paket 2.
+4. **Veröffentlichung:** noindex, bis Name und Projekt intern geklärt sind. Harte Bedingungen vor dem Go-live in `docs/GO_LIVE_CHECKLISTE.md`, darunter: Aussagen zu Löschfristen erst, wenn die Lifecycle-Regel im Bucket angewendet und geprüft ist.
 5. **Domain und Designsystem:** siehe Design-Briefing.
 6. **Rechtstexte:** durch Anwalt oder Generator.
 7. **Robotik-Trainingsdaten:** nicht auf der Website. Widerspricht dem Betriebsrat-Versprechen und bräuchte eigene Rechtsgrundlage und Einwilligung.

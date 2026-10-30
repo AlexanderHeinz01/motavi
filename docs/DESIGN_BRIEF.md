@@ -215,7 +215,7 @@ Claude Code baut zuerst eine Komponentenbibliothek und eine interne Übersichtss
 |---|---|---|
 | Hero | Text links (6 Spalten), Skelett rechts (6 Spalten), aus dem drei Werte entstehen: Zeit, Kosten, Belastung | weiß |
 | Problem | Drei Karten in einer Reihe | `--bg-subtle` |
-| Eine Messung, drei Empfehlungen | Entscheidungsweg groß über die volle Breite, unter jedem Ausgang ein Satz. Darunter Leitsatz "Erst verstehen, dann automatisieren." | weiß |
+| Eine Messung, drei Empfehlungen | Entscheidungsweg groß über die volle Breite, unter jedem Ausgang ein Satz. Darunter Leitsatz "Erst verstehen, dann entscheiden." | weiß |
 | Beispiel-Steckbrief | Steckbrief-Vorschau über die volle Breite mit Umschalter zwischen den vier Beispielen | `--bg-inverse` (dunkel) |
 | Beweis | Große KPI-Zahlen (4.800 Drehungen, 57 Min) mit Methodenhinweis und Label "Empfehlung: Verbessern" | weiß, Zahlen sehr groß |
 | Drei Perspektiven | Drei Karten: Kapazität, Automatisierung, Gesundheit | `--bg-subtle` |

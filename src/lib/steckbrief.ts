@@ -33,16 +33,21 @@ export function begruendung(s: Steckbrief, path: Path): string[] {
   const automatisieren = path === 'automate' || path === 'improve-then-automate'
 
   if (verbessern) {
-    out.push(t.gruende.verschwendung(prozent(s.anteile_ablauf.verschwendung), verschwendung.join(', ')))
+    if (s.anteile_ablauf) out.push(t.gruende.verschwendung(prozent(s.anteile_ablauf.verschwendung), verschwendung.join(', ')))
     out.push(t.gruende.greifraum(prozent(s.griffe_ausserhalb_greifraum)))
   }
   if (automatisieren && s.zyklen_pro_schicht !== null && s.zykluszeit_vk !== null) {
     out.push(t.gruende.wiederholung(zahl(s.zyklen_pro_schicht), prozent(s.zykluszeit_vk)))
   }
-  if (path === 'automate') out.push(t.gruende.schlank(prozent(s.anteile_ablauf.verschwendung)))
+  if (path === 'automate' && s.anteile_ablauf) out.push(t.gruende.schlank(prozent(s.anteile_ablauf.verschwendung)))
   if (path === 'keep') {
-    out.push(s.zykluszeit_median_s === null ? t.gruende.keinZyklus : t.gruende.wenigZyklen(prozent(s.zeitanteil_in_zyklen)))
-    out.push(t.gruende.wenigPotenzial(zahl(s.verbesserung_min_schicht)))
+    out.push(s.zeitanteil_in_zyklen === null ? t.gruende.keinZyklus : t.gruende.wenigZyklen(prozent(s.zeitanteil_in_zyklen)))
+    // without process steps there are no avoidable minutes: the reach is the measured reason
+    out.push(
+      s.verbesserung_min_schicht !== null
+        ? t.gruende.wenigPotenzial(zahl(s.verbesserung_min_schicht))
+        : t.gruende.greifraum(prozent(s.griffe_ausserhalb_greifraum)),
+    )
   }
   out.push(t.gruende.belastung(zahl(s.reba_mittel, 1), rebaStufe(s.reba_mittel)))
   if (s.reba_mittel >= STANDARD_SCHWELLEN.rebaVorrangig) out.push(t.gruende.vorrangig)
@@ -57,7 +62,8 @@ export interface Annahmen {
 
 /** Rough economics (STECKBRIEF_MODUL §5.5). */
 export function wirtschaft(s: Steckbrief, a: Annahmen) {
-  const euroVerbesserung = ((s.verbesserung_min_schicht * a.schichtenProTag * a.arbeitstage) / 60) * a.stundensatz
+  const euroVerbesserung =
+    s.verbesserung_min_schicht === null ? null : ((s.verbesserung_min_schicht * a.schichtenProTag * a.arbeitstage) / 60) * a.stundensatz
   const euroAuto = s.stunden_auto_jahr_bandbreite?.map((h) => h * a.stundensatz) as [number, number] | undefined
   return { euroVerbesserung, euroAuto }
 }

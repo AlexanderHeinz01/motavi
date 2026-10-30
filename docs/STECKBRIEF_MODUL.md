@@ -225,7 +225,7 @@ Ergebnisse unter `results/{job_id}/workplace.json`.
 
 ## 7. Demo-Daten für die Website
 
-Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar als Beispiel gekennzeichnet. Seit S5 sind die Demo-Dateien gültige Exporte im Format 1.0 (`format`, `schema_version`, `beispiel: true`, `empfehlung_id`). Zusätzlich drei kürzere Varianten für die anderen Empfehlungen (`demo_verbessern.json`, `demo_automatisieren.json`, `demo_beibehalten.json`), damit die Website alle Wege zeigen kann.
+Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar als Beispiel gekennzeichnet. Seit S5 sind die Demo-Dateien gültige Exporte im Format 1.0 (`format`, `schema_version`, `beispiel: true`, `empfehlung_id`). Zusätzlich drei kürzere Varianten für die anderen Empfehlungen (`demo_verbessern.json`, `demo_automatisieren.json`, `demo_beibehalten.json`), damit die Website alle Wege zeigen kann. Wie im Tool hat ein Beispiel ohne wiederkehrenden Zyklus keine Ablaufschritte und keine daraus abgeleiteten Werte (`demo_beibehalten.json`). Der Test `backend/tests/test_demo_daten.py` (Repo `motavi-backend`) prüft alle Demo-Dateien gegen `docs/steckbrief_schema.json` und gegen die Typen und Regeln in `config/workplace_scoring.json`.
 
 ```json
 {
@@ -252,7 +252,7 @@ Datei `src/content/demo/demo_steckbrief.json`, erfundene plausible Werte, klar a
   "reba_mittel": 5.8,
   "drehungen_pro_zyklus": 3,
   "verbesserung_min_schicht": 41,
-  "typ_vorschlag": "Pick and Place mit Fügeoperation",
+  "typ_vorschlag": "Pick and Place",
   "stunden_auto_jahr_bandbreite": [980, 1380]
 }
 ```

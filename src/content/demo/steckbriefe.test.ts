@@ -21,11 +21,24 @@ describe.each(demoSteckbriefe.map((d) => [d.data.arbeitsplatz, d] as const))('%s
     expect(data.vorrangig).toBe(istVorrangig(data.reba_mittel))
   })
   it('Ablaufschritte ergeben 100 % und passen zu den Anteilen je Klasse', () => {
+    if (data.anteile_ablauf === null) return // checked below: no cycle, no steps
     expect(sum(data.ablaufschritte.map((s) => s.anteil))).toBeCloseTo(1, 5)
     for (const klasse of ['wertschoepfend', 'notwendig', 'verschwendung'] as const) {
       const s = sum(data.ablaufschritte.filter((x) => x.klasse === klasse).map((x) => x.anteil))
       expect(s).toBeCloseTo(data.anteile_ablauf[klasse], 5)
     }
+  })
+  it('Ohne wiederkehrenden Zyklus keine Ablaufschritte und keine Werte daraus (wie im Backend)', () => {
+    if (data.zykluszeit_median_s !== null) {
+      expect(data.ablaufschritte.length).toBeGreaterThan(0)
+      expect(data.anteile_ablauf).not.toBeNull()
+      return
+    }
+    expect(data.ablaufschritte).toEqual([])
+    expect(data.anteile_ablauf).toBeNull()
+    expect(data.zeitanteil_in_zyklen).toBeNull()
+    expect(data.verbesserung_min_schicht).toBeNull()
+    expect(data.zyklen_pro_schicht).toBeNull()
   })
   it('Höhenzonen ergeben 100 %', () => {
     expect(sum(Object.values(data.hoehenzonen))).toBeCloseTo(1, 5)

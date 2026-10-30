@@ -6,11 +6,11 @@ export const startseite = {
   meta: {
     title: 'Verbessern, automatisieren oder beibehalten?',
     description:
-      'Motavi macht jede Bewegung messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz eine klare Empfehlung.',
+      'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz eine klare Empfehlung.',
   } satisfies PageMeta,
   headline: 'Verbessern, automatisieren oder beibehalten? Motavi misst, was sich an jedem Arbeitsplatz lohnt.',
   subline:
-    'Motavi macht jede Bewegung messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, DSGVO-konform.',
+    'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Server in Deutschland.',
   primaryCta: { label: 'Pilot anfragen', to: '/pilot' },
   secondaryCta: { label: 'Beispiel-Steckbrief ansehen', to: '/arbeitsplatz-steckbrief' },
 
@@ -69,7 +69,7 @@ export const startseite = {
       {
         icon: 'hourglass',
         title: 'Fachkräftemangel',
-        text: 'Stellen bleiben unbesetzt, Arbeit bleibt liegen. Jede Minute, die in Suchen, Gehen und Umgreifen steckt, fehlt in der Wertschöpfung.',
+        text: 'Stellen bleiben unbesetzt, Arbeit bleibt liegen. Jede Minute, die der Ablauf für Suchen, Gehen und Umgreifen verlangt, fehlt in der Wertschöpfung.',
       },
       {
         icon: 'cog',
@@ -156,7 +156,7 @@ export const startseite = {
     ergebnisse: [
       { label: 'Stunden', value: '1.650', unit: 'pro Jahr', accent: 'gain-ink' },
       { label: 'Euro', value: '82.500 €', unit: 'pro Jahr', accent: 'gain-ink' },
-      { label: 'Vollzeitäquivalente', value: '1,0', unit: 'pro Jahr', accent: 'gain-ink' },
+      { label: 'Kapazität in Vollzeitstellen', value: '1,0', unit: 'z. B. für offene Stellen', accent: 'gain-ink' },
     ] satisfies { label: string; value: string; unit: string; accent: Accent }[],
     hinweis: 'Beispielrechnung auf Basis typischer Annahmen. Die tatsächlichen Werte ermittelt die Analyse.',
     cta: { label: 'Mit eigenen Werten rechnen', to: '/kapazitaet' },
@@ -201,8 +201,8 @@ export const startseite = {
     ],
     nachweisTitel: 'So setzen wir es um',
     nachweis: [
-      // Deletion concept of the backend (motavi-backend: docs/LOESCHKONZEPT.md);
-      // must be live before the website is released.
+      // Deletion concept of the backend (motavi-backend: docs/LOESCHKONZEPT.md).
+      // Hard condition before going live: lifecycle rule applied and checked (docs/GO_LIVE_CHECKLISTE.md).
       {
         title: 'Anonymisierung',
         text: 'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht. Aufbewahrt werden nur ein Video mit unkenntlich gemachtem Kopfbereich und die Gelenkpunkte, beides 30 Tage, sowie die Kennzahlen.',
@@ -213,28 +213,32 @@ export const startseite = {
     link: { label: 'Alles zu Datenschutz und Betriebsrat', to: '/betriebsrat' },
   },
 
-  /** Section 11 "Pakete": placeholders until prices are set (WEBSITE_PLAN Phase 5). */
+  /**
+   * Section 11 "Pakete": placeholders until prices are set (WEBSITE_PLAN Phase 5).
+   * WEBSITE_PLAN §7.3 (decided 30.10.2026): package 3 gives measured values and the
+   * Arbeitsplatz-Check; the recommendation with expert assessment comes with package 2.
+   */
   pakete: {
     label: 'Pakete',
-    title: 'Drei Pakete, alle mit Steckbrief',
+    title: 'Drei Pakete, von den Messwerten bis zur Begleitung',
     karten: [
       {
         name: 'Video-Check',
         preis: 'Preis folgt',
-        leistungen: ['Sie nehmen das Video selbst auf', 'Automatische Messung', 'Steckbrief je Arbeitsplatz'],
+        leistungen: ['Sie nehmen das Video selbst auf', 'Messwerte je Arbeitsplatz', 'Arbeitsplatz-Check'],
         cta: { label: 'Mehr erfahren', to: '/pakete' },
       },
       {
         name: 'Analyse und Validierung',
         preis: 'Preis folgt',
-        leistungen: ['Messung und Expertenbewertung', 'Steckbrief und Report', 'Besprechung der Empfehlungen'],
+        leistungen: ['Messung und Expertenbewertung', 'Steckbrief mit Empfehlung und Report', 'Besprechung der Empfehlungen'],
         cta: { label: 'Pilot anfragen', to: '/pilot' },
         empfohlen: true,
       },
       {
         name: 'Komplettbegleitung',
         preis: 'Preis folgt',
-        leistungen: ['Aufnahme vor Ort', 'Analyse und Bewertung aller Arbeitsplätze', 'Begleitung der Umsetzung'],
+        leistungen: ['Aufnahme vor Ort', 'Steckbrief mit Empfehlung für alle Arbeitsplätze', 'Begleitung der Umsetzung'],
         cta: { label: 'Mehr erfahren', to: '/pakete' },
       },
     ],

@@ -185,7 +185,7 @@ export function generatePdfReport(result: AnalysisResult): void {
   // Footer note
   doc.setFontSize(8)
   doc.setTextColor(150, 150, 150)
-  doc.text('Erstellt durch Motavi Video-Ergonomie System · DSGVO-konform anonymisiert · Motavi Inc.', 15, 285)
+  doc.text('Erstellt durch Motavi Video-Ergonomie System · anonymisiert · Motavi Inc.', 15, 285)
 
   doc.save(`Motavi-Report-${result.job_id.slice(0, 8)}.pdf`)
 }

@@ -71,6 +71,10 @@ export default function ZyklusZeitleiste({
   anzahl?: number
 }) {
   const label = zykluszeit !== null ? `${zahl(zykluszeit, 1)} s` : ''
+  // without a recurring cycle there are no process steps (they are confirmed per cycle)
+  if (zykluszeit === null && schritte.length === 0) {
+    return <p className="font-body text-[14px] text-ink-muted">{steckbriefText.keinZyklus}</p>
+  }
   return (
     <div>
       {zykluszeit === null ? (

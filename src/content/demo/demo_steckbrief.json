@@ -26,6 +26,6 @@
   "reba_mittel": 5.8,
   "drehungen_pro_zyklus": 3,
   "verbesserung_min_schicht": 41,
-  "typ_vorschlag": "Pick and Place mit Fügeoperation",
+  "typ_vorschlag": "Pick and Place",
   "stunden_auto_jahr_bandbreite": [980, 1380]
 }

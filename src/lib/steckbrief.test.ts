@@ -22,7 +22,7 @@ describe('Steckbrief: abgeleitete Aussagen', () => {
     // 41 min x 2 shifts x 220 days / 60 x 50 €
     expect(w.euroVerbesserung).toBeCloseTo(15033.33, 1)
     expect(w.euroAuto).toEqual([49000, 69000])
-    expect(euroGerundet(w.euroVerbesserung)).toBe('15.000 €')
+    expect(euroGerundet(w.euroVerbesserung!)).toBe('15.000 €')
   })
 
   it('REBA-Stufen', () => {

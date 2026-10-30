@@ -261,7 +261,7 @@ export default function DashboardPage() {
             {/* 6 — Critical frames */}
             {result.critical_frames && result.critical_frames.length > 0 && (
               <div className="mt-5">
-                <Card title="Kritische Bewegungsmomente (DSGVO-anonymisiert)">
+                <Card title="Kritische Bewegungsmomente (anonymisiert)">
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {result.critical_frames.map((cf) => {
                       const mm = String(Math.floor(cf.second / 60)).padStart(2, '0')
@@ -314,7 +314,7 @@ export default function DashboardPage() {
       {/* Footer */}
       <footer className="border-t border-bg-secondary px-6 py-6 text-center">
         <p className="font-body text-xs text-neutral/30">
-          Erstellt durch Motavi Video-Ergonomie-System · DSGVO-konform anonymisiert · Gemäß DIN EN ISO 10075 / ArbSchG §5
+          Erstellt durch Motavi Video-Ergonomie-System · anonymisiert · Gemäß DIN EN ISO 10075 / ArbSchG §5
         </p>
       </footer>
     </div>
