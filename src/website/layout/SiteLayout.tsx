@@ -12,7 +12,9 @@ export default function SiteLayout() {
   const { pathname } = useLocation()
   const head = useMemo(() => {
     const route = findSiteRoute(pathname)
-    return route ? headFor(route.path, route.meta) : headFor(normalizePath(pathname), notFoundMeta, { noindex: true })
+    return route
+      ? headFor(route.path, route.meta, { noindex: route.noindex })
+      : headFor(normalizePath(pathname), notFoundMeta, { noindex: true })
   }, [pathname])
 
   return (

@@ -16,7 +16,10 @@ export function render(url: string): string {
   )
 }
 
-export const pages = siteRoutes.map((r) => ({ path: r.path, head: headHtml(headFor(r.path, r.meta)) }))
+export const pages = siteRoutes.map((r) => ({
+  path: r.path,
+  head: headHtml(headFor(r.path, r.meta, { noindex: r.noindex })),
+}))
 
 export const notFoundHead = headHtml(headFor('/404', notFoundMeta, { noindex: true }))
 

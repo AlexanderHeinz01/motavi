@@ -28,6 +28,10 @@ import RobotikAnbieterPage from './pages/RobotikAnbieterPage'
 import SoFunktioniertsPage from './pages/SoFunktioniertsPage'
 import StartseitePage from './pages/StartseitePage'
 import SteckbriefPage from './pages/SteckbriefPage'
+import HeroAPage from './pages/design/HeroAPage'
+import HeroBPage from './pages/design/HeroBPage'
+import HeroCPage from './pages/design/HeroCPage'
+import { entwuerfe } from '../content/heroEntwuerfe'
 
 export interface SiteRoute {
   path: string
@@ -35,6 +39,8 @@ export interface SiteRoute {
   meta: PageMeta
   /** Listed in sitemap.xml */
   inSitemap: boolean
+  /** Always noindex, also after the release (internal pages) */
+  noindex?: boolean
 }
 
 export const siteRoutes: SiteRoute[] = [
@@ -51,6 +57,10 @@ export const siteRoutes: SiteRoute[] = [
   { path: '/pilot', element: <PilotPage />, meta: pilot.meta, inSitemap: true },
   { path: '/impressum', element: <ImpressumPage />, meta: impressum.meta, inSitemap: true },
   { path: '/datenschutz', element: <DatenschutzPage />, meta: datenschutz.meta, inSitemap: true },
+  // Design drafts D0 (DESIGN_BRIEF §9): internal, not linked
+  { path: '/_design/hero-a', element: <HeroAPage />, meta: entwuerfe.a.meta, inSitemap: false, noindex: true },
+  { path: '/_design/hero-b', element: <HeroBPage />, meta: entwuerfe.b.meta, inSitemap: false, noindex: true },
+  { path: '/_design/hero-c', element: <HeroCPage />, meta: entwuerfe.c.meta, inSitemap: false, noindex: true },
 ]
 
 export const notFoundMeta: PageMeta = notFound.meta
