@@ -7,7 +7,7 @@ export const steckbrief: PageContent = {
       'Der Arbeitsplatz-Steckbrief fasst die Messung eines Arbeitsplatzes zusammen und leitet daraus eine Empfehlung ab: verbessern, automatisieren oder beibehalten.',
   },
   label: 'Arbeitsplatz-Steckbrief',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Der Arbeitsplatz-Steckbrief',
   intro:
     'Der Steckbrief fasst die Messung eines Arbeitsplatzes zusammen und leitet daraus eine Empfehlung ab: verbessern, automatisieren oder beibehalten.',

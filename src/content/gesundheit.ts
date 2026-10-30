@@ -7,7 +7,7 @@ export const gesundheit: PageContent = {
       'Wo ist die körperliche Belastung am höchsten, und was hilft am schnellsten? Bewertung von Tätigkeiten mit anerkannten Methoden.',
   },
   label: 'Gesundheit',
-  accent: 'risk',
+  accent: 'risk-ink',
   title: 'Wo ist die Belastung am höchsten, und was hilft am schnellsten?',
   intro:
     'Die Perspektive Gesundheit bewertet die körperliche Belastung von Tätigkeiten mit anerkannten Methoden und zeigt, welche Gestaltungsmaßnahmen am meisten entlasten.',

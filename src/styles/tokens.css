@@ -1,7 +1,10 @@
 /*
  * Design tokens of the Motavi website (docs/DESIGN_BRIEF.md, section 3).
- * The website is light; the analysis app (/app) keeps its dark theme and
- * shares the data colours (--data, --risk) with the website.
+ * The website is light; the analysis app (/app) keeps its dark theme.
+ *
+ * Contrast rule: components use only --*-ink and --path-*. The bright data
+ * colours become active through .surface-inverse (dark sections, dashboard).
+ * Checked by src/styles/tokens.test.ts.
  */
 :root {
   /* Surfaces */
@@ -20,21 +23,46 @@
   --primary-hover: #5a2bd4;
   --primary-soft: #f1ecfe;
 
-  /* Data (shared with the dashboard) */
+  /* Data colours, level "ink": text, lines, symbols and fills on light
+     ground (--bg, --bg-subtle). All at least 4.5:1. */
+  --data-ink: #007a99;
+  --risk-ink: #c62e3a;
+  --gain-ink: #15803d;
+  --warn-ink: #b45309;
+
+  /* Data colours, level "bright": original dashboard colours. Only on dark
+     ground (--bg-inverse) or as a fill labelled outside in --text.
+     Never as text or line on light ground; components do not use these
+     directly, .surface-inverse maps the ink tokens onto them. */
   --data: #00b4d8;
   --risk: #e63946;
   --gain: #16a34a;
   --warn: #d97706;
 
-  /* Recommendations: equal weight, no traffic-light logic */
-  --path-improve: #16a34a;
-  --path-automate: #00b4d8;
+  /* Recommendations: equal weight, no traffic-light logic (light ground) */
+  --path-improve: #15803d;
+  --path-automate: #007a99;
   --path-keep: #5b616e;
+  /* Text on a full --path-* fill (label variant "kräftig") */
+  --on-path: var(--text-inverse);
 
   /* Fonts (self-hosted via @fontsource) */
   --font-headline: 'Space Grotesk', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* Dark sections and dashboard: switch the ink tokens to bright */
+.surface-inverse {
+  --data-ink: var(--data);
+  --risk-ink: var(--risk);
+  --gain-ink: var(--gain);
+  --warn-ink: var(--warn);
+  --path-improve: var(--gain);
+  --path-automate: var(--data);
+  --path-keep: #9aa0ac;
+  /* Never white text on bright cyan: dark text on bright path fills */
+  --on-path: var(--bg-inverse);
 }
 
 /* Typography scale: mobile first, desktop from 768 px */

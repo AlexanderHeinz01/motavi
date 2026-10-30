@@ -8,7 +8,7 @@ type Phase = 'idle' | 'selected' | 'uploading' | 'error'
 
 const inputCls =
   'w-full px-3 py-2 rounded-lg bg-bg-primary border border-bg-secondary ' +
-  'focus:outline-none focus:border-data/50 font-body text-sm text-white ' +
+  'focus:outline-none focus:border-data-ink/50 font-body text-sm text-white ' +
   'placeholder:text-neutral/25 transition-colors disabled:opacity-50'
 
 export default function UploadPage() {
@@ -151,7 +151,7 @@ export default function UploadPage() {
             </label>
             <label className="flex flex-col gap-1.5">
               <span className="font-body text-xs text-neutral/50">
-                Schichtdauer (Min)<span className="text-accent ml-0.5">*</span>
+                Schichtdauer (Min)<span className="text-risk-ink ml-0.5">*</span>
               </span>
               <input
                 type="number"
@@ -193,7 +193,7 @@ export default function UploadPage() {
         {file && phase !== 'idle' && (
           <div className="flex items-center gap-3 p-4 rounded-xl bg-bg-secondary border border-bg-secondary">
             <svg
-              className="w-8 h-8 text-data flex-shrink-0"
+              className="w-8 h-8 text-data-ink flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -236,26 +236,26 @@ export default function UploadPage() {
           <div className="flex flex-col gap-2">
             <div className="w-full h-1.5 rounded-full bg-bg-secondary overflow-hidden">
               <div
-                className="h-full bg-data rounded-full transition-all duration-200"
+                className="h-full bg-data-ink rounded-full transition-all duration-200"
                 style={{ width: `${progress}%` }}
               />
             </div>
             <div className="flex justify-between items-center">
               <span className="font-mono text-xs text-neutral/40">Analyse wird gestartet…</span>
-              <span className="font-mono text-xs text-data">{progress} %</span>
+              <span className="font-mono text-xs text-data-ink">{progress} %</span>
             </div>
           </div>
         )}
 
         {/* Error */}
-        {error && <p className="text-center font-body text-sm text-accent">{error}</p>}
+        {error && <p className="text-center font-body text-sm text-risk-ink">{error}</p>}
 
         {/* CTA button */}
         {(phase === 'selected' || phase === 'error') && (
           <button
             onClick={handleUpload}
             className="w-full py-3.5 rounded-xl font-headline font-semibold text-base
-              bg-accent hover:bg-accent/90 text-white transition-colors duration-150"
+              bg-risk-ink hover:bg-risk-ink/90 text-white transition-colors duration-150"
           >
             Analyse starten →
           </button>

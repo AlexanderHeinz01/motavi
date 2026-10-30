@@ -6,7 +6,7 @@ export const pilot: PageContent & { contactLead: string } = {
     description: 'Erproben Sie Motavi an Ihren Arbeitsplätzen. Für Hersteller sowie Robotik-Anbieter und Integratoren.',
   },
   label: 'Pilot anfragen',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Pilot anfragen',
   intro: 'Sie möchten Motavi an Ihren Arbeitsplätzen erproben? Das Anfrageformular folgt in Kürze.',
   contactLead: 'Bis dahin erreichen Sie uns per E-Mail:',

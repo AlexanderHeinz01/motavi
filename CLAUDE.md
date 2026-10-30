@@ -6,6 +6,7 @@ Website (hell, vorgerendert) und Analyse-App (dunkel, `/app`) in einer Vite-App.
 
 - `npm run dev`: Entwicklungsserver auf Port 3000
 - `npm run lint`: TypeScript-Prüfung
+- `npm test`: Vitest, darunter der Kontrasttest aller Token-Kombinationen (`src/styles/tokens.test.ts`)
 - `npm run build`: Typprüfung, Client-Build, Server-Build und Vorab-Rendern der Website (`scripts/prerender.mjs`) nach `dist/`
 - `npm run preview`: gebauten Stand ansehen
 
@@ -22,6 +23,7 @@ Website (hell, vorgerendert) und Analyse-App (dunkel, `/app`) in einer Vite-App.
 ## Entscheidungen (Phase 0)
 
 - **Designsystem:** Tokens aus `docs/DESIGN_BRIEF.md` §3, umgesetzt in `src/styles/tokens.css` und `tailwind.config.js`. Schriften Space Grotesk, Inter, JetBrains Mono, selbst gehostet über `@fontsource`. Keine Google Fonts zur Laufzeit.
+- **Kontrastregel:** Komponenten nutzen nur `--*-ink` und `--path-*` (Tailwind: `data-ink`, `risk-ink`, `gain-ink`, `warn-ink`, `path-*`). Die bright-Werte werden nur über `.surface-inverse` aktiv (dunkle Sektionen, Footer, Analyse-App). Text mindestens 4,5:1, Grafik mindestens 3:1. `npm test` prüft das und schlägt bei Verstößen fehl.
 - **Analyse im Browser:** Das Video verlässt den Rechner nicht. Auch das Steckbrief-Modul läuft im Browser; Pose-Daten werden dafür lokal (IndexedDB) gespeichert, nur Koordinaten, keine Bilder.
 - **noindex:** Die gesamte Website ist bis zur Freigabe `noindex`. Freigabe beim Build mit `VITE_SITE_INDEXABLE=true`. Die App ist immer `noindex`.
 - **Partnerseite** `/fuer-robotik-anbieter`: gebaut, aber nicht verlinkt und nicht in der Sitemap (`WEBSITE_PLAN.md` §7.1).

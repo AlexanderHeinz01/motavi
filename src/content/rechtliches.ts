@@ -4,7 +4,7 @@ import type { PageContent } from './types'
 export const impressum: PageContent = {
   meta: { title: 'Impressum', description: 'Impressum von Motavi.' },
   label: 'Rechtliches',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Impressum',
   intro: 'Platzhalter: Der Text des Impressums folgt durch Anwalt oder Generator.',
   planned: [],
@@ -14,7 +14,7 @@ export const impressum: PageContent = {
 export const datenschutz: PageContent = {
   meta: { title: 'Datenschutzerklärung', description: 'Datenschutzerklärung von Motavi.' },
   label: 'Rechtliches',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Datenschutzerklärung',
   intro: 'Platzhalter: Der Text der Datenschutzerklärung folgt durch Anwalt oder Generator.',
   planned: [],

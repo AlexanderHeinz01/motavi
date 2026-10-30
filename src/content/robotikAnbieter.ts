@@ -11,7 +11,7 @@ export const robotikAnbieter: PageContent = {
       'Arbeitsplätze, die wirklich passen, mit bereinigten Abläufen und standardisierten Daten für Ihr Angebot.',
   },
   label: 'Für Robotik-Anbieter',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Arbeitsplätze, die wirklich passen. Mit Daten, die Sie für ein Angebot brauchen.',
   intro:
     'Robotik-Anbieter und Integratoren erhalten über Motavi Arbeitsplätze, die nachweislich passen, mit bereinigten Abläufen und standardisierten Daten.',

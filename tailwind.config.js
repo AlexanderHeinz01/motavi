@@ -1,3 +1,9 @@
+/**
+ * Colour from a CSS variable that still supports opacity modifiers (bg-data-ink/10).
+ * @param {string} name CSS custom property
+ */
+const token = (name) => `color-mix(in srgb, var(${name}) calc(<alpha-value> * 100%), transparent)`
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -7,7 +13,6 @@ export default {
         // Analysis app (dark theme)
         'bg-primary': '#0a0f1e',
         'bg-secondary': '#1a2744',
-        accent: '#e63946',
         neutral: '#f4f4f6',
         brand: {
           DEFAULT: '#6C3AED',
@@ -31,15 +36,18 @@ export default {
           hover: 'var(--primary-hover)',
           soft: 'var(--primary-soft)',
         },
-        // Data colours shared by website and app
-        data: '#00b4d8',
-        risk: 'var(--risk)',
-        gain: 'var(--gain)',
-        warn: 'var(--warn)',
+        // Data colours: only the ink level is exposed. On light ground it is
+        // the darker ink value, inside .surface-inverse the bright dashboard
+        // colour (DESIGN_BRIEF §3, contrast rule). The bright tokens are
+        // deliberately not available as classes.
+        'data-ink': token('--data-ink'),
+        'risk-ink': token('--risk-ink'),
+        'gain-ink': token('--gain-ink'),
+        'warn-ink': token('--warn-ink'),
         path: {
-          improve: 'var(--path-improve)',
-          automate: 'var(--path-automate)',
-          keep: 'var(--path-keep)',
+          improve: token('--path-improve'),
+          automate: token('--path-automate'),
+          keep: token('--path-keep'),
         },
       },
       fontFamily: {

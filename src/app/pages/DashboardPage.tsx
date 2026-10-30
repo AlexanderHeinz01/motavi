@@ -53,14 +53,14 @@ export default function DashboardPage() {
   if (failed) {
     return (
       <div className="min-h-screen bg-bg-primary flex items-center justify-center px-6">
-        <div className="max-w-md w-full p-8 rounded-2xl bg-bg-secondary text-center border border-accent/20">
-          <p className="font-headline text-xl text-accent mb-2">Analyse nicht gefunden</p>
+        <div className="max-w-md w-full p-8 rounded-2xl bg-bg-secondary text-center border border-risk-ink/20">
+          <p className="font-headline text-xl text-risk-ink mb-2">Analyse nicht gefunden</p>
           <p className="font-body text-sm text-neutral/60 mb-6">
             {error || 'Der gesuchte Analyse-Job konnte nicht geladen werden.'}
           </p>
           <button
             onClick={() => navigate('/app')}
-            className="px-6 py-2.5 rounded-xl bg-accent text-white font-body text-sm hover:bg-accent/90 transition-colors"
+            className="px-6 py-2.5 rounded-xl bg-risk-ink text-white font-body text-sm hover:bg-risk-ink/90 transition-colors"
           >
             Neues Video analysieren
           </button>
@@ -168,7 +168,7 @@ export default function DashboardPage() {
                   <span
                     className={`font-mono text-sm ${
                       result.analysis_info.detected_frames < result.analysis_info.sampled_frames * 0.5
-                        ? 'text-accent'
+                        ? 'text-risk-ink'
                         : 'text-neutral/80'
                     }`}
                     title={result.analysis_info.model}
@@ -221,7 +221,7 @@ export default function DashboardPage() {
               </div>
               <div className="h-10 w-px bg-white/10" />
               <div className="flex flex-col">
-                <span className="font-mono text-base font-semibold text-accent">
+                <span className="font-mono text-base font-semibold text-risk-ink">
                   {result.action_items.filter((i) => i.priority === 'CRITICAL').length} kritisch
                 </span>
                 <span className="font-body text-xs text-neutral/40">Handlungsfelder</span>

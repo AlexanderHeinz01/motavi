@@ -39,8 +39,8 @@ export default function AnalyzingPage() {
 
         {/* Status */}
         {status === 'error' ? (
-          <div className="p-6 rounded-xl border border-accent/30 bg-accent/5 text-center">
-            <p className="font-headline text-lg text-accent mb-1">Analyse fehlgeschlagen</p>
+          <div className="p-6 rounded-xl border border-risk-ink/30 bg-risk-ink/5 text-center">
+            <p className="font-headline text-lg text-risk-ink mb-1">Analyse fehlgeschlagen</p>
             <p className="font-body text-sm text-neutral/60">{error}</p>
             <button
               onClick={() => navigate('/app')}
@@ -61,14 +61,14 @@ export default function AnalyzingPage() {
               aria-valuenow={Math.round(pct)}
             >
               <div
-                className="absolute top-0 left-0 h-full rounded-full bg-data transition-all duration-300"
+                className="absolute top-0 left-0 h-full rounded-full bg-data-ink transition-all duration-300"
                 style={{ width: `${pct}%` }}
               />
             </div>
 
             {/* Current stage */}
             <div className="text-center flex flex-col items-center gap-2">
-              <span className="inline-block px-3 py-1 rounded-full bg-data/10 border border-data/30 font-mono text-xs text-data">
+              <span className="inline-block px-3 py-1 rounded-full bg-data-ink/10 border border-data-ink/30 font-mono text-xs text-data-ink">
                 {Math.round(pct)} %
               </span>
               <p className="font-mono text-base text-white">

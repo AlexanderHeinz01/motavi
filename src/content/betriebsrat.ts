@@ -7,7 +7,7 @@ export const betriebsrat: PageContent = {
       'Motavi bewertet Tätigkeiten und Arbeitsplätze, nie Personen. Anonymisierung, Mitbestimmung, Zweckbindung und der Umgang mit Automatisierung.',
   },
   label: 'Datenschutz und Betriebsrat',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Datenschutz und Betriebsrat',
   intro: 'Motavi bewertet Tätigkeiten und Arbeitsplätze, nie Personen.',
   planned: [

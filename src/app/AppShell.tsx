@@ -21,14 +21,19 @@ function Loading() {
   )
 }
 
-/** Analysis app (dark theme): login context, lazy pages, never indexed. */
+/**
+ * Analysis app (dark theme): login context, lazy pages, never indexed.
+ * .surface-inverse maps the ink tokens to the bright dashboard colours.
+ */
 export default function AppShell() {
   return (
     <AuthProvider>
       <Seo head={appHead} />
-      <Suspense fallback={<Loading />}>
-        <Outlet />
-      </Suspense>
+      <div className="surface-inverse">
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
+      </div>
     </AuthProvider>
   )
 }

@@ -6,7 +6,7 @@ export const pakete: PageContent = {
     description: 'Drei Pakete, von der Komplettbegleitung bis zum Video-Check.',
   },
   label: 'Pakete',
-  accent: 'data',
+  accent: 'data-ink',
   title: 'Pakete und Preise',
   intro: 'Drei Pakete, von der Komplettbegleitung bis zum Video-Check.',
   planned: [

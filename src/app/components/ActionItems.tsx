@@ -7,10 +7,10 @@ interface Props {
 const PRIORITY_CONFIG = {
   CRITICAL: {
     label: 'KRITISCH',
-    border: 'border-accent',
-    badge: 'bg-accent',
-    text: 'text-accent',
-    bg: 'bg-accent/5',
+    border: 'border-risk-ink',
+    badge: 'bg-risk-ink',
+    text: 'text-risk-ink',
+    bg: 'bg-risk-ink/5',
   },
   MEDIUM: {
     label: 'MITTEL',

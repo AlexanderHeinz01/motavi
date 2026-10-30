@@ -4,7 +4,7 @@ import { footer, site } from '../../content/site'
 /** Dark footer with links and legal pages (DESIGN_BRIEF §4). */
 export default function Footer() {
   return (
-    <footer className="bg-page-inverse text-ink-inverse">
+    <footer className="surface-inverse bg-page-inverse text-ink-inverse">
       <div className="site-container py-16">
         <div className="grid gap-10 lg:grid-cols-[2fr_repeat(4,1fr)]">
           <div className="max-w-sm">

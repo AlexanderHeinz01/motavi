@@ -49,13 +49,13 @@ export default function UploadZone({ onFile, disabled }: Props) {
           'border-2 border-dashed p-12 transition-all duration-200',
           disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer',
           dragging
-            ? 'border-data bg-data/10 scale-[1.01]'
-            : 'border-bg-secondary hover:border-data/40 hover:bg-bg-secondary/30',
+            ? 'border-data-ink bg-data-ink/10 scale-[1.01]'
+            : 'border-bg-secondary hover:border-data-ink/40 hover:bg-bg-secondary/30',
         ].join(' ')}
       >
         {/* Upload icon */}
         <svg
-          className={`w-14 h-14 transition-colors ${dragging ? 'text-data' : 'text-neutral/30'}`}
+          className={`w-14 h-14 transition-colors ${dragging ? 'text-data-ink' : 'text-neutral/30'}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -92,7 +92,7 @@ export default function UploadZone({ onFile, disabled }: Props) {
       </div>
 
       {error && (
-        <p className="mt-3 text-center text-sm text-accent font-body">{error}</p>
+        <p className="mt-3 text-center text-sm text-risk-ink font-body">{error}</p>
       )}
     </div>
   )
