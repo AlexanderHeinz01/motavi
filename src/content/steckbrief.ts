@@ -29,7 +29,7 @@ export const steckbrief = {
   accent: 'data-ink' as Accent,
   title: 'Der Arbeitsplatz-Steckbrief',
   intro:
-    'Ein Datenblatt je Arbeitsplatz: was gemessen wird, wie daraus eine von vier gleichwertigen Empfehlungen entsteht und was sie bringt. Mit dem Arbeitsplatz-Check am Ende der Seite machen Sie eine erste Einschätzung selbst.',
+    'Ein Datenblatt je Arbeitsplatz: was gemessen wird, wie daraus einer von drei gleichwertigen Wegen folgt und was er bringt. Mit dem Arbeitsplatz-Check am Ende der Seite machen Sie eine erste Einschätzung selbst.',
   sprungmarkenLabel: 'Auf dieser Seite',
   sprungmarken: [
     { id: 'aufbau', label: 'Aufbau' },
@@ -39,7 +39,7 @@ export const steckbrief = {
 
   quelle: {
     gemessen: 'gemessen',
-    experte: 'vom Experten bewertet',
+    experte: 'von Experten bewertet',
     berechnet: 'berechnet',
     kunde: 'Ihre Angaben',
   } satisfies Record<Quelle, string>,
@@ -59,7 +59,7 @@ export const steckbrief = {
       eintraege: [
         {
           name: 'Empfehlung',
-          text: 'Eine von vier gleichwertigen Empfehlungen: Verbessern, Automatisieren, Erst verbessern, dann automatisieren, oder Beibehalten. Das Tool schlägt sie aus den beiden Scores vor, ein Experte bestätigt oder ändert sie.',
+          text: 'Einer von drei gleichwertigen Wegen: Verbessern, Automatisieren oder Beibehalten. Oft lautet die Antwort: erst verbessern, dann automatisieren. Das Tool schlägt die Empfehlung aus den beiden Scores vor, erfahrene Experten für Arbeitsgestaltung und Zeitwirtschaft (REFA) bestätigen oder ändern sie.',
           quelle: 'experte',
           pilot: false,
         },
@@ -132,8 +132,8 @@ export const steckbrief = {
           pilot: true,
         },
         {
-          name: 'REBA (Mittel)',
-          text: 'Belastung durch die Körperhaltung nach REBA (Rapid Entire Body Assessment), Skala 1 bis 15, gemittelt über die Aufnahme. Stufen: unter 2 vernachlässigbar, 2 bis unter 4 niedrig, 4 bis unter 8 mittel, 8 bis unter 11 hoch, ab 11 sehr hoch.',
+          name: 'Haltungsindex (Mittel)',
+          text: 'Belastung durch die Körperhaltung als Haltungsindex auf REBA-Basis, Skala 1 bis 10, gemittelt über die Aufnahme. Er fasst die Winkelbereiche von REBA für Rumpf, Nacken, Arme und Knie zusammen, ist aber kein REBA-Wert: Last, Griffart und Handgelenke fließen nicht ein. Stufen: unter 4 niedrig, 4 bis unter 6 mittel, 6 bis unter 8 hoch, ab 8 sehr hoch.',
           quelle: 'gemessen',
           pilot: true,
         },
@@ -147,12 +147,12 @@ export const steckbrief = {
       eintraege: [
         {
           name: 'Ablaufschritte',
-          text: 'Das Tool teilt einen typischen Durchgang in Phasen: Bewegung, Ruhe und Gehen. Ein Experte ordnet jedem Abschnitt einen Schritt zu, etwa Greifen, Fügen oder Suchen. Die Zuordnung gilt dann für alle erkannten Durchgänge.',
+          text: 'Das Tool teilt einen typischen Durchgang in Phasen: Bewegung, Ruhe und Gehen. Experten ordnen jedem Abschnitt einen Schritt zu, etwa Greifen, Fügen oder Suchen. Die Zuordnung gilt dann für alle erkannten Durchgänge.',
           quelle: 'experte',
           pilot: true,
         },
       ] satisfies Kennzahl[],
-      einstufung: 'Jeder Schritt ist wertschöpfend, notwendig oder Verschwendung. Der Experte kann die Einstufung im Einzelfall ändern. Standard:',
+      einstufung: 'Jeder Schritt ist wertschöpfend, notwendig oder Verschwendung. Die Experten können die Einstufung im Einzelfall ändern. Standard:',
       ohneZyklus: 'Ohne wiederkehrenden Zyklus gibt es keine Ablaufschritte. Der Steckbrief zeigt dann „Kein wiederkehrender Zyklus erkannt“.',
     },
     greifraum: {
@@ -211,7 +211,7 @@ export const steckbrief = {
     label: 'Entscheidungslogik',
     title: 'Wie die Empfehlung entsteht',
     intro:
-      'Zwei Scores, eine Regel. Alle vier Ergebnisse sind gleichwertig: Auch Beibehalten ist eine gute Antwort, wenn es eine Fehlinvestition vermeidet.',
+      'Zwei Scores, eine Regel, drei gleichwertige Wege. Oft lautet die Antwort: erst verbessern, dann automatisieren. Auch Beibehalten ist eine gute Antwort, wenn es eine Fehlinvestition vermeidet.',
     achseVerbesserung: 'Verbesserungs-Score',
     achseAutomatisierung: 'Automatisierungs-Score',
     unter: (s: number) => `unter ${s}`,
@@ -227,12 +227,12 @@ export const steckbrief = {
     regeln: {
       titel: 'Weitere Regeln',
       vorrang: (reba: string) =>
-        `Vorrang: Ab einem REBA-Mittel von ${reba} wird der Arbeitsplatz unabhängig von der Empfehlung als vorrangig markiert.`,
+        `Vorrang: Ab einem Haltungsindex von ${reba} wird der Arbeitsplatz unabhängig von der Empfehlung als vorrangig markiert.`,
       keinZyklus:
         'Kein wiederkehrender Zyklus ist ein Ergebnis: Wiederholung, Gleichförmigkeit und Zeitanteil in Zyklen zählen dann als 0. Eine Empfehlung mit Automatisierung ist damit ausgeschlossen.',
       reihenfolge:
         'Erst verbessern, dann automatisieren: Wer Verschwendung automatisiert, bezahlt eine Anlage für unnötige Bewegungen. Deshalb wird die Automatisierung hier auf den verbesserten Ablauf gerechnet.',
-      experte: 'Das Tool schlägt vor, der Experte entscheidet. Er bestätigt oder ändert Empfehlung und Automatisierungstyp.',
+      experte: 'Das Tool schlägt vor, erfahrene Experten für Arbeitsgestaltung und Zeitwirtschaft (REFA) entscheiden. Sie bestätigen oder ändern Empfehlung und Automatisierungstyp.',
       schwellen: 'Gewichte und Schwellen sind Startwerte der Pilotphase und werden an realen Arbeitsplätzen geprüft.',
     },
   },

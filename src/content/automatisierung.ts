@@ -38,13 +38,14 @@ export const automatisierung = {
     titel: 'Woran sich eine Automatisierung lohnt',
     intro: 'Der Automatisierungs-Score fasst diese Kriterien zusammen, gewichtet wie im Arbeitsplatz-Steckbrief:',
     schwelle: (s: number) => `Ab einem Score von ${s} gilt Automatisierung als lohnend. Ob vorher verbessert werden sollte, zeigt der Verbesserungs-Score.`,
+    pilotHinweis: 'Gewichte und Schwelle sind Startwerte der Pilotphase und werden an realen Arbeitsplätzen geprüft.',
     link: { label: 'Wie die Empfehlung entsteht', to: '/arbeitsplatz-steckbrief#entscheidung' },
   },
 
   typen: {
     label: 'Automatisierungstypen',
     titel: 'Typen statt Hersteller',
-    intro: 'Motavi schlägt einen Automatisierungstyp vor, der zum Ablauf passt, nie einen Hersteller oder ein Produkt. Den Typ bestätigt der Experte.',
+    intro: 'Motavi schlägt einen Automatisierungstyp vor, der zum Ablauf passt, nie einen Hersteller oder ein Produkt. Den Typ bestätigen erfahrene Experten für Arbeitsgestaltung und Zeitwirtschaft (REFA).',
     /** by id of config/workplace_scoring.json (automatisierungstypen.regeln) */
     beschreibung: {
       palettieren: 'Teile mit höherem Gewicht stapeln oder ablegen, mit Wechsel zwischen den Arbeitshöhen von Knie bis Schulter.',

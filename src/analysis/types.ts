@@ -37,7 +37,6 @@ export interface ActionItem {
   priority: 'CRITICAL' | 'MEDIUM'
   region: string
   text: string
-  reduction_pct?: number
 }
 
 export interface AnalysisResult {

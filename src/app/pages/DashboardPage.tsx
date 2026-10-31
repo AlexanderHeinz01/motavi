@@ -314,7 +314,7 @@ export default function DashboardPage() {
       {/* Footer */}
       <footer className="border-t border-bg-secondary px-6 py-6 text-center">
         <p className="font-body text-xs text-neutral/30">
-          Erstellt durch Motavi Video-Ergonomie-System · anonymisiert · Gemäß DIN EN ISO 10075 / ArbSchG §5
+          Erstellt durch Motavi · Haltungsindex auf REBA-Basis (Pilotphase)
         </p>
       </footer>
     </div>

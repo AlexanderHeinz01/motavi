@@ -42,7 +42,7 @@ export const betriebsrat = {
       id: 'anonymisierung',
       titel: 'Anonymisierung und Speicherfristen',
       absaetze: [
-        'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht, auch wenn die Auswertung fehlschlägt. Aufbewahrt werden ein Video mit unkenntlich gemachtem Kopfbereich und die Gelenkpunkte, beides 30 Tage, sowie die Kennzahlen und der Steckbrief, 365 Tage. Gelenkpunkte sind Koordinaten, keine Bilder.',
+        'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht, auch wenn die Auswertung fehlschlägt. Ein Video wird nicht aufbewahrt. Aufbewahrt werden die Gelenkpunkte und drei Standbilder der belastendsten Momente, auf denen Köpfe und Gesichter aller Personen geschwärzt sind, beides 30 Tage, sowie die Kennzahlen und der bestätigte Steckbrief, 365 Tage. Gelenkpunkte sind Koordinaten, keine Bilder.',
         'Die Daten liegen auf Servern in Deutschland (Frankfurt).',
       ],
       punkte: [],
@@ -51,7 +51,7 @@ export const betriebsrat = {
       id: 'mitbestimmung',
       titel: 'Mitbestimmung',
       absaetze: [
-        'Videoaufnahmen am Arbeitsplatz berühren in der Regel die Mitbestimmung des Betriebsrats nach § 87 Absatz 1 Nummer 6 Betriebsverfassungsgesetz. Motavi wird deshalb nur mit Beteiligung des Betriebsrats eingesetzt.',
+        'Videoaufnahmen am Arbeitsplatz berühren in der Regel die Mitbestimmung des Betriebsrats nach § 87 Absatz 1 Nummer 6 Betriebsverfassungsgesetz. Wir empfehlen deshalb, den Betriebsrat von Anfang an zu beteiligen.',
         'Wir empfehlen, vor der ersten Aufnahme gemeinsam festzuhalten, wofür die Daten genutzt werden, welche Arbeitsplätze aufgenommen werden, wie lange Daten aufbewahrt werden und wer Zugriff hat. Gern stellen wir dem Betriebsrat das Vorgehen vorab vor.',
       ],
       punkte: [],

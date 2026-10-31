@@ -44,7 +44,7 @@ describe('Leitplanken für die sichtbaren Texte', () => {
     expect(alle.filter((s) => /[—–]/.test(s))).toEqual([])
   })
   it('keine verbotenen Formulierungen (Leitplanke 6)', () => {
-    const verboten = /Personal einsparen|Mitarbeiter ersetzen|Leistung messen|schneller arbeiten|freisetz|DSGVO-konform/i
+    const verboten = /Personal einsparen|Mitarbeiter ersetzen|Leistung messen|schneller arbeiten|freisetz|freimach|DSGVO-konform|datenschutzkonform/i
     expect(alle.filter((s) => verboten.test(s))).toEqual([])
   })
   it('jede nicht validierte Messung trägt Pilotphase (Leitplanke 7)', () => {

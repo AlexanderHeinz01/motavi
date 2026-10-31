@@ -14,8 +14,9 @@ describe('empfehlungAus (STECKBRIEF_MODUL §5.3)', () => {
   })
 
   it('markiert hohe Belastung als vorrangig', () => {
-    expect(istVorrangig(8)).toBe(true)
-    expect(istVorrangig(7.9)).toBe(false)
+    // posture index from stage high (6), decision G3 on 31.10.2026
+    expect(istVorrangig(6)).toBe(true)
+    expect(istVorrangig(5.9)).toBe(false)
   })
 })
 

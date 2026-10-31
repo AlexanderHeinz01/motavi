@@ -3,7 +3,7 @@ export const perspektiven = {
   abschluss: {
     label: 'Eine Messung',
     titel: 'Alle drei Perspektiven stammen aus derselben Messung',
-    text: 'Kapazität, Automatisierung und Gesundheit sind keine getrennten Produkte, sondern drei Einstiege in dieselbe Analyse. Aus der Messung folgt für jeden Arbeitsplatz eine von drei gleichwertigen Empfehlungen.',
+    text: 'Kapazität, Automatisierung und Gesundheit sind keine getrennten Produkte, sondern drei Einstiege in dieselbe Analyse. Aus der Messung folgt für jeden Arbeitsplatz einer von drei gleichwertigen Wegen.',
     steckbrief: { label: 'Zum Arbeitsplatz-Steckbrief', to: '/arbeitsplatz-steckbrief' },
     weitere: 'Die anderen Perspektiven:',
   },

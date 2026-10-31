@@ -17,7 +17,7 @@ export const kapazitaet = {
     id: 'rechner',
     label: 'Rechner',
     titel: 'Was steckt in Ihren Arbeitsplätzen?',
-    intro: 'Stellen Sie Ihre Annahmen ein. Das Ergebnis zeigt, welche Kapazität eine bessere Gestaltung freimachen kann, in Stunden, Euro und Vollzeitstellen.',
+    intro: 'Stellen Sie Ihre Annahmen ein. Das Ergebnis zeigt, welche Kapazität Sie durch eine bessere Gestaltung gewinnen können, in Stunden, Euro und Vollzeitstellen.',
     felder: {
       arbeitsplaetze: { label: 'Arbeitsplätze', einheit: '' },
       nwsMinuten: { label: 'Nicht wertschöpfende Bewegung je Schicht', einheit: 'min' },

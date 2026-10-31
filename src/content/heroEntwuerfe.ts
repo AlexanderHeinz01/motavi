@@ -17,7 +17,7 @@ export interface HeroWert {
 export const heroWerte: HeroWert[] = [
   { label: 'Zeit', accent: 'data-ink', value: '38,4 s', unit: 'je Zyklus' },
   { label: 'Kosten', accent: 'gain-ink', value: '23.400 €', unit: 'pro Jahr' },
-  { label: 'Belastung', accent: 'risk-ink', value: 'REBA 5,8', unit: 'Mittelwert' },
+  { label: 'Belastung', accent: 'risk-ink', value: 'Index 5,8', unit: 'Mittelwert' },
 ]
 
 /** Guideline 5: example numbers are marked as such. */
@@ -84,7 +84,7 @@ export const steckbriefEntwurf = {
   note: 'Hell für die Website, dunkel für den Dashboard-Tab. Gleiche Struktur, gleiche Komponenten.',
   hell: 'Hell (Website), vollständig mit Umschalter',
   dunkel: 'Dunkel (Dashboard-Tab), vollständig mit Umschalter',
-  vergleich: 'Alle vier Empfehlungen nebeneinander, kompakt',
-  vergleichDunkel: 'Alle vier Empfehlungen, kompakt, dunkel',
+  vergleich: 'Alle Wege nebeneinander, kompakt',
+  vergleichDunkel: 'Alle Wege, kompakt, dunkel',
   labels: 'Empfehlungs-Labels im Vergleich',
 }

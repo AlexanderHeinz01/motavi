@@ -16,14 +16,12 @@ export function buildActionItems(regions: Record<string, number>, bend_pct: numb
       priority: 'CRITICAL',
       region: 'Lendenwirbel',
       text: `Erhöhter Rumpfbeuge-Anteil (${bend_pct.toFixed(0)} % der Schichtzeit). Arbeitshöhe auf Ellbogenniveau anpassen.`,
-      reduction_pct: 40,
     })
   } else if (lumbar > 3) {
     items.push({
       priority: 'MEDIUM',
       region: 'Lendenwirbel',
       text: 'Moderate Lendenbelastung. Regelmäßige Entlastungspausen empfohlen.',
-      reduction_pct: 20,
     })
   }
 
@@ -33,14 +31,12 @@ export function buildActionItems(regions: Record<string, number>, bend_pct: numb
       priority: 'CRITICAL',
       region: 'Nacken',
       text: 'Anhaltende Nackenbeugehaltung erkannt. Bildschirm- oder Materialhöhe prüfen.',
-      reduction_pct: 35,
     })
   } else if (neck > 2) {
     items.push({
       priority: 'MEDIUM',
       region: 'Nacken',
-      text: 'Nackenhaltung auffällig. Arbeitsoberfläche um 5–10 cm anheben.',
-      reduction_pct: 15,
+      text: 'Nackenhaltung auffällig. Arbeitsoberfläche anheben, bis der Blick ohne Beugen des Nackens auf das Werkstück fällt.',
     })
   }
 
@@ -50,7 +46,6 @@ export function buildActionItems(regions: Record<string, number>, bend_pct: numb
       priority: over_pct > 20 ? 'CRITICAL' : 'MEDIUM',
       region: 'Schulter',
       text: `Überkopfarbeit: ${over_pct.toFixed(0)} % der Schichtzeit. Arbeitsmittel in Greifhöhe bringen.`,
-      reduction_pct: 50,
     })
   }
 
@@ -59,7 +54,6 @@ export function buildActionItems(regions: Record<string, number>, bend_pct: numb
       priority: 'MEDIUM',
       region: 'Unterarm',
       text: 'Ungünstige Unterarmhaltung erkannt. Stützvorrichtungen prüfen.',
-      reduction_pct: 25,
     })
   }
 

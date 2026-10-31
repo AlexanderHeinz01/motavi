@@ -33,7 +33,7 @@ export function generatePdfReport(result: AnalysisResult): void {
   doc.setFontSize(9)
   doc.setFont('helvetica', 'normal')
   doc.setTextColor(200, 200, 200)
-  doc.text('Ergonomie-Analysebericht · DIN EN ISO 10075 / ArbSchG §5', 35, 23)
+  doc.text('Ergonomie-Analysebericht · Pilotphase', 35, 23)
 
   // Document metadata box
   doc.setFillColor(249, 250, 251)
@@ -174,18 +174,13 @@ export function generatePdfReport(result: AnalysisResult): void {
     doc.setFont('helvetica', 'normal')
     doc.text(item.text, 20, yPos + 10)
 
-    if (item.reduction_pct) {
-      doc.setFont('helvetica', 'bold')
-      doc.setTextColor(34, 197, 94)
-      doc.text(`-${item.reduction_pct}% Belastung`, 160, yPos + 8)
-    }
     yPos += 18
   })
 
   // Footer note
   doc.setFontSize(8)
   doc.setTextColor(150, 150, 150)
-  doc.text('Erstellt durch Motavi Video-Ergonomie System · anonymisiert · Motavi Inc.', 15, 285)
+  doc.text('Erstellt durch Motavi · Haltungsindex auf REBA-Basis, kein REBA-Wert', 15, 285)
 
   doc.save(`Motavi-Report-${result.job_id.slice(0, 8)}.pdf`)
 }

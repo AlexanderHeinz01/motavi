@@ -47,7 +47,8 @@ export interface SiteRoute {
   noindex?: boolean
 }
 
-export const siteRoutes: SiteRoute[] = [
+/** Public pages of the website. */
+const oeffentlich: SiteRoute[] = [
   { path: '/', element: <StartseitePage />, meta: startseite.meta, inSitemap: true },
   { path: '/arbeitsplatz-steckbrief', element: <SteckbriefPage />, meta: steckbrief.meta, inSitemap: true },
   { path: '/kapazitaet', element: <KapazitaetPage />, meta: kapazitaet.meta, inSitemap: true },
@@ -62,6 +63,13 @@ export const siteRoutes: SiteRoute[] = [
   { path: '/pilot', element: <PilotPage />, meta: pilot.meta, inSitemap: true },
   { path: '/impressum', element: <ImpressumPage />, meta: impressum.meta, inSitemap: true },
   { path: '/datenschutz', element: <DatenschutzPage />, meta: datenschutz.meta, inSitemap: true },
+]
+
+/**
+ * Internal pages: only in the development server, not in the production
+ * build (E.2.12 of the review on 31.10.2026).
+ */
+const intern: SiteRoute[] = [
   // Design drafts D0 (DESIGN_BRIEF §9): internal, not linked
   { path: '/_design/hero-a', element: <HeroAPage />, meta: entwuerfe.a.meta, inSitemap: false, noindex: true },
   { path: '/_design/hero-b', element: <HeroBPage />, meta: entwuerfe.b.meta, inSitemap: false, noindex: true },
@@ -71,6 +79,8 @@ export const siteRoutes: SiteRoute[] = [
   // Component overview D1 (DESIGN_BRIEF §9): internal, not linked
   { path: '/_styleguide', element: <StyleguidePage />, meta: styleguide.meta, inSitemap: false, noindex: true },
 ]
+
+export const siteRoutes: SiteRoute[] = import.meta.env.DEV ? [...oeffentlich, ...intern] : oeffentlich
 
 export const notFoundMeta: PageMeta = notFound.meta
 

@@ -7,11 +7,11 @@ export const startseite = {
   meta: {
     title: 'Verbessern, automatisieren oder beibehalten?',
     description:
-      'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz eine klare Empfehlung.',
+      'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Mit dem Steckbrief für jeden Arbeitsplatz eine klare Empfehlung.',
   } satisfies PageMeta,
   headline: 'Verbessern, automatisieren oder beibehalten? Motavi misst, was sich an jedem Arbeitsplatz lohnt.',
   subline:
-    'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland.',
+    'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Mit dem Steckbrief erhalten Sie für jeden Arbeitsplatz eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland.',
   primaryCta: { label: 'Pilot anfragen', to: '/pilot' },
   secondaryCta: { label: 'Beispiel-Steckbrief ansehen', to: '/arbeitsplatz-steckbrief' },
 
@@ -28,7 +28,7 @@ export const startseite = {
     werte: [
       { label: 'Zeit', accent: 'data-ink', value: '38,4 s', detail: 'je Zyklus, 690 Zyklen pro Schicht' },
       { label: 'Kosten', accent: 'gain-ink', value: '15.000 €', detail: 'pro Jahr, 41 Minuten je Schicht durch Gestaltung vermeidbar' },
-      { label: 'Belastung', accent: 'risk-ink', value: 'REBA 5,8', detail: 'Mittelwert, Rumpfwinkel bis 45 Grad' },
+      { label: 'Belastung', accent: 'risk-ink', value: 'Index 5,8', detail: 'Haltungsindex auf REBA-Basis, Mittelwert, Rumpfwinkel bis 45 Grad' },
     ] satisfies { label: string; accent: Accent; value: string; detail: string }[],
     beispielHinweis: 'Beispielwerte',
     bruecke: {
@@ -38,12 +38,12 @@ export const startseite = {
     },
   },
 
-  /** Section "Eine Messung, drei Empfehlungen" (WEBSITE_PLAN §3, DESIGN_BRIEF §5). */
+  /** Section "Eine Messung, drei Wege" (WEBSITE_PLAN §3, DESIGN_BRIEF §5; "drei Wege" decided on 31.10.2026). */
   entscheidung: {
     id: 'eine-messung',
     label: 'Entscheidung',
-    title: 'Eine Messung, drei Empfehlungen',
-    intro: 'Jeder Arbeitsplatz wird gleich gemessen. Daraus folgt eine von drei gleichwertigen Empfehlungen.',
+    title: 'Eine Messung, drei Wege',
+    intro: 'Jeder Arbeitsplatz wird gleich gemessen. Daraus folgt einer von drei gleichwertigen Wegen. Oft lautet die Antwort: erst verbessern, dann automatisieren.',
     messung: 'Eine Messung',
     messungText: 'Zeit, Kosten und Belastung je Arbeitsplatz',
     groessen: [
@@ -145,20 +145,20 @@ export const startseite = {
     label: 'So funktioniert es',
     title: 'Vom Video zur Empfehlung in vier Schritten',
     schritte: [
-      { nr: '01', title: 'Video aufnehmen', text: 'Ein Smartphone-Video des Arbeitsplatzes über einige Zyklen. Keine Sensoren, keine Umbauten.' },
-      { nr: '02', title: 'KI misst', text: 'Zyklen, Zeiten, Greifraum und Belastung werden automatisch aus den Gelenkpunkten berechnet.', pilot: true },
+      { nr: '01', title: 'Video aufnehmen', text: 'Ein Smartphone-Video des Arbeitsplatzes über einige Zyklen, durch Sie oder durch uns vor Ort. Keine Sensoren, keine Umbauten.' },
+      { nr: '02', title: 'KI misst', text: 'Zyklen, Zeiten, Greifraum und Belastung werden auf Servern in Deutschland automatisch aus den Gelenkpunkten berechnet.', pilot: true },
       {
         nr: '03',
-        title: 'Experte bewertet',
-        text: 'Ein Experte prüft Ablaufschritte, Einstufung und Empfehlung und bestätigt oder korrigiert sie.',
+        title: 'Experten bewerten',
+        text: 'Erfahrene Experten für Arbeitsgestaltung und Zeitwirtschaft (REFA) prüfen Ablaufschritte, Einstufung und Empfehlung und bestätigen oder korrigieren sie. Ab dem Paket Analyse vor Ort.',
         betont: true,
       },
-      { nr: '04', title: 'Steckbrief und Empfehlung', text: 'Sie erhalten den Steckbrief mit Empfehlung, Kennzahlen und einer groben Wirtschaftlichkeit.' },
+      { nr: '04', title: 'Report und Steckbrief', text: 'Sie erhalten den Ergonomie-Report und, ab dem Paket Analyse vor Ort, den Steckbrief mit Empfehlung, Kennzahlen und einer groben Wirtschaftlichkeit.' },
     ],
-    betontHinweis: 'Das Tool misst, der Experte bewertet.',
+    betontHinweis: 'Das Tool misst, die Experten bewerten.',
     /** Guideline 7: cycles, process steps and reach are not validated yet (STECKBRIEF_MODUL §8). */
     pilotLabel: 'Pilotphase',
-    pilotHinweis: 'Die automatische Messung von Zyklen, Ablaufschritten, Greifraum und Belastung nach REBA wird noch mit manuellen Messungen abgeglichen.',
+    pilotHinweis: 'Die automatische Messung von Zyklen, Ablaufschritten, Greifraum und Haltungsindex wird noch mit manuellen Messungen abgeglichen.',
     link: { label: 'Ablauf im Detail', to: '/so-funktionierts' },
   },
 
@@ -183,9 +183,9 @@ export const startseite = {
       // Hard condition before going live: lifecycle rule applied and checked (docs/GO_LIVE_CHECKLISTE.md).
       {
         title: 'Anonymisierung',
-        text: 'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht. Aufbewahrt werden nur ein Video mit unkenntlich gemachtem Kopfbereich und die Gelenkpunkte, beides 30 Tage, sowie die Kennzahlen.',
+        text: 'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht. Aufbewahrt werden nur die Gelenkpunkte und drei Standbilder mit geschwärzten Köpfen, beides 30 Tage, sowie die Kennzahlen.',
       },
-      { title: 'Mitbestimmung', text: 'Einsatz nur mit Beteiligung des Betriebsrats nach § 87 BetrVG.' },
+      { title: 'Mitbestimmung', text: 'Wir empfehlen, den Betriebsrat von Anfang an zu beteiligen (§ 87 BetrVG).' },
       { title: 'Zweckbindung', text: 'Die Daten dienen nur der Gestaltung der Arbeitsplätze.' },
     ],
     link: { label: 'Alles zu Datenschutz und Betriebsrat', to: '/betriebsrat' },
@@ -193,8 +193,8 @@ export const startseite = {
 
   /**
    * Section 11 "Pakete": prices and contents from src/content/pakete.ts (WEBSITE_PLAN Phase 5).
-   * WEBSITE_PLAN §7.3 (contents decided 31.10.2026): package 3 gives measured values and
-   * the Arbeitsplatz-Check; the Steckbrief with recommendation comes with package 2.
+   * WEBSITE_PLAN §7.3 (contents decided 31.10.2026): package 3 gives measured values and the
+   * ergonomics report without recommendation; the Steckbrief with recommendation comes with package 2.
    */
   pakete: {
     label: 'Pakete',
@@ -205,6 +205,7 @@ export const startseite = {
       preis: p.preis,
       preisHinweis: pakete.preisHinweis,
       leistungen: p.leistungen,
+      hinweis: p.hinweis,
       cta: p.empfohlen ? { label: 'Pilot anfragen', to: '/pilot' } : { label: 'Mehr erfahren', to: '/pakete' },
       empfohlen: p.empfohlen,
     })),

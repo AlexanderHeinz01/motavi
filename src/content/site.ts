@@ -74,10 +74,6 @@ export const footer = {
         { label: 'Datenschutz', to: '/datenschutz' },
       ],
     },
-    {
-      title: 'Analyse-App',
-      links: [{ label: 'Anmelden', to: '/login' }],
-    },
   ] satisfies { title: string; links: NavItem[] }[],
 }
 

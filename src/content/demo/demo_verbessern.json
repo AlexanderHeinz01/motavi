@@ -24,7 +24,7 @@
   ],
   "hoehenzonen": {"unter_knie": 0.21, "knie_huefte": 0.34, "huefte_schulter": 0.37, "ueber_schulter": 0.08},
   "griffe_ausserhalb_greifraum": 0.38,
-  "reba_mittel": 6.4,
+  "reba_mittel": 5.2,
   "drehungen_pro_zyklus": 5,
   "verbesserung_min_schicht": 58,
   "typ_vorschlag": null,

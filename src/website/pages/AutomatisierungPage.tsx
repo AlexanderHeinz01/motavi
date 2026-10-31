@@ -1,7 +1,9 @@
 import { automatisierung as a } from '../../content/automatisierung'
+import { steckbrief } from '../../content/steckbrief'
 import { config } from '../../lib/scoring'
 import { prozent } from '../../lib/format'
 import Hinweisbox from '../../ui/Hinweisbox'
+import KategorieLabel from '../../ui/KategorieLabel'
 import Partnerhinweis from '../../ui/Partnerhinweis'
 import PageHeader from '../layout/PageHeader'
 import { Absaetze, Abschnitt, PerspektivAbschluss, Punkte, TextLink } from '../sections/perspektive/Perspektive'
@@ -30,6 +32,10 @@ export default function AutomatisierungPage() {
           ))}
         </ul>
         <p className="t-body mt-6 max-w-[720px] text-ink-muted">{a.kriterien.schwelle(config.empfehlung.schwelle_automatisierung)}</p>
+        <div className="mt-4 max-w-[720px]">
+          <KategorieLabel accent="warn-ink">{steckbrief.pilotLabel}</KategorieLabel>
+          <p className="mt-1 font-body text-[14px] text-ink-muted">{a.kriterien.pilotHinweis}</p>
+        </div>
         <div className="mt-2">
           <TextLink to={a.kriterien.link.to}>{a.kriterien.link.label}</TextLink>
         </div>

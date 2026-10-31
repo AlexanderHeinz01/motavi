@@ -14,13 +14,13 @@ export const robotikAnbieter = {
   accent: 'data-ink' as Accent,
   title: 'Arbeitsplätze, die wirklich passen. Mit Daten, die Sie für ein Angebot brauchen.',
   intro:
-    'Robotik-Anbieter und Integratoren erhalten über Motavi Arbeitsplätze, deren Eignung gemessen ist, mit bereinigten Abläufen und Daten in einem dokumentierten Format.',
+    'Robotik-Anbieter und Integratoren erhalten über Motavi Arbeitsplätze, deren Eignung gemessen ist, mit bereinigten Abläufen und Daten in einem dokumentierten Format. Die Messung ist in der Pilotphase.',
 
   nutzen: {
     label: 'Nutzen',
     titel: 'Weniger Projektrisiko',
     punkte: [
-      { titel: 'Vorqualifizierte Arbeitsplätze', text: 'Automatisierungs-Score und Automatisierungstyp aus einer Messung, vom Experten bestätigt.' },
+      { titel: 'Vorqualifizierte Arbeitsplätze', text: 'Automatisierungs-Score und Automatisierungstyp aus einer Messung, von Experten bestätigt.' },
       { titel: 'Bereinigte Abläufe', text: 'Bei Erst verbessern, dann automatisieren ist die Verschwendung vorher aus dem Ablauf. Sie planen auf dem verbesserten Ablauf.' },
       { titel: 'Strukturierte Daten', text: 'Zykluszeiten mit Schwankung, Zyklen pro Schicht, Ablaufschritte mit Anteilen, Greifraum und Arbeitshöhen.' },
       { titel: 'Ehrliche Grenzen', text: 'Werte, die nicht belastbar messbar sind, stehen als solche im Export, mit Grund. Greifraum und Höhen sind relative Werte aus 2D-Video.' },

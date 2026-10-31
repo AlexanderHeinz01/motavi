@@ -18,6 +18,7 @@ export default function SoFunktioniertsPage() {
               <div className="md:col-span-5">
                 <span className={`font-mono text-[40px] font-medium leading-none ${st.betont ? 'text-ink' : 'text-ink-muted'}`}>{st.nr}</span>
                 <h2 className="t-h3 mt-4 text-ink">{st.titel}</h2>
+                {st.paket && <p className="t-label mt-2 text-ink-muted">{st.paket}</p>}
                 <p className="t-body mt-2 text-ink-muted">{st.text}</p>
                 {st.pilot && (
                   <div className="mt-4">

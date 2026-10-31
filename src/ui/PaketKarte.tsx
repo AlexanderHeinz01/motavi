@@ -14,6 +14,7 @@ export default function PaketKarte({
   leistungen,
   cta,
   empfohlen = false,
+  hinweis,
 }: {
   name: string
   preis: string
@@ -21,6 +22,8 @@ export default function PaketKarte({
   leistungen: string[]
   cta: { label: string; to: string }
   empfohlen?: boolean
+  /** what is not included, below the list without a check mark */
+  hinweis?: string
 }) {
   return (
     <div
@@ -46,6 +49,7 @@ export default function PaketKarte({
           </li>
         ))}
       </ul>
+      {hinweis && <p className="mt-3 font-body text-[14px] text-ink-muted">{hinweis}</p>}
       <div className="mt-auto pt-6">
         <ButtonLink to={cta.to} variant={empfohlen ? 'primary' : 'secondary'} className="w-full">
           {cta.label}

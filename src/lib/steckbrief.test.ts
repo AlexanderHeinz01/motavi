@@ -26,9 +26,11 @@ describe('Steckbrief: abgeleitete Aussagen', () => {
     expect(euroGerundet(w.euroVerbesserung!)).toBe('15.000 €')
   })
 
-  it('REBA-Stufen', () => {
+  it('Stufen des Haltungsindex (1 bis 10)', () => {
     expect(rebaStufe(3.4)).toBe('niedrig')
     expect(rebaStufe(5.8)).toBe('mittel')
-    expect(rebaStufe(9.1)).toBe('hoch')
+    expect(rebaStufe(6.0)).toBe('hoch')
+    expect(rebaStufe(7.99)).toBe('hoch')
+    expect(rebaStufe(9.1)).toBe('sehr hoch')
   })
 })

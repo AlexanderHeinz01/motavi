@@ -21,6 +21,7 @@ export default function PaketePage() {
             leistungen={p.leistungen}
             cta={t.cta}
             empfohlen={p.empfohlen}
+            hinweis={p.hinweis}
           />
         ))}
       </div>

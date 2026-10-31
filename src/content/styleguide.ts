@@ -71,7 +71,7 @@ export const styleguide = {
     kacheln: [
       { label: 'Zeit', accent: 'data-ink', value: '38,4', unit: 's', description: 'Zykluszeit je Teil, Median aus 690 Zyklen', source: 'Beispielwert' },
       { label: 'Kosten', accent: 'gain-ink', value: '23.400', unit: '€', description: 'pro Jahr, 64 Minuten je Schicht ohne Wertschöpfung', source: 'Beispielwert' },
-      { label: 'Belastung', accent: 'risk-ink', value: '5,8', unit: 'REBA', description: 'Mittelwert, Rumpfwinkel bis 45 Grad', source: 'Beispielwert' },
+      { label: 'Belastung', accent: 'risk-ink', value: '5,8', unit: 'Index', description: 'Mittelwert, Rumpfwinkel bis 45 Grad', source: 'Beispielwert' },
     ] satisfies { label: string; accent: Accent; value: string; unit: string; description: string; source: string }[],
   },
 
@@ -202,7 +202,7 @@ export const styleguide = {
   hinweis: {
     titel: 'Hinweisbox',
     methodeTitel: 'Zur Methode',
-    methode: 'REBA bewertet Körperhaltungen anhand von Gelenkwinkeln. Wir messen die Winkel im Video und bewerten Tätigkeiten, nicht Personen.',
+    methode: 'Der Haltungsindex bewertet Körperhaltungen anhand von Gelenkwinkeln nach den Bereichen von REBA. Wir messen die Winkel im Video und bewerten Tätigkeiten, nicht Personen.',
     datenschutzTitel: 'Datenschutz',
     datenschutz: 'Das Originalvideo wird unmittelbar nach der Auswertung automatisch gelöscht. Aufbewahrt werden nur ein Video mit unkenntlich gemachtem Kopfbereich und die Gelenkpunkte, beides 30 Tage, sowie die Kennzahlen.',
   },
@@ -211,7 +211,7 @@ export const styleguide = {
 
   dashboard: {
     titel: 'Dashboard-Vorschau',
-    reba: 'REBA-Wert',
+    reba: 'Haltungsindex',
     regionen: 'Belastung nach Körperregion',
     hinweis: 'Die Diagrammfarben im Dashboard werden in einem eigenen Schritt an die Tokens angeglichen (DESIGN_BRIEF §10.4).',
   },

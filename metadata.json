@@ -1,6 +1,6 @@
 {
-  "name": "Motavi — Ergonomie-Analyse",
-  "description": "KI-gestützte Ergonomieanalyse für Produktion und Logistik. Automatische Berechnung von REBA-Score und LMM-Punktwert, Körperregionen-Heatmap und Handlungsfeldern.",
+  "name": "Motavi Website",
+  "description": "Arbeitsabläufe messen: Zeit, Kosten und Belastung je Arbeitsplatz, Haltungsindex auf REBA-Basis und Arbeitsplatz-Steckbrief mit Empfehlung (Pilotphase).",
   "permissions": [],
   "capabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

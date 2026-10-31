@@ -41,7 +41,6 @@ export const datenschutz: Rechtsseite = {
     'Kontaktformular',
     'Analyse von Videos und Arbeitsplatz-Steckbrief',
     'Speicherdauer',
-    'Reichweitenmessung ohne Cookies',
     'Schriftarten',
     'Ihre Rechte',
     'Beschwerderecht bei einer Aufsichtsbehörde',

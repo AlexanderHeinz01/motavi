@@ -18,10 +18,10 @@ export function useAnalysis(jobId: string | undefined): AnalysisStatus {
         const data = await getAnalysisStatus(jobId)
         if (cancelledRef.current) return
         setState(data)
-        if (data.status !== 'processing') return // terminal state — stop polling
+        if (data.status !== 'processing') return // terminal state: stop polling
       } catch {
         if (cancelledRef.current) return
-        setState({ status: 'error', error: 'Verbindungsfehler — wird erneut versucht…' })
+        setState({ status: 'error', error: 'Verbindungsfehler, wird erneut versucht …' })
       }
       if (!cancelledRef.current) timerId = setTimeout(poll, POLL_MS)
     }

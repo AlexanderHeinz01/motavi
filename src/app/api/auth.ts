@@ -15,7 +15,7 @@ const DEFAULT_USERS: Record<string, UserPublic> = {
   'demo@motavi.de': {
     email: 'demo@motavi.de',
     name: 'Alexander Heinz',
-    company: 'Motavi Demo GmbH',
+    company: 'Demo',
     role: 'admin',
   },
 }

@@ -43,7 +43,7 @@ export const steckbriefText = {
   schwankung: 'Schwankung (VK)',
   zyklen: 'Zyklen pro Schicht',
   zeitanteil: 'Zeitanteil in Zyklen',
-  reba: 'REBA (Mittel)',
+  reba: 'Haltungsindex (Mittel, 1 bis 10)',
   drehungen: 'Drehungen pro Zyklus',
   ausserhalb: 'Griffe außerhalb des Greifraums',
   ablauf: 'Ablauf je Zyklus',
@@ -69,7 +69,7 @@ export const steckbriefText = {
   pflichthinweis: 'Grobe Abschätzung, ersetzt kein Angebot.',
   taetigkeit: 'Bewertet wird die Tätigkeit am Arbeitsplatz, nicht die Person.',
   bis: 'bis',
-  reba_stufen: { vernachlaessigbar: 'vernachlässigbar', niedrig: 'niedrig', mittel: 'mittel', hoch: 'hoch', sehrHoch: 'sehr hoch' },
+  reba_stufen: { niedrig: 'niedrig', mittel: 'mittel', hoch: 'hoch', sehrHoch: 'sehr hoch' },
   /** Reasons, each built on a measured value (src/lib/steckbrief.ts). */
   gruende: {
     verschwendung: (anteil: string, typen: string) => `${anteil} des Zyklus ohne Wertschöpfung (${typen})`,
@@ -79,7 +79,7 @@ export const steckbriefText = {
     keinZyklus: 'Kein wiederkehrender Zyklus: wechselnde Aufgaben ohne festes Muster',
     wenigZyklen: (anteil: string) => `Nur ${anteil} der Zeit in wiederkehrenden Zyklen`,
     wenigPotenzial: (min: string) => `Gestaltung brächte ${min} Minuten pro Schicht`,
-    belastung: (reba: string, stufe: string) => `Belastung REBA ${reba}, ${stufe}`,
+    belastung: (reba: string, stufe: string) => `Haltungsindex ${reba}, ${stufe}`,
     vorrangig: 'Hohe Belastung: unabhängig von der Empfehlung vorrangig angehen',
   },
 }

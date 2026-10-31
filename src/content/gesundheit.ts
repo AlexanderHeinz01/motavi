@@ -1,15 +1,16 @@
 import type { Accent, PageMeta } from './types'
 
 /**
- * /gesundheit (WEBSITE_PLAN §3: REBA, LMM, CSRD, Fehltage). The analysis
- * module computes REBA, not the Leitmerkmalmethode: the page says so and
+ * /gesundheit (WEBSITE_PLAN §3: posture, LMM, CSRD, Fehltage). The analysis
+ * computes a posture index based on REBA (1 to 10, decision G3 on 31.10.2026),
+ * neither the standard REBA nor the Leitmerkmalmethode: the page says so and
  * promises nothing more (WEBSITE_PLAN, introduction). No legal advice.
  */
 export const gesundheit = {
   meta: {
     title: 'Gesundheit und Compliance',
     description:
-      'Wo ist die körperliche Belastung am höchsten, und was hilft am schnellsten? Belastung nach REBA, Daten für Gefährdungsbeurteilung und Berichterstattung.',
+      'Wo ist die körperliche Belastung am höchsten, und was hilft am schnellsten? Haltungsindex auf REBA-Basis, Daten für Gefährdungsbeurteilung und Berichterstattung.',
   } satisfies PageMeta,
   label: 'Gesundheit',
   accent: 'risk-ink' as Accent,
@@ -18,22 +19,22 @@ export const gesundheit = {
     'Motavi bewertet die körperliche Belastung von Tätigkeiten aus einem Video und zeigt, welche Gestaltung am meisten entlastet. Bewertet wird die Tätigkeit am Arbeitsplatz, nie die Person.',
 
   reba: {
-    label: 'REBA',
-    titel: 'Körperhaltung bewertet nach REBA',
+    label: 'Haltungsindex',
+    titel: 'Haltungsindex auf REBA-Basis',
     absaetze: [
-      'REBA (Rapid Entire Body Assessment) ist ein verbreitetes Verfahren, um die Belastung durch Körperhaltungen zu bewerten. Es betrachtet Rumpf, Nacken, Beine, Ober- und Unterarme sowie Handgelenke und ergibt einen Wert von 1 bis 15.',
+      'REBA (Rapid Entire Body Assessment) ist ein verbreitetes Verfahren, um die Belastung durch Körperhaltungen zu bewerten. Motavi nutzt seine Winkelbereiche für Rumpf, Nacken, Oberarme, Unterarme und Knie und fasst sie gewichtet zu einem Haltungsindex von 1 bis 10 zusammen.',
+      'Der Haltungsindex ist kein REBA-Wert: Last, Griffart und Handgelenke fließen nicht ein. Eine Bewertung nach Standard-REBA ergänzen wir, wenn die Messung gegen manuelle Bewertungen geprüft ist.',
       'Motavi bestimmt die Haltung aus den Gelenkpunkten über die gesamte Aufnahme und gibt den Mittelwert, die belastendsten Momente und die Zeitanteile für Bücken und Überkopfarbeit aus. Die Körperregionen mit der höchsten Belastung zeigt eine Übersicht.',
     ],
-    stufenTitel: 'Stufen',
+    stufenTitel: 'Stufen des Haltungsindex',
     stufen: [
-      { bereich: 'unter 2', stufe: 'vernachlässigbar' },
-      { bereich: '2 bis unter 4', stufe: 'niedrig' },
-      { bereich: '4 bis unter 8', stufe: 'mittel' },
-      { bereich: '8 bis unter 11', stufe: 'hoch' },
-      { bereich: 'ab 11', stufe: 'sehr hoch' },
+      { bereich: 'unter 4', stufe: 'niedrig' },
+      { bereich: '4 bis unter 6', stufe: 'mittel' },
+      { bereich: '6 bis unter 8', stufe: 'hoch' },
+      { bereich: 'ab 8', stufe: 'sehr hoch' },
     ],
-    vorrang: (s: string) => `Ab einem REBA-Mittel von ${s} markiert der Steckbrief den Arbeitsplatz als vorrangig, unabhängig von der Empfehlung.`,
-    pilotHinweis: 'Die Berechnung von REBA aus dem Video ist noch nicht gegen manuelle REBA-Bewertungen geprüft.',
+    vorrang: (s: string) => `Ab einem Haltungsindex von ${s} markiert der Steckbrief den Arbeitsplatz als vorrangig, unabhängig von der Empfehlung.`,
+    pilotHinweis: 'Haltungsindex und Stufen sind noch nicht gegen manuelle Bewertungen geprüft.',
     drehung: 'Zusätzlich misst der Steckbrief Drehungen des Oberkörpers. Weil die Tiefe aus einem 2D-Video geschätzt wird, ist dieser Wert grob.',
   },
 

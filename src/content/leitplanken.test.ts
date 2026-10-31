@@ -34,7 +34,8 @@ function texte(x: unknown): string[] {
 
 /** Well-known robot and automation manufacturers; none may appear (guideline 3). */
 const HERSTELLER = /\b(KUKA|ABB|Fanuc|Yaskawa|Universal Robots|Stäubli|Kawasaki|Denso|Franka|Boston Dynamics|Figure AI|Tesla|Agility|Siemens|Bosch Rexroth|Festo|Omron|Epson|Doosan|Techman|Neura)\b/i
-const VERBOTEN = /Personal einsparen|Mitarbeiter ersetzen|Leistung messen|schneller arbeiten|freisetz|DSGVO-konform/i
+// freimach: same meaning as freisetzen (decision P8 on 31.10.2026); datenschutzkonform: claim without legal check
+const VERBOTEN = /Personal einsparen|Mitarbeiter ersetzen|Leistung messen|schneller arbeiten|freisetz|freimach|DSGVO-konform|datenschutzkonform/i
 
 describe.each(Object.entries(SEITEN))('Leitplanken: %s', (_name, inhalt) => {
   const alle = texte(inhalt)

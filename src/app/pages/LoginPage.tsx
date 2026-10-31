@@ -149,7 +149,7 @@ export default function LoginPage() {
               marginBottom: 16,
             }}
           >
-            "Ergonomieanalysen in Stunden statt Wochen – kamerabasiert, KI-gestützt, datenschutzkonform."
+            "Haltung und Bewegung aus einem Video, Analyse im Browser."
           </p>
           <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)' }}>
             ● KI-gestützte Ergonomieanalyse für Produktion und Logistik

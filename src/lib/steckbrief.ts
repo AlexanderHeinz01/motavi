@@ -10,12 +10,17 @@ import { euro, prozent, zahl } from './format'
 import { STANDARD_SCHWELLEN } from './empfehlung'
 import { config } from './scoring'
 
-/** REBA action levels: 1 negligible, 2 to 3 low, 4 to 7 medium, 8 to 10 high, 11+ very high. */
+/**
+ * Levels of the posture index based on REBA (1 to 10), the same in the
+ * backend (motavi-backend docs/HALTUNGSINDEX.md): below 4 low, below 6
+ * medium, below 8 high, from 8 very high.
+ */
+export const INDEX_STUFEN = [4, 6, 8] as const
+
 export function rebaStufe(reba: number): string {
-  if (reba < 2) return t.reba_stufen.vernachlaessigbar
-  if (reba < 4) return t.reba_stufen.niedrig
-  if (reba < 8) return t.reba_stufen.mittel
-  if (reba < 11) return t.reba_stufen.hoch
+  if (reba < INDEX_STUFEN[0]) return t.reba_stufen.niedrig
+  if (reba < INDEX_STUFEN[1]) return t.reba_stufen.mittel
+  if (reba < INDEX_STUFEN[2]) return t.reba_stufen.hoch
   return t.reba_stufen.sehrHoch
 }
 

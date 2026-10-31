@@ -10,19 +10,19 @@ import { bewerten, checkAuswerten, checkFragen, config, empfehlung, index, rampe
  */
 const BACKEND = [
   { name: 'Montage', werte: { verschwendung_anteil: 0.22, griffe_ausserhalb: 0.21, zykluszeit_vk: 0.14, zyklen_pro_schicht: 690, zeitanteil_in_zyklen: 0.82, reba_mittel: 5.8, buecken_anteil: 0.1, ueberkopf_anteil: 0.05, drehung_anteil: 0.1, anzahl_varianten: 3, besetzung_schwierigkeit: 4, teilegewicht_kg: 1.2, groesste_kante_cm: 30 }, keinZyklus: false, erwartet: [55, 81, 'improve-then-automate'] },
-  { name: 'Rüstplatz', werte: { verschwendung_anteil: 0.35, griffe_ausserhalb: 0.35, zykluszeit_vk: 0.35, zyklen_pro_schicht: 120, zeitanteil_in_zyklen: 0.7, reba_mittel: 7.0, buecken_anteil: 0.25, ueberkopf_anteil: 0.1, drehung_anteil: 0.2, anzahl_varianten: 40, besetzung_schwierigkeit: 2, teilegewicht_kg: 5, groesste_kante_cm: 50 }, keinZyklus: false, erwartet: [91, 31, 'improve'] },
-  { name: '20-s-Takt', werte: { verschwendung_anteil: 0.03, griffe_ausserhalb: 0.05, zykluszeit_vk: 0.06, zyklen_pro_schicht: 1300, zeitanteil_in_zyklen: 0.92, reba_mittel: 4.0, buecken_anteil: 0.05, ueberkopf_anteil: 0.0, drehung_anteil: 0.05, anzahl_varianten: 1, besetzung_schwierigkeit: 5, teilegewicht_kg: 0.5, groesste_kante_cm: 15 }, keinZyklus: false, erwartet: [13, 88, 'automate'] },
-  { name: 'lange Arbeit', werte: { verschwendung_anteil: 0.05, griffe_ausserhalb: 0.08, zykluszeit_vk: 0.25, zyklen_pro_schicht: 40, zeitanteil_in_zyklen: 0.6, reba_mittel: 3.0, buecken_anteil: 0.02, ueberkopf_anteil: 0.0, drehung_anteil: 0.02, anzahl_varianten: 30, besetzung_schwierigkeit: 1, teilegewicht_kg: 15, groesste_kante_cm: 120 }, keinZyklus: false, erwartet: [23, 20, 'keep'] },
-  { name: 'ohne Ablaufschritte', werte: { griffe_ausserhalb: 0.05, zykluszeit_vk: 0.06, zyklen_pro_schicht: 1300, zeitanteil_in_zyklen: 0.92, reba_mittel: 4.0, buecken_anteil: 0.05, ueberkopf_anteil: 0.0, drehung_anteil: 0.05, anzahl_varianten: 1, besetzung_schwierigkeit: 5, teilegewicht_kg: 0.5, groesste_kante_cm: 15 }, keinZyklus: false, erwartet: [14, 88, 'automate'] },
-  { name: 'kein Zyklus', werte: { griffe_ausserhalb: 0.08, reba_mittel: 3.0, buecken_anteil: 0.02, ueberkopf_anteil: 0.0, drehung_anteil: 0.02, anzahl_varianten: 30, besetzung_schwierigkeit: 1, teilegewicht_kg: 15, groesste_kante_cm: 120 }, keinZyklus: true, erwartet: [15, 8, 'keep'] },
+  { name: 'Rüstplatz', werte: { verschwendung_anteil: 0.35, griffe_ausserhalb: 0.35, zykluszeit_vk: 0.35, zyklen_pro_schicht: 120, zeitanteil_in_zyklen: 0.7, reba_mittel: 7.0, buecken_anteil: 0.25, ueberkopf_anteil: 0.1, drehung_anteil: 0.2, anzahl_varianten: 40, besetzung_schwierigkeit: 2, teilegewicht_kg: 5, groesste_kante_cm: 50 }, keinZyklus: false, erwartet: [92, 32, 'improve'] },
+  { name: '20-s-Takt', werte: { verschwendung_anteil: 0.03, griffe_ausserhalb: 0.05, zykluszeit_vk: 0.06, zyklen_pro_schicht: 1300, zeitanteil_in_zyklen: 0.92, reba_mittel: 4.0, buecken_anteil: 0.05, ueberkopf_anteil: 0.0, drehung_anteil: 0.05, anzahl_varianten: 1, besetzung_schwierigkeit: 5, teilegewicht_kg: 0.5, groesste_kante_cm: 15 }, keinZyklus: false, erwartet: [11, 87, 'automate'] },
+  { name: 'lange Arbeit', werte: { verschwendung_anteil: 0.05, griffe_ausserhalb: 0.08, zykluszeit_vk: 0.25, zyklen_pro_schicht: 40, zeitanteil_in_zyklen: 0.6, reba_mittel: 3.0, buecken_anteil: 0.02, ueberkopf_anteil: 0.0, drehung_anteil: 0.02, anzahl_varianten: 30, besetzung_schwierigkeit: 1, teilegewicht_kg: 15, groesste_kante_cm: 120 }, keinZyklus: false, erwartet: [21, 19, 'keep'] },
+  { name: 'ohne Ablaufschritte', werte: { griffe_ausserhalb: 0.05, zykluszeit_vk: 0.06, zyklen_pro_schicht: 1300, zeitanteil_in_zyklen: 0.92, reba_mittel: 4.0, buecken_anteil: 0.05, ueberkopf_anteil: 0.0, drehung_anteil: 0.05, anzahl_varianten: 1, besetzung_schwierigkeit: 5, teilegewicht_kg: 0.5, groesste_kante_cm: 15 }, keinZyklus: false, erwartet: [12, 87, 'automate'] },
+  { name: 'kein Zyklus', werte: { griffe_ausserhalb: 0.08, reba_mittel: 3.0, buecken_anteil: 0.02, ueberkopf_anteil: 0.0, drehung_anteil: 0.02, anzahl_varianten: 30, besetzung_schwierigkeit: 1, teilegewicht_kg: 15, groesste_kante_cm: 120 }, keinZyklus: true, erwartet: [10, 7, 'keep'] },
 ] as const
 
 /** WEBSITE_PLAN Phase 3 acceptance; expected values from motavi-backend test_arbeitsplatz_check.py. */
 const CHECK_PROFILE = {
-  verschwendungsreich: { auswahl: [1, 1, 2, 1, 3, 2, 1, 1], erwartet: [82, 40, 'improve'] },
+  verschwendungsreich: { auswahl: [1, 1, 2, 1, 3, 2, 1, 1], erwartet: [83, 41, 'improve'] },
   'repetitiv und bereinigt': { auswahl: [3, 3, 0, 0, 0, 1, 3, 2], erwartet: [21, 87, 'automate'] },
-  'repetitiv mit Verschwendung': { auswahl: [2, 2, 1, 0, 2, 2, 2, 2], erwartet: [64, 77, 'improve-then-automate'] },
-  hochvariabel: { auswahl: [0, 0, 3, 2, 1, 0, 0, 0], erwartet: [31, 8, 'keep'] },
+  'repetitiv mit Verschwendung': { auswahl: [2, 2, 1, 0, 2, 2, 2, 2], erwartet: [65, 78, 'improve-then-automate'] },
+  hochvariabel: { auswahl: [0, 0, 3, 2, 1, 0, 0, 0], erwartet: [30, 7, 'keep'] },
 } as const
 
 const antworten = (auswahl: readonly number[]) => Object.fromEntries(checkFragen.map((f, i) => [f.id, f.antworten[auswahl[i]].id]))
@@ -81,9 +81,10 @@ describe('Arbeitsplatz-Check', () => {
     const e = Object.values(CHECK_PROFILE).map((p) => checkAuswerten(antworten(p.auswahl)).empfehlung)
     expect(new Set(e).size).toBe(4)
   })
-  it('Vorrang bei ständig belastender Haltung', () => {
+  it('Vorrang bei häufig oder ständig belastender Haltung (Haltungsindex ab 6)', () => {
     expect(checkAuswerten(antworten([1, 1, 1, 1, 1, 3, 1, 1])).vorrangig).toBe(true)
-    expect(checkAuswerten(antworten([1, 1, 1, 1, 1, 2, 1, 1])).vorrangig).toBe(false)
+    expect(checkAuswerten(antworten([1, 1, 1, 1, 1, 2, 1, 1])).vorrangig).toBe(true)
+    expect(checkAuswerten(antworten([1, 1, 1, 1, 1, 1, 1, 1])).vorrangig).toBe(false)
   })
   it('unvollständige oder unbekannte Antworten werden abgelehnt', () => {
     expect(() => checkAuswerten({})).toThrow('nicht beantwortet')

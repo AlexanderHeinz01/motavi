@@ -34,7 +34,7 @@ export const skelettText = {
     werte: [
       { label: 'Zeit', accent: 'data-ink', wert: '38,4 s', einheit: 'je Zyklus' },
       { label: 'Kosten', accent: 'gain-ink', wert: '15.000 €', einheit: 'pro Jahr' },
-      { label: 'Belastung', accent: 'risk-ink', wert: 'REBA 5,8', einheit: 'Rumpf bis 45°' },
+      { label: 'Belastung', accent: 'risk-ink', wert: 'Index 5,8', einheit: 'Rumpf bis 45°' },
     ],
   } satisfies SkelettSzeneText,
 
@@ -48,7 +48,7 @@ export const skelettText = {
     werte: [
       { label: 'Zeit', accent: 'data-ink', wert: '16,2 s', einheit: 'je Zyklus' },
       { label: 'Kosten', accent: 'gain-ink', wert: '11.700 €', einheit: 'pro Jahr' },
-      { label: 'Belastung', accent: 'risk-ink', wert: 'REBA 9,1', einheit: 'Rumpf bis 70°' },
+      { label: 'Belastung', accent: 'risk-ink', wert: 'Index 9,1', einheit: 'Rumpf bis 70°' },
     ],
   } satisfies SkelettSzeneText,
 

@@ -11,7 +11,7 @@ export interface Schwellen {
   verbesserung: number
   /** Automation score from which "automatisieren" applies */
   automatisierung: number
-  /** Mean REBA from which a workplace is marked as priority */
+  /** Posture index (mean, 1 to 10) from which a workplace is marked as priority */
   rebaVorrangig: number
 }
 
