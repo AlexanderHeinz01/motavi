@@ -71,6 +71,7 @@ Stand 31.10.2026, aus `docs/ENTSCHEIDUNGEN_NACHT.md`, Teil B.
 - [ ] **Backend-Adresse und CORS (B9):** `VITE_API_BASE_URL` beim Build setzen, CORS im Backend auf die Website-Domain beschränken (harte Bedingung 3).
 - [ ] **Impressum und Datenschutzerklärung (B11):** Texte durch Anwalt oder Generator (harte Bedingung 2).
 - [ ] **Hosting der Website (B13):** Anbieter und Standort festlegen; danach Fußzeile und Subline prüfen (harte Bedingung 4) und Lighthouse auf dem Hosting wiederholen (Abschnitt Qualität).
+- [ ] **Kritische Prüfung vom 31.10.2026:** alle Punkte aus `docs/ENTSCHEIDUNGEN_NACHT.md`, Teil E, erledigt oder bewusst zurückgestellt. Vor jedem Einsatz mit echten Videos mindestens E.3 Punkte 1 bis 5; vor dem Go-live der Website mindestens die Entscheidungen aus E.0 und E.2 Punkte 7 bis 13.
 
 ## Maschinelle Prüfung
 

@@ -73,7 +73,7 @@ Umgesetzt am 31.10.2026. Wo Teil A oder B etwas anderes sagt, gilt dieser Abschn
 
 | Punkt | Entscheidung | Umsetzung |
 |---|---|---|
-| B1 REBA | trägt „Pilotphase“, bis es gegen manuelle Bewertungen geprüft ist | Steckbrief-Seite (REBA jetzt mit Label, der Test verlangt das für alle gemessenen Kennzahlen), `/gesundheit` (Hinweis „noch nicht gegen manuelle REBA-Bewertungen geprüft“), Startseite (Pilothinweis nennt REBA). Im Repo `motavi-backend` zusätzlich: Hinweis im Steckbrief-PDF und im Ergonomie-Report. Im Dashboard steht REBA bereits in der Karte „Kennzahlen“ mit „Pilotphase“. |
+| B1 REBA | trägt „Pilotphase“, bis es gegen manuelle Bewertungen geprüft ist | Steckbrief-Seite (REBA jetzt mit Label, der Test verlangt das für alle gemessenen Kennzahlen), `/gesundheit` (Hinweis „noch nicht gegen manuelle REBA-Bewertungen geprüft“), Startseite (Pilothinweis nennt REBA). Im Repo `motavi-backend` zusätzlich: Hinweis im Steckbrief-PDF und im Ergonomie-Report. Im Dashboard trägt REBA das Label nur im Steckbrief-Tab. **Korrektur aus E.2:** Im Ergonomie-Tab des Backend-Dashboards, im JSON-Export (`PILOTPHASE`-Liste ohne `reba_mittel` und `reba_max`) und in der Analyse-App unter `/app` mit ihrem PDF fehlt es noch. |
 | B2 Fehlzeiten | Platzhalter für die Quelle, Zahl erst nach Ihrer Bestätigung | `/gesundheit` zeigt einen markierten Platzhalter mit der Quelle „BKK Gesundheitsreport 2025, Berichtsjahr 2024“. Nach Ihrer Bestätigung die Zahl in `src/content/gesundheit.ts` (`fehltage.kennzahl.wert`) eintragen, dann erscheint sie als Kennzahl mit Quelle. `npm run golive:check` meldet den Platzhalter, bis er ersetzt oder entfernt ist. |
 | B7 Kontaktanfragen | 365 Tage bestätigt | In `docs/RECHTSTEXTE_FAKTEN.md` und der Checkliste vermerkt. TTL-Regel, Firestore-Region und SMTP bleiben Aufgaben der harten Bedingung 3. |
 | B8 Erfolgsmeldung | „Wir melden uns in der Regel innerhalb einer Woche.“ | `src/content/pilot.ts`, ebenso der Beispieltext im Styleguide. |
@@ -88,7 +88,15 @@ Umgesetzt am 31.10.2026. Wo Teil A oder B etwas anderes sagt, gilt dieser Abschn
 
 ## E. Kritische Prüfung 31.10.
 
-Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich ohne Entscheidung beheben, „Entscheidung“ braucht Sie. Die Ergebnisse zweier unabhängiger Prüfungen stehen in E.2 (Website-Texte gegen das Produkt, folgt) und E.3 (Backend).
+Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich ohne Entscheidung beheben, „Entscheidung“ braucht Sie. Die Ergebnisse zweier unabhängiger Prüfungen stehen in E.2 (Website-Texte gegen das Produkt) und E.3 (Backend). Die wichtigsten Punkte aus beiden habe ich im Code nachgeprüft.
+
+### E.0 Überblick: was zuerst entschieden werden muss
+
+1. **Welche Analyse-App geht live?** Die Fußzeile verlinkt die Browser-App unter `/app`. Ihre Anmeldung ist eine Attrappe (E.2 Punkt 1). Die Backend-App (`motavi-backend/frontend`) hat echte Anmeldung, Steckbrief und Expertenansicht, aber offene Endpunkte (E.3 Punkt 1). Von dieser Entscheidung hängen Datenweg, Texte zu Speicherfristen und der Video-Check ab (E.1 Punkte 2, 4 und 8).
+2. **REBA oder Haltungsindex?** Gemessen wird ein Index auf der Skala 1 bis 10 mit Winkelfehlern im Backend; Website, Report und Vorrang-Regel sprechen von REBA mit 1 bis 15 (E.1 Punkt 1, E.2 Punkt 6, E.3 Punkt 17).
+3. **Was enthält der Video-Check genau?** Messwerte, Arbeitsplatz-Check, Report, Freischaltung im Produkt (E.1 Punkt 4, E.2 Punkte 2, 4 und 5).
+
+Unabhängig davon sind vor jedem Einsatz mit echten Videos zu beheben: Anmeldung und Eigentümerprüfung auf allen Backend-Routen, Lücken der Anonymisierung, Upload über 32 MiB, Fehler „keine Person erkannt“ ergibt „geringes Risiko“ (E.3 Punkte 1 bis 5). Vor dem Go-live der Website: alte Seiten aus dem Build nehmen und die falschen Aussagen streichen (E.2 Punkte 7 bis 13). Die meisten übrigen Punkte sind „Fehler“, die ich ohne Entscheidung beheben kann.
 
 ### E.1 Eigene Befunde
 
@@ -151,6 +159,75 @@ Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich
 17. **Vertragsbedingungen (Entscheidung).** Allgemeine Geschäftsbedingungen oder Angebotsbedingungen mit Zahlungsziel und Haftung für die „grobe Abschätzung“ der Wirtschaftlichkeit fehlen.
 18. **Wer ist „der Experte“? (Entscheidung).** Die Website verspricht eine Expertenbewertung. Soll die Qualifikation genannt werden, etwa Ergonomie oder Arbeitswissenschaft? Eine Seite „Über uns“ gibt es nicht.
 19. **Analyse-App nicht geprüft (TODO).** Die dunkle Oberfläche unter `/app` war nicht Teil der Qualitätsprüfung in Phase 7: Lighthouse, Barrierefreiheit und Texte gegen die Leitplanken stehen aus.
+
+### E.2 Website-Texte gegen das Produkt (unabhängige Prüfung)
+
+Repo `motavi`, sofern nicht anders angegeben. Punkte, die schon in E.1 oder E.3 stehen, sind dort ergänzt und hier nur verwiesen. Nachgeprüft habe ich die Punkte 1, 6, 7 und 8.
+
+**Analyse-App und Produkt**
+
+1. **Die Anmeldung zur Analyse-App ist eine Attrappe (Fehler, nachgeprüft; Entscheidung siehe E.0).**
+   - Die Fußzeile jeder Seite verlinkt „Analyse-App, Anmelden“ (`src/content/site.ts`).
+   - `src/app/api/auth.ts` nimmt jede E-Mail mit jedem Passwort an, vorbelegt mit demo@motavi.de / motavi2026 (`LoginPage.tsx`).
+   - Die Analyse läuft im Browser, die Ergebnisse bleiben unbefristet im Browser gespeichert. Steckbrief und JSON gibt es dort nicht, nur ein einseitiges PDF.
+   - Damit erhält jeder Besucher den Ergonomie-Report des Video-Checks (990 €) kostenlos.
+   - „Demo anfragen“ führt ins Leere (`/#demo`).
+
+   Entscheidung: `/login` und `/app` aus dem Website-Build nehmen und auf die Backend-App verweisen, oder die App behalten und alle Aussagen zu Server, Fristen und Steckbrief anpassen.
+2. **Das Produkt trennt die Pakete nicht (Entscheidung).** Im Backend-Dashboard sieht jeder angemeldete Nutzer den Steckbrief-Tab, PDF und JSON verlangen nur eine Anmeldung. Ein Video-Check-Kunde erhält so einen „Steckbrief mit Empfehlung“ als ungeprüften Vorschlag. Freischaltung je Paket oder Paketbeschreibung anpassen.
+3. **Feld „Körpergröße“ (Fehler).** Es wird in beiden Upload-Masken abgefragt, 365 Tage gespeichert, aber nirgends gerechnet. Es widerspricht `/betriebsrat` („gehört zu einem Arbeitsplatz, nicht zu einer Person“). Vorschlag: Feld entfernen.
+4. **„Jeder bekommt Experte, Steckbrief und Report“ (Fehler, ergänzt E.1 Punkt 3).** Neben `/so-funktionierts` betroffen:
+   - Startseite, Ablauf: Schritt 03 „Experte bewertet“, Schritt 04 „Sie erhalten den Steckbrief“;
+   - „für jeden Arbeitsplatz eine klare Empfehlung“ (Subline, `src/content/perspektiven.ts`).
+
+   Nach der Vergleichstabelle liefert zudem kein Paket Steckbrief und Ergonomie-Report zusammen. Vorschlag: „je nach Paket“ formulieren.
+5. **Arbeitsplatz-Check im Video-Check (Entscheidung, ergänzt E.1 Punkt 4).** Die Steckbrief-Seite beschreibt ihn als „Selbsteinschätzung, keine Messung“, bei der „nichts gespeichert“ wird. Im Backend gibt es dafür keine Funktion.
+
+**Messung und Zahlen**
+
+6. **REBA (ergänzt E.1 Punkt 1).** Der Ergonomie-Report widerspricht sich selbst: `pdf.py` nennt einmal „1 bis 15“, einmal „REBA-Skala 1 bis 10“. Die Browser-App nutzt eigene Stufen bei 4, 6 und 8; dasselbe Video ergibt in App und Backend zwei verschiedene Werte. So kann die beschlossene Prüfung gegen manuelle REBA-Bewertungen nicht bestehen.
+7. **Erfundene Wirkungszahlen im Ergonomie-Report (Fehler).** `analyzer.py` legt je Handlungsfeld feste Senkungen zwischen 15 und 50 % fest, angezeigt als „mögliche Senkung der Belastung“ (Backend-Report, Browser-App und ihr PDF). Keine Quelle, keine Kennzeichnung (Leitplanke 5). Streichen oder als Annahme kennzeichnen.
+8. **Weitere Stellen ohne „Pilotphase“ (Fehler).**
+   - `/automatisierung`: „Ab einem Score von 60 gilt Automatisierung als lohnend“.
+   - Partnerseite: „deren Eignung gemessen ist“.
+   - Pilothinweis auf `/so-funktionierts` ohne REBA.
+   - Dazu die Korrektur zu B1 in Teil D.
+
+**Seiten und Texte, die nicht live gehen dürfen**
+
+9. **Alte Startseite `/_alt-startseite` (Fehler).** Sie ist im Build und öffentlich erreichbar. `golive:check` nimmt sie aus der Prüfung aus. Inhalt:
+   - „10× schnellere Analyse“, „80 % Kosteneinsparung“, „100 % Datenschutzkonform“;
+   - LMM-Punktwert, „Normenkonforme Auswertung“, „Betriebsratskonform“;
+   - Platzhalter-Zitate, ein Gründername, „On-Premise-Betrieb möglich“;
+   - ein Calendly-Rahmen, also ein Dritter mit Cookies.
+
+   Vorschlag: `src/marketing` löschen, wie in `CLAUDE.md` angekündigt.
+10. **Werbeaussagen in der Browser-App und ihrem PDF (Fehler).**
+    - „DIN EN ISO 10075 konform“ (die Norm betrifft psychische Belastung).
+    - „datenschutzkonform“: umgeht die Regel, `golive:check` sucht nur „DSGVO-konform“.
+    - „Motavi Inc.“
+    - „Automatische Gesichtsanonymisierung“: maskiert werden nur drei Standbilder.
+    - Drei verschiedene Stufenschemata, Gedankenstriche.
+11. **Das Backend zeigt unter „/“ seine alte Marketingseite (Fehler).** Das ist `motavi-backend/frontend`, unter derselben Adresse, an die das Kontaktformular sendet. Darin:
+    - „Anonymisierung vor Upload, kein Mitarbeiterbild verlässt den Betrieb“ ist falsch.
+    - „analysiert Bewegungen Ihrer Mitarbeitenden“ widerspricht Leitplanke 6.
+    - Die Kunden-App lädt Google Fonts von Google.
+12. **`/_styleguide` und `/_design` (Entscheidung).** Beide sind `noindex`, aber öffentlich erreichbar. Der Styleguide zeigt alte Pakete („Steckbrief ab 1.900 €“, „Pilot ab 4.900 €“). Vorschlag: aus dem Produktions-Build nehmen.
+13. **Begleittexte mit alten Aussagen (Fehler).**
+    - `metadata.json`: „LMM-Punktwert“.
+    - `README.md`: „DSGVO-konforme Gesichtsmaskierung“, „normgerecht“.
+    - Gedankenstriche in Titeln.
+    - Eine englische Fehlermeldung an Kunden (`analyzer.py`).
+    - Die Gliederung der Datenschutzerklärung nennt noch die Reichweitenmessung (`src/content/rechtliches.ts`), obwohl B12 keine vorsieht.
+
+**Formulierungen und Zusagen**
+
+14. **„Kennzahlen und Steckbrief 365 Tage“** stimmt technisch nicht (Fehler, siehe E.3 Punkt 7). Vorschlag: Steckbrief nach der Bestätigung einfrieren und beim Abruf nicht neu speichern.
+15. **Beteiligung des Betriebsrats zugesagt, aber nicht abgesichert (Entscheidung).** Startseite und `/betriebsrat` sagen „Einsatz nur mit Beteiligung des Betriebsrats“. Beim Video-Check lädt der Kunde aber selbst hoch, und keine Upload-Maske fragt danach. Bestätigung im Upload oder im Vertrag verlangen, oder „empfehlen wir“ schreiben.
+16. **„freimachen“ auf `/kapazitaet` (Entscheidung).** „welche Kapazität eine bessere Gestaltung freimachen kann“ liegt nah am verbotenen „freisetz…“. Vorschlag: „gewinnen“ und das Wort in den Leitplanken-Test aufnehmen.
+17. **Drei oder vier Empfehlungen? (Entscheidung).** Startseite, Perspektiven, Komponenten und das Vorschaubild sagen „drei Empfehlungen“, die Steckbrief-Seite „eine von vier gleichwertigen Empfehlungen“. Einheitlich festlegen, etwa „drei Wege, vier Empfehlungen“ oder durchgehend „vier“.
+18. **„Validierung“ doppeldeutig (Entscheidung).** Der Paketname „Analyse und Validierung“ steht neben „Pilotphase: noch nicht validiert“. Vorschlag für die Leistung: „Prüfung vor Ort“.
+19. **Domain, E-Mail und Firmenname uneinheitlich (Entscheidung, ergänzt E.1 Punkt 6).** Neben `motavi.ai` erscheinen `motavi.de` (Demo-Zugang, `$id` im Steckbrief-Schema, für das die Partnerseite wirbt), „Motavi Inc.“ und „Motavi Demo GmbH“. Die Wortmarke ist im Vorschaubild `public/og/motavi.png` fest eingebrannt.
 
 ### E.3 Backend (unabhängige Prüfung)
 
