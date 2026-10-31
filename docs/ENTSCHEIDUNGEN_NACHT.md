@@ -1,6 +1,6 @@
 # Entscheidungen und offene Punkte, Phasen 4 bis 7
 
-Stand: 31.10.2026, eigenständig umgesetzt in der Nacht, Rückmeldung vom 31.10.2026 am Ende eingearbeitet. Teil A: Entscheidungen, die ich getroffen und umgesetzt habe (bitte prüfen, alles lässt sich ändern). Teil B: Punkte, die Sie klären müssen.
+Stand: 31.10.2026, eigenständig umgesetzt in der Nacht, Rückmeldung vom 31.10.2026 am Ende eingearbeitet. Teil A: Entscheidungen, die ich getroffen und umgesetzt habe (bitte prüfen, alles lässt sich ändern). Teil B: Punkte, die Sie klären müssen. Teil D: Ihre Rückmeldung vom 31.10. Teil E: kritische Prüfung mit weiteren offenen Punkten.
 
 ## A. Getroffene Entscheidungen
 
@@ -85,6 +85,72 @@ Umgesetzt am 31.10.2026. Wo Teil A oder B etwas anderes sagt, gilt dieser Abschn
 
 1. **Ergonomie-Report und Arbeitsplatz-Check in Paket 1 und 2:** Ihr Konzept nennt beide nur beim Video-Check, deshalb zeigt die Vergleichstabelle sie bei Analyse und Validierung und bei der Komplettbegleitung als „nicht enthalten“. Sind sie dort enthalten (die Messung ist dieselbe), oder bleibt es so? „Messwerte je Arbeitsplatz“ habe ich bei allen drei Paketen als enthalten geführt, weil der Steckbrief auf ihnen beruht.
 2. **Übrige Zusagen auf `/betriebsrat` (B6):** Geändert ist die Zusage zum Training. Keine Weitergabe ohne Freigabe und die Vorstellung beim Betriebsrat auf Wunsch sind noch nicht ausdrücklich bestätigt. Die Komplettbegleitung enthält die Vorstellung jetzt als Leistung, das passt zur Zusage.
+
+## E. Kritische Prüfung 31.10.
+
+Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich ohne Entscheidung beheben, „Entscheidung“ braucht Sie. Die Ergebnisse zweier unabhängiger Prüfungen (Website-Texte gegen das Produkt und Backend) folgen in E.2 und E.3.
+
+### E.1 Eigene Befunde
+
+**Widersprüche zwischen Website und Produkt**
+
+1. **„REBA“ ist kein Standard-REBA (Entscheidung, wichtigster Punkt).** Backend (`motavi-backend/backend/app/services/analyzer.py`, `_overall_reba`) und Analyse-App (`src/analysis/reba.ts`) berechnen einen gewichteten Index aus Körperregionen (Lendenbereich 30 %, Nacken 20 %, Schultern, Knie, Unterarm je 10 %) und rechnen ihn auf eine Skala von 1 bis 10 um. Das Standard-REBA rechnet anders: Tabellen A, B und C, Skala 1 bis 15, mit Last, Griffart und Aktivität. Handgelenke fließen nicht ein. Betroffen sind:
+   - `/gesundheit` (`src/content/gesundheit.ts`: „Rumpf, Nacken, Beine, Ober- und Unterarme sowie Handgelenke … Wert von 1 bis 15“, Stufentabelle bis „ab 11“);
+   - Steckbrief-Seite (`src/content/steckbrief.ts`, Eintrag „REBA (Mittel)“: „Skala 1 bis 15“);
+   - Ergonomie-Report (`backend/app/services/pdf.py`: Stufen bis „ab 11 sehr hoch“), Stufe „sehr hoch“ ist auf der Skala 1 bis 10 nie erreichbar;
+   - Vorrang ab REBA-Mittel 8 und Kriterium `reba_mittel` in `config/workplace_scoring.json`: beide sind für Standard-REBA gedacht, gemessen wird aber der Index.
+
+   Optionen:
+   - (a) Standard-REBA umsetzen: Tabellen A, B und C, Last aus dem Teilegewicht, Griffart als Annahme.
+   - (b) Den Wert ehrlich benennen, z. B. „Haltungsindex auf REBA-Basis, 1 bis 10“, und Texte, Stufen, Vorrangschwelle und Check-Werte anpassen.
+
+   Empfehlung: kurzfristig (b), (a) zusammen mit der Validierung.
+2. **Datenweg (Entscheidung).** Die Analyse-App rechnet vollständig im Browser (`src/content/datenweg.ts`, `DATENWEG = 'browser'`), das Video verlässt den Rechner nicht. Die Website sagt dagegen:
+   - „Analyse auf Servern in Deutschland“ (Subline);
+   - „Originalvideo unmittelbar nach der Auswertung gelöscht“ (`/so-funktionierts`, Schritt 02);
+   - Speicherfristen auf `/betriebsrat`.
+
+   Das stimmt nur für den Weg über das Backend, also für Aufnahmen, die Motavi in Paket 1 und 2 selbst verarbeitet. Zu klären: Läuft der Video-Check über die Browser-App (Selbstbedienung, Motavi sieht das Video nie) oder über einen Upload ins Backend? Danach Subline, `/so-funktionierts` und `/betriebsrat` je Weg formulieren. Der Steckbrief braucht in jedem Fall das Backend (`pose.npz`).
+3. **`/so-funktionierts` passt nicht zum Video-Check (Fehler).** Die vier Schritte (`src/content/soFunktionierts.ts`) versprechen jedem Kunden „Experte bewertet“ und „Steckbrief und Report“, der Video-Check enthält beides nicht. Ebenso `/pakete`: „Alle Pakete nutzen das Arbeitsplatz-Steckbrief-Modul in der Pilotphase.“ Vorschlag: Schritte 03 und 04 als „ab Paket Analyse und Validierung“ kennzeichnen und den Hinweis auf `/pakete` auf Paket 1 und 2 beschränken. Wie genau, hängt von Punkt 2 und 4 ab.
+4. **Inhalt des Video-Checks (Entscheidung).**
+   - Welche „Messwerte je Arbeitsplatz“ sind gemeint? Die Browser-App liefert REBA-Index, Bewegungsanteile, kritische Momente und den PDF-Report. Zyklen, Greifraum und Ablaufschritte gibt es nur im Backend.
+   - Der „Arbeitsplatz-Check“ ist auf der Website ein kostenloser Selbsttest. Was ist er als bezahlte Leistung? Zum Beispiel der Check mit gemessenen statt geschätzten Werten, also eine automatische Voreinschätzung ohne Experten.
+
+**Betrieb und Ablauf**
+
+5. **`golive:check` erzwingt die Domain nicht (Fehler).** Ohne `VITE_SITE_URL` setzt der Build `https://motavi.ai` als Standard ein, und die Prüfung „Sitemap mit Domain“ besteht trotzdem. Die Prüfung sollte `VITE_SITE_URL` verlangen.
+6. **Domain und E-Mail (Entscheidung).** `motavi.ai` und `hello@motavi.ai` stehen als Standard im Code (`src/content/site.ts`), obwohl Name und Projekt noch offen sind (§7.4, §7.5). Existiert das Postfach, und wer liest es?
+7. **Nichts ist auf `main`, keine CI (Entscheidung).** Die Website liegt nur auf `website-relaunch`, das Backend auf `claude/lucid-ptolemy-uk3l0m` (23 Commits vor `main`). In keinem Repo laufen Tests automatisch, es gibt keine GitHub-Workflows. Vorschlag: zwei Pull Requests mit Durchsicht, danach eine CI mit Tests, Typprüfung und `golive:check`.
+8. **Zwei Oberflächen (Entscheidung).** `motavi/app` (Analyse im Browser, Anmeldung am Backend) und `motavi-backend/frontend` (Upload ins Backend, Dashboard, Steckbrief-Tab, Expertenansicht) bestehen nebeneinander. Wo läuft das Backend-Frontend? Welche Oberfläche bekommt der Kunde, welche ist internes Werkzeug für den Experten?
+9. **Zwei REBA-Berechnungen (Entscheidung).** `analyzer.py` und `src/analysis/reba.ts` sind getrennte Umsetzungen. Laut `README.md` im Website-Repo weichen drei Winkel voneinander ab; die Angabe ist vermutlich veraltet, seit das Backend korrigiert wurde. Kein Test hält beide gleich. Entweder eine Quelle oder ein Test mit gemeinsamen Referenzwerten. Hängt mit Punkt 1 zusammen.
+10. **Kontaktanfragen können unbemerkt bleiben.** Ohne SMTP liegen Anfragen nur in der Firestore-Konsole. Vorschlag: Benachrichtigung als harte Go-live-Bedingung, nicht optional, und festlegen, wer innerhalb einer Woche antwortet.
+11. **Zugänge zur Analyse-App (Entscheidung).** Selbstregistrierung ist abgeschaltet. Wer legt Kunden-Zugänge an, und wie? Wie setzt ein Kunde ein vergessenes Passwort zurück? Wann wird ein Zugang wieder gelöscht?
+
+**Recht und Organisation** (zur Klärung mit Anwalt oder Datenschutzberatung, keine Rechtsberatung)
+
+12. **Rolle im Datenschutz.** Motavi verarbeitet die Videos voraussichtlich im Auftrag des Kunden. Nötig wären:
+    - eine Vorlage für den Auftragsverarbeitungsvertrag;
+    - eine Beschreibung der technischen und organisatorischen Maßnahmen;
+    - Verträge mit Google Cloud, Hosting und E-Mail-Anbieter;
+    - ein Verzeichnis der Verarbeitungstätigkeiten.
+
+    Für Videoanalysen am Arbeitsplatz braucht der Kunde wahrscheinlich eine Datenschutz-Folgenabschätzung. Bietet Motavi dafür und für eine Betriebsvereinbarung Vorlagen an? Das würde zur Komplettbegleitung passen.
+13. **Videos für die Validierung.** Für S6 braucht es echte Videos, deren Abläufe von Hand mit Zeitstempeln erfasst werden. Kundenvideos dafür zu nutzen geht über die Zweckbindung auf `/betriebsrat` hinaus („Die Daten dienen nur der Gestaltung von Arbeitsplätzen …“). Das braucht eine eigene Vereinbarung. Wer erfasst die Abläufe von Hand?
+14. **Kalibrierung der Annahmen.** Folgende Werte in `config/workplace_scoring.json` sind Annahmen:
+    - Gewichte und Schwellen 50 und 60;
+    - vermeidbare Anteile;
+    - Investitions- und Betriebskostenbandbreiten;
+    - Werte des Arbeitsplatz-Checks.
+
+    Sie gehören an drei bis fünf Arbeitsplätzen gegen Ihre Expertenbewertung geprüft (STECKBRIEF_MODUL §8). Wer macht das, und bis wann? Bis dahin zeigt die Website die Schwellen als feste Regeln.
+
+**Pakete und Vertrieb**
+
+15. **Leistungen vor Ort (Entscheidung, gehört zu B3).** Sind Reisekosten in Paket 1 und 2 enthalten? Welche Region bedienen Sie? Wie viel Zeit vor Ort ist eingeplant?
+16. **Leitfaden für den Video-Check (TODO).** Die Karte verspricht eine „Aufnahme nach Leitfaden“, den Leitfaden gibt es aber nur als Hinweise auf `/so-funktionierts`, nicht als Dokument zum Herunterladen.
+17. **Vertragsbedingungen (Entscheidung).** Allgemeine Geschäftsbedingungen oder Angebotsbedingungen mit Zahlungsziel und Haftung für die „grobe Abschätzung“ der Wirtschaftlichkeit fehlen.
+18. **Wer ist „der Experte“? (Entscheidung).** Die Website verspricht eine Expertenbewertung. Soll die Qualifikation genannt werden, etwa Ergonomie oder Arbeitswissenschaft? Eine Seite „Über uns“ gibt es nicht.
+19. **Analyse-App nicht geprüft (TODO).** Die dunkle Oberfläche unter `/app` war nicht Teil der Qualitätsprüfung in Phase 7: Lighthouse, Barrierefreiheit und Texte gegen die Leitplanken stehen aus.
 
 ## C. TODO-Stellen im Code
 
