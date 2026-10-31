@@ -49,7 +49,7 @@ Geprüft auf `/`, `/kapazitaet`, `/arbeitsplatz-steckbrief`, `/pilot`:
 
 ## Reichweitenmessung
 
-`src/lib/analytics.ts`: standardmäßig aus. Nur wenn beim Build `VITE_ANALYTICS_SRC` (https) und `VITE_ANALYTICS_DOMAIN` gesetzt sind, wird genau ein Skript mit `defer` und `data-domain` eingebunden, ohne Cookies auf unserer Seite. Gedacht für einen cookielosen, in der EU betriebenen Dienst; welcher, ist offen (`docs/ENTSCHEIDUNGEN_NACHT.md`).
+`src/lib/analytics.ts`: standardmäßig aus. Nur wenn beim Build `VITE_ANALYTICS_SRC` (https) und `VITE_ANALYTICS_DOMAIN` gesetzt sind, wird genau ein Skript mit `defer` und `data-domain` eingebunden, ohne Cookies auf unserer Seite. Entscheidung vom 31.10.2026: keine Reichweitenmessung zum Start; `npm run golive:check` meldet, wenn `VITE_ANALYTICS_SRC` gesetzt ist.
 
 ## Weitere Prüfungen
 

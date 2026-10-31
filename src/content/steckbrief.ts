@@ -135,7 +135,7 @@ export const steckbrief = {
           name: 'REBA (Mittel)',
           text: 'Belastung durch die Körperhaltung nach REBA (Rapid Entire Body Assessment), Skala 1 bis 15, gemittelt über die Aufnahme. Stufen: unter 2 vernachlässigbar, 2 bis unter 4 niedrig, 4 bis unter 8 mittel, 8 bis unter 11 hoch, ab 11 sehr hoch.',
           quelle: 'gemessen',
-          pilot: false,
+          pilot: true,
         },
       ] satisfies Kennzahl[],
       nichtMessbar:

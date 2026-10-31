@@ -43,7 +43,7 @@ export const pilot = {
   },
   erfolg: {
     titel: 'Vielen Dank, Ihre Anfrage ist angekommen.',
-    text: 'Wir melden uns in der Regel innerhalb von zwei Werktagen.',
+    text: 'Wir melden uns in der Regel innerhalb einer Woche.',
   },
   fehlschlag: {
     titel: 'Ihre Anfrage konnte nicht gesendet werden.',

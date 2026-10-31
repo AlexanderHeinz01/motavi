@@ -1,6 +1,6 @@
 # Entscheidungen und offene Punkte, Phasen 4 bis 7
 
-Stand: 31.10.2026, eigenständig umgesetzt in der Nacht. Teil A: Entscheidungen, die ich getroffen und umgesetzt habe (bitte prüfen, alles lässt sich ändern). Teil B: Punkte, die Sie klären müssen.
+Stand: 31.10.2026, eigenständig umgesetzt in der Nacht, Rückmeldung vom 31.10.2026 am Ende eingearbeitet. Teil A: Entscheidungen, die ich getroffen und umgesetzt habe (bitte prüfen, alles lässt sich ändern). Teil B: Punkte, die Sie klären müssen.
 
 ## A. Getroffene Entscheidungen
 
@@ -54,6 +54,38 @@ Stand: 31.10.2026, eigenständig umgesetzt in der Nacht. Teil A: Entscheidungen,
 12. **Reichweitenmessung:** Ganz verzichten oder einen cookielosen, in der EU betriebenen Dienst wählen? Wenn ja: welchen, dann `VITE_ANALYTICS_SRC` und `VITE_ANALYTICS_DOMAIN` setzen und in der Datenschutzerklärung nennen.
 13. **Hosting der Website:** Wo läuft sie (Server in Deutschland, passend zur Fußzeile)? Danach Lighthouse dort wiederholen.
 
+## D. Rückmeldung 31.10.
+
+Umgesetzt am 31.10.2026. Wo Teil A oder B etwas anderes sagt, gilt dieser Abschnitt.
+
+### Korrekturen
+
+1. **Paketinhalte nach Ihrem Konzept** (`src/content/pakete.ts`, ersetzt A9, erledigt B4):
+   - Komplettbegleitung (3.350 €): Vorstellung des Vorgehens bei Betriebsrat, Management und Mitarbeitenden; Videoaufnahme durch uns vor Ort; Validierung und Ermittlung von Prozesspotenzialen vor Ort; Steckbrief mit Empfehlung; Vorstellung der Ergebnisse in einem Abschlusstermin. Keine „Begleitung der Umsetzung“ mehr.
+   - Analyse und Validierung (2.150 €): Videoaufnahme durch uns vor Ort; Validierung und Ermittlung von Prozesspotenzialen vor Ort; Steckbrief mit Empfehlung als Bericht.
+   - Video-Check (990 €): Aufnahme durch den Kunden nach Leitfaden; Messwerte je Arbeitsplatz, Ergonomie-Report, Arbeitsplatz-Check.
+   - „Empfohlen“ steht jetzt bei der Komplettbegleitung; dort führt auf der Startseite der Button „Pilot anfragen“ direkt zum Formular.
+   - Mitgeändert: Vergleichstabelle, Einleitung und Beschreibung von `/pakete`, Titel der Paket-Sektion auf der Startseite („Drei Pakete, vom Video-Check bis zur Komplettbegleitung“), Schritt 01 auf `/so-funktionierts` (Aufnahme beim Video-Check durch Sie, sonst durch uns vor Ort), `docs/WEBSITE_PLAN.md` §2, §3 und §7.3. Der zusätzliche Kurztext je Karte ist entfallen, die Karten zeigen nur noch die Leistungen aus Ihrem Konzept.
+2. **Betriebsrat-Zusage** (`src/content/betriebsrat.ts`): „Wir nutzen Ihre Videos und Bewegungsdaten nicht zum Training von Robotern oder KI-Modellen, außer mit einer gesonderten schriftlichen Vereinbarung mit Ihnen und Zustimmung Ihres Betriebsrats.“
+3. **„Server in Deutschland“**: Die Subline der Startseite endet jetzt mit „Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland.“ (auch in `docs/WEBSITE_PLAN.md`). Die Fußzeile nennt weiterhin keinen Standort. Die Go-live-Checkliste (harte Bedingung 4) verlangt, dass „Server in Deutschland“ ohne Zusatz erst erscheint, wenn das Hosting der Website feststeht. Unverändert bleiben die Angaben, die nur die Analyse betreffen: Datenweg der App, `/betriebsrat` („Die Daten liegen auf Servern in Deutschland“) und die Fußzeile des Ergonomie-Reports.
+
+### Entscheidungen zu Teil B
+
+| Punkt | Entscheidung | Umsetzung |
+|---|---|---|
+| B1 REBA | trägt „Pilotphase“, bis es gegen manuelle Bewertungen geprüft ist | Steckbrief-Seite (REBA jetzt mit Label, der Test verlangt das für alle gemessenen Kennzahlen), `/gesundheit` (Hinweis „noch nicht gegen manuelle REBA-Bewertungen geprüft“), Startseite (Pilothinweis nennt REBA). Im Repo `motavi-backend` zusätzlich: Hinweis im Steckbrief-PDF und im Ergonomie-Report. Im Dashboard steht REBA bereits in der Karte „Kennzahlen“ mit „Pilotphase“. |
+| B2 Fehlzeiten | Platzhalter für die Quelle, Zahl erst nach Ihrer Bestätigung | `/gesundheit` zeigt einen markierten Platzhalter mit der Quelle „BKK Gesundheitsreport 2025, Berichtsjahr 2024“. Nach Ihrer Bestätigung die Zahl in `src/content/gesundheit.ts` (`fehltage.kennzahl.wert`) eintragen, dann erscheint sie als Kennzahl mit Quelle. `npm run golive:check` meldet den Platzhalter, bis er ersetzt oder entfernt ist. |
+| B7 Kontaktanfragen | 365 Tage bestätigt | In `docs/RECHTSTEXTE_FAKTEN.md` und der Checkliste vermerkt. TTL-Regel, Firestore-Region und SMTP bleiben Aufgaben der harten Bedingung 3. |
+| B8 Erfolgsmeldung | „Wir melden uns in der Regel innerhalb einer Woche.“ | `src/content/pilot.ts`, ebenso der Beispieltext im Styleguide. |
+| B10 Erkennungsmodell | selbst hosten | Das Modell (`src/analysis/models/pose_landmarker_full.task`, 9,4 MB, unverändert, Prüfsumme in der README daneben) wird mitgebaut und von der eigenen Domain geladen. Im Browser geprüft: Das Modell lädt, die Erkennung läuft, es gibt keine Anfrage an Dritte. Die WebAssembly-Laufzeit lag schon auf der eigenen Domain. `npm run golive:check` prüft, dass der Build nicht mehr von `storage.googleapis.com` lädt. |
+| B12 Reichweitenmessung | keine zum Start | Der Code bleibt vorbereitet und aus. `npm run golive:check` meldet, falls `VITE_ANALYTICS_SRC` gesetzt ist. |
+| B3, B5, B9, B11, B13 | bleiben offen | als TODO in `docs/GO_LIVE_CHECKLISTE.md`, Abschnitt „Offene Entscheidungen“ |
+
+### Neu aufgefallen, bitte klären
+
+1. **Ergonomie-Report und Arbeitsplatz-Check in Paket 1 und 2:** Ihr Konzept nennt beide nur beim Video-Check, deshalb zeigt die Vergleichstabelle sie bei Analyse und Validierung und bei der Komplettbegleitung als „nicht enthalten“. Sind sie dort enthalten (die Messung ist dieselbe), oder bleibt es so? „Messwerte je Arbeitsplatz“ habe ich bei allen drei Paketen als enthalten geführt, weil der Steckbrief auf ihnen beruht.
+2. **Übrige Zusagen auf `/betriebsrat` (B6):** Geändert ist die Zusage zum Training. Keine Weitergabe ohne Freigabe und die Vorstellung beim Betriebsrat auf Wunsch sind noch nicht ausdrücklich bestätigt. Die Komplettbegleitung enthält die Vorstellung jetzt als Leistung, das passt zur Zusage.
+
 ## C. TODO-Stellen im Code
 
 | Stelle | Inhalt |
@@ -61,3 +93,4 @@ Stand: 31.10.2026, eigenständig umgesetzt in der Nacht. Teil A: Entscheidungen,
 | `src/content/site.ts` (siteUrl) | Domain bestätigen (§7.5) |
 | `src/content/site.ts` (Fußzeile) | Hinweis zur Server-Region erst, wenn das Hosting der Website feststeht |
 | `src/content/pakete.ts` | Umfang je Paket (Arbeitsplätze, Dauer) |
+| `src/content/gesundheit.ts` (`fehltage.kennzahl.wert`) | Fehlzeiten-Zahl aus dem BKK Gesundheitsreport 2025 nach Bestätigung eintragen |

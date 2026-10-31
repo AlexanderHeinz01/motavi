@@ -9,6 +9,9 @@
 import { PoseLandmarker } from '@mediapipe/tasks-vision'
 import wasmLoaderPath from '@mediapipe/tasks-vision/vision_wasm_internal.js?url'
 import wasmBinaryPath from '@mediapipe/tasks-vision/vision_wasm_internal.wasm?url'
+// Self-hosted (decision 31.10.2026): no request to a third party when the app loads the model.
+// Source and checksum: src/analysis/models/README.md
+import MODEL_URL from './models/pose_landmarker_full.task?url'
 import {
   classifyMovement,
   computeOverallReba,
@@ -18,9 +21,6 @@ import {
   type RegionScores,
 } from './reba'
 
-const MODEL_URL =
-  'https://storage.googleapis.com/mediapipe-models/pose_landmarker/' +
-  'pose_landmarker_full/float16/1/pose_landmarker_full.task'
 export const MODEL_NAME = 'MediaPipe Pose Landmarker (full)'
 
 // Sampling: up to 5 frames per second, at most MAX_SAMPLES frames per video

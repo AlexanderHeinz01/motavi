@@ -1,9 +1,11 @@
 import { gesundheit as g } from '../../content/gesundheit'
+import { platzhalterText } from '../../content/rechtliches'
 import { steckbrief } from '../../content/steckbrief'
 import { zahl } from '../../lib/format'
 import { config } from '../../lib/scoring'
 import Hinweisbox from '../../ui/Hinweisbox'
 import KategorieLabel from '../../ui/KategorieLabel'
+import KpiKachel from '../../ui/KpiKachel'
 import PageHeader from '../layout/PageHeader'
 import { Absaetze, Abschnitt, PerspektivAbschluss, Punkte } from '../sections/perspektive/Perspektive'
 
@@ -20,7 +22,8 @@ export default function GesundheitPage() {
             <Absaetze absaetze={g.reba.absaetze} />
             <div className="mt-4 max-w-[720px]">
               <KategorieLabel accent="warn-ink">{steckbrief.pilotLabel}</KategorieLabel>
-              <p className="t-body mt-1 text-ink-muted">{g.reba.drehung}</p>
+              <p className="t-body mt-1 text-ink-muted">{g.reba.pilotHinweis}</p>
+              <p className="t-body mt-3 text-ink-muted">{g.reba.drehung}</p>
             </div>
           </div>
           <div className="lg:col-span-5">
@@ -50,6 +53,16 @@ export default function GesundheitPage() {
       </Abschnitt>
       <Abschnitt label={g.fehltage.label} accent={g.accent} titel={g.fehltage.titel} hintergrund="subtil">
         <Absaetze absaetze={[g.fehltage.text]} />
+        <div className="mt-8 max-w-[520px]">
+          {g.fehltage.kennzahl.wert ? (
+            <KpiKachel value={g.fehltage.kennzahl.wert} description={g.fehltage.kennzahl.beschreibung} source={g.fehltage.kennzahl.quelle} accent="risk-ink" />
+          ) : (
+            <p className="rounded-card border border-dashed border-line-strong bg-page px-4 py-3 font-body text-[15px] text-ink-muted">
+              <span className="t-label mr-2 text-ink">{platzhalterText.marke}</span>
+              {g.fehltage.kennzahl.beschreibung}. {g.fehltage.kennzahl.platzhalter} {g.fehltage.kennzahl.quelle}
+            </p>
+          )}
+        </div>
       </Abschnitt>
       <Abschnitt label={g.massnahmen.label} accent="path-improve" titel={g.massnahmen.titel}>
         <Punkte punkte={g.massnahmen.punkte} />

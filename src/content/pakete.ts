@@ -1,9 +1,10 @@
 import type { PageMeta } from './types'
 
 /**
- * Packages and prices (WEBSITE_PLAN Phase 5 and §7.3, decided 30.10.2026):
- * package 3 gives measured values and the Arbeitsplatz-Check, the
- * Steckbrief with recommendation and expert assessment comes with package 2.
+ * Packages and prices (WEBSITE_PLAN Phase 5 and §7.3, contents as decided
+ * on 31.10.2026): package 3 gives measured values and the Arbeitsplatz-Check
+ * from the customer's own video; packages 2 and 1 add recording and
+ * validation on site and the Steckbrief with recommendation.
  * Single source for /pakete and the start page.
  * TODO: scope per package (number of workplaces, duration) once defined.
  */
@@ -13,7 +14,6 @@ export interface Paket {
   nr: 1 | 2 | 3
   name: string
   preis: string
-  kurz: string
   leistungen: string[]
   empfohlen?: boolean
 }
@@ -26,38 +26,41 @@ export const paketListe: Paket[] = [
     nr: 3,
     name: 'Video-Check',
     preis: `990${NBSP}€`,
-    kurz: 'Messwerte je Arbeitsplatz aus Ihrem eigenen Video.',
-    leistungen: ['Sie nehmen das Video selbst auf', 'Messwerte je Arbeitsplatz', 'Ergonomie-Report', 'Arbeitsplatz-Check'],
+    leistungen: ['Aufnahme durch Sie nach unserem Leitfaden', 'Messwerte je Arbeitsplatz', 'Ergonomie-Report', 'Arbeitsplatz-Check'],
   },
   {
     id: 'analyse',
     nr: 2,
     name: 'Analyse und Validierung',
     preis: `2.150${NBSP}€`,
-    kurz: 'Messung, Bewertung durch einen Experten und Steckbrief mit Empfehlung.',
-    leistungen: ['Messung und Expertenbewertung', 'Steckbrief mit Empfehlung und Report', 'Besprechung der Empfehlungen'],
-    empfohlen: true,
+    leistungen: ['Videoaufnahme durch uns vor Ort', 'Validierung und Ermittlung von Prozesspotenzialen vor Ort', 'Steckbrief mit Empfehlung als Bericht'],
   },
   {
     id: 'komplett',
     nr: 1,
     name: 'Komplettbegleitung',
     preis: `3.350${NBSP}€`,
-    kurz: 'Von der Aufnahme vor Ort bis zur Begleitung der Umsetzung.',
-    leistungen: ['Aufnahme vor Ort', 'Steckbrief mit Empfehlung für alle Arbeitsplätze', 'Begleitung der Umsetzung'],
+    leistungen: [
+      'Vorstellung des Vorgehens bei Betriebsrat, Management und Mitarbeitenden',
+      'Videoaufnahme durch uns vor Ort',
+      'Validierung und Ermittlung von Prozesspotenzialen vor Ort',
+      'Steckbrief mit Empfehlung',
+      'Vorstellung der Ergebnisse in einem Abschlusstermin',
+    ],
+    empfohlen: true,
   },
 ]
 
 export const pakete = {
   meta: {
     title: 'Pakete und Preise',
-    description: 'Drei Pakete, vom Video-Check mit Messwerten bis zur Komplettbegleitung mit Steckbrief, Empfehlung und Umsetzung.',
+    description: 'Drei Pakete, vom Video-Check mit Messwerten bis zur Komplettbegleitung mit Aufnahme vor Ort, Steckbrief, Empfehlung und Abschlusstermin.',
   } satisfies PageMeta,
   label: 'Pakete',
   accent: 'data-ink' as const,
   title: 'Pakete und Preise',
   intro:
-    'Drei Pakete, von den Messwerten bis zur Begleitung. Die Empfehlung mit Bewertung durch einen Experten gibt es ab dem Paket Analyse und Validierung.',
+    'Drei Pakete, vom Video-Check bis zur Komplettbegleitung. Aufnahme und Validierung vor Ort und den Steckbrief mit Empfehlung gibt es ab dem Paket Analyse und Validierung.',
   /** heading above the cards, for screen readers only (heading order h1, h2, h3) */
   kartenTitel: 'Die drei Pakete',
   preisHinweis: 'netto, zuzüglich Umsatzsteuer',
@@ -68,15 +71,14 @@ export const pakete = {
     caption: 'Leistungen der drei Pakete im Vergleich',
     /** in the order of paketListe */
     zeilen: [
-      { label: 'Video', werte: ['Sie nehmen auf', 'Sie nehmen auf', 'Aufnahme vor Ort'] },
-      { label: 'Automatische Messung', werte: [true, true, true] },
+      { label: 'Videoaufnahme', werte: ['durch Sie nach Leitfaden', 'durch uns vor Ort', 'durch uns vor Ort'] },
       { label: 'Messwerte je Arbeitsplatz', werte: [true, true, true] },
-      { label: 'Ergonomie-Report', werte: [true, true, true] },
-      { label: 'Arbeitsplatz-Check', werte: [true, true, true] },
-      { label: 'Bewertung durch einen Experten', werte: [false, true, true] },
-      { label: 'Steckbrief mit Empfehlung', werte: [false, true, true] },
-      { label: 'Besprechung der Empfehlungen', werte: [false, true, true] },
-      { label: 'Begleitung der Umsetzung', werte: [false, false, true] },
+      { label: 'Ergonomie-Report', werte: [true, false, false] },
+      { label: 'Arbeitsplatz-Check', werte: [true, false, false] },
+      { label: 'Validierung und Ermittlung von Prozesspotenzialen vor Ort', werte: [false, true, true] },
+      { label: 'Steckbrief mit Empfehlung', werte: [false, 'als Bericht', true] },
+      { label: 'Vorstellung des Vorgehens bei Betriebsrat, Management und Mitarbeitenden', werte: [false, false, true] },
+      { label: 'Vorstellung der Ergebnisse in einem Abschlusstermin', werte: [false, false, true] },
     ] as { label: string; werte: (string | boolean)[] }[],
   },
   hinweisPilot: 'Alle Pakete nutzen das Arbeitsplatz-Steckbrief-Modul in der Pilotphase.',

@@ -59,7 +59,7 @@ Das sind keine getrennten Produkte, sondern drei Einstiege in dieselbe Analyse.
 
 **Headline:** Verbessern, automatisieren oder beibehalten? Motavi misst, was sich an jedem Arbeitsplatz lohnt.
 
-**Subline:** Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Server in Deutschland.
+**Subline:** Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland. („Server in Deutschland“ in Subline und Fußzeile erst, wenn das Hosting der Website feststeht; Entscheidung vom 31.10.2026.)
 
 **Wiederkehrender Leitsatz für Abschnitte und LinkedIn:** Erst verstehen, dann entscheiden.
 
@@ -106,7 +106,7 @@ Diese Regeln gehören zusätzlich in die `CLAUDE.md` des Repos.
 | `/gesundheit` | Perspektive Gesundheit | REBA, LMM, CSRD, Fehltage |
 | `/so-funktionierts` | Ablauf | Video, Messung, Expertenbewertung, Steckbrief und Report |
 | `/fuer-robotik-anbieter` | Partnerseite | Angebot für Robotik-Anbieter und Integratoren. Wird erst verlinkt, wenn §7.1 erfüllt ist |
-| `/pakete` | Pakete und Preise | Paket 3 mit Messwerten und Arbeitsplatz-Check, Steckbrief mit Empfehlung und Expertenbewertung ab Paket 2 (§7.3) |
+| `/pakete` | Pakete und Preise | Paket 3 mit Messwerten und Arbeitsplatz-Check aus dem eigenen Video, Aufnahme und Validierung vor Ort und Steckbrief mit Empfehlung ab Paket 2 (§7.3) |
 | `/betriebsrat` | Datenschutz und Betriebsrat | Anonymisierung, § 87 BetrVG, Zweckbindung, Umgang mit Automatisierung |
 | `/pilot` | Pilot anfragen | Formular mit Auswahl Hersteller oder Robotik-Anbieter |
 | `/impressum`, `/datenschutz` | Pflichtseiten | Platzhalter, Texte durch Anwalt oder Generator |
@@ -125,7 +125,7 @@ Navigation: Steckbrief, Kapazität, Automatisierung, Gesundheit, Pakete, Betrieb
 8. **So funktioniert es:** 01 Video aufnehmen, 02 KI misst, 03 Experte bewertet, 04 Steckbrief und Empfehlung.
 9. **Herstellerneutral:** "Wir verkaufen keine Roboter. Wir sagen Ihnen, wo sich einer lohnt, und wo nicht." Kein Link zur Partnerseite, bis §7.1 erfüllt ist; danach ein kleiner Link für Robotik-Anbieter.
 10. **Betriebsrat als Partner:** Kurzfassung, Link.
-11. **Pakete:** Paket 3 mit Messwerten je Arbeitsplatz und Arbeitsplatz-Check, Steckbrief mit Empfehlung und Expertenbewertung ab Paket 2 (§7.3).
+11. **Pakete:** Paket 3 mit Messwerten je Arbeitsplatz und Arbeitsplatz-Check, Aufnahme und Validierung vor Ort und Steckbrief mit Empfehlung ab Paket 2 (§7.3). „Empfohlen“ ist die Komplettbegleitung.
 12. **Abschluss-CTA:** "Finden Sie heraus, was sich an Ihren Arbeitsplätzen lohnt."
 
 ### `/fuer-robotik-anbieter`
@@ -306,7 +306,10 @@ harten Bedingungen dort sind Voraussetzung für das Go-live.
 
 1. **Markttest:** Gespräche mit drei bis fünf Robotik-Anbietern oder Integratoren. Partnerseite erst verlinken, wenn mindestens zwei Interesse bestätigen. Bis dahin auf keiner Seite ein Link zur Partnerseite, auch nicht auf der Startseite (§3 Punkt 9).
 2. **Rolle gegenüber Anbietern:** Empfehlungsprovision, Auftragsanalyse oder rein neutral. Muss gegenüber Endkunden offengelegt werden.
-3. **Paket 3 (entschieden am 30.10.2026):** Paket 3 enthält Messwerte je Arbeitsplatz und den Arbeitsplatz-Check. Die Empfehlung mit Expertenbewertung gibt es ab Paket 2.
+3. **Paketinhalte (entschieden am 30. und 31.10.2026):**
+   - Paket 1 Komplettbegleitung (3.350 €): Vorstellung des Vorgehens bei Betriebsrat, Management und Mitarbeitenden; Videoaufnahme durch uns vor Ort; Validierung und Ermittlung von Prozesspotenzialen vor Ort; Steckbrief mit Empfehlung; Vorstellung der Ergebnisse in einem Abschlusstermin. Markiert als „Empfohlen“.
+   - Paket 2 Analyse und Validierung (2.150 €): Videoaufnahme durch uns vor Ort; Validierung und Prozesspotenziale vor Ort; Steckbrief mit Empfehlung als Bericht.
+   - Paket 3 Video-Check (990 €): Aufnahme durch den Kunden nach Leitfaden; Messwerte je Arbeitsplatz, Ergonomie-Report, Arbeitsplatz-Check.
 4. **Veröffentlichung:** noindex, bis Name und Projekt intern geklärt sind. Harte Bedingungen vor dem Go-live in `docs/GO_LIVE_CHECKLISTE.md`, darunter: Aussagen zu Löschfristen erst, wenn die Lifecycle-Regel im Bucket angewendet und geprüft ist.
 5. **Domain und Designsystem:** siehe Design-Briefing.
 6. **Rechtstexte:** durch Anwalt oder Generator.

@@ -50,8 +50,8 @@ describe('Leitplanken für die sichtbaren Texte', () => {
   it('jede nicht validierte Messung trägt Pilotphase (Leitplanke 7)', () => {
     const a = steckbrief.aufbau
     const gemessen = [...a.kennzahlen.eintraege, ...a.ablauf.eintraege, ...a.greifraum.eintraege]
-    // only REBA comes from the existing ergonomics analysis, everything else is in validation
-    expect(gemessen.filter((k) => !k.pilot).map((k) => k.name)).toEqual(['REBA (Mittel)'])
+    // REBA included until checked against manual assessments (decision 31.10.2026)
+    expect(gemessen.filter((k) => !k.pilot).map((k) => k.name)).toEqual([])
     expect(a.bewertung.verbesserung.pilot && a.bewertung.automatisierung.pilot).toBe(true)
   })
 })

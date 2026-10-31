@@ -66,4 +66,4 @@ Schwellenwerte, Gewichtung und die 1–10-Skala entsprechen dem Backend. Drei Wi
 - **Nacken**: Rumpfachse gegen die Achse Schulter→Ohrmitte (im Backend Nase gegen die Senkrechte – ein seitlich gedrehter Kopf galt als starke Beugung).
 - **Unterarm**: Ellbogenbeugung (180° − Innenwinkel), 60–100° gilt als neutral.
 
-Beim ersten Start einer Analyse lädt der Browser das Modell (ca. 9 MB) von `storage.googleapis.com` sowie die WebAssembly-Laufzeit (ca. 13 MB) der App; beides wird danach gecacht. Auf Rechnern ohne Hardware-Grafikbeschleunigung rechnet MediaPipe automatisch auf der CPU. Die Seite muss während der Analyse geöffnet bleiben.
+Beim ersten Start einer Analyse lädt der Browser das Modell (ca. 9 MB, `src/analysis/models/`) und die WebAssembly-Laufzeit (ca. 13 MB), beides von der eigenen Domain; beides wird danach gecacht. Auf Rechnern ohne Hardware-Grafikbeschleunigung rechnet MediaPipe automatisch auf der CPU. Die Seite muss während der Analyse geöffnet bleiben.

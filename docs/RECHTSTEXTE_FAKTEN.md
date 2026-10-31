@@ -7,7 +7,7 @@ Stand: 31.10.2026. Technische Angaben für die Person, die Impressum und Datensc
 - Statisch vorgerendert. Hosting: **offen** (Phase 0: Bereitstellung über Google AI Studio; Domain und Hosting nach WEBSITE_PLAN §7.5).
 - Keine Cookies. Die Website selbst setzt keine Cookies und lädt keine Inhalte von Dritten.
 - Schriften (Inter, Space Grotesk, JetBrains Mono) sind selbst gehostet (`@fontsource`), keine Anfrage an Google Fonts.
-- Reichweitenmessung: vorbereitet, cookielos, **standardmäßig aus**; wird nur aktiv, wenn `VITE_ANALYTICS_SRC` gesetzt ist (Phase 7). Anbieter und Serverstandort: **offen**.
+- Reichweitenmessung: **keine** zum Start (Entscheidung vom 31.10.2026). Technisch vorbereitet und aus; aktiv würde sie nur, wenn `VITE_ANALYTICS_SRC` beim Build gesetzt ist.
 - Der Arbeitsplatz-Check rechnet im Browser; Antworten werden nicht gespeichert oder übertragen.
 
 ## Kontaktformular `/pilot`
@@ -22,7 +22,7 @@ Stand: 31.10.2026. Technische Angaben für die Person, die Impressum und Datensc
 ## Analyse-App unter `/app` (Repo `motavi`)
 
 - Derzeit läuft die Analyse vollständig im Browser (`src/content/datenweg.ts`, `DATENWEG = 'browser'`); das Video verlässt den Rechner nicht.
-- Das Erkennungsmodell wird beim ersten Start von `storage.googleapis.com` (Google) geladen. Dabei sieht Google die IP-Adresse; Videodaten werden nicht übertragen. Alternative: Modell selbst hosten (**offen**).
+- Das Erkennungsmodell und die WebAssembly-Laufzeit liegen auf der eigenen Domain (selbst gehostet, Entscheidung vom 31.10.2026); beim Laden wird kein Dritter kontaktiert.
 - Ergebnisse werden im `localStorage` des Browsers zwischengespeichert; die Anmeldung speichert ein Token im `localStorage`.
 
 ## Analysedienst (Repo `motavi-backend`)

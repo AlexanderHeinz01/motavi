@@ -33,6 +33,7 @@ export const gesundheit = {
       { bereich: 'ab 11', stufe: 'sehr hoch' },
     ],
     vorrang: (s: string) => `Ab einem REBA-Mittel von ${s} markiert der Steckbrief den Arbeitsplatz als vorrangig, unabhängig von der Empfehlung.`,
+    pilotHinweis: 'Die Berechnung von REBA aus dem Video ist noch nicht gegen manuelle REBA-Bewertungen geprüft.',
     drehung: 'Zusätzlich misst der Steckbrief Drehungen des Oberkörpers. Weil die Tiefe aus einem 2D-Video geschätzt wird, ist dieser Wert grob.',
   },
 
@@ -59,6 +60,17 @@ export const gesundheit = {
     label: 'Fehlzeiten',
     titel: 'Belastung kostet Gesundheit und Kapazität',
     text: 'Erkrankungen von Muskeln und Skelett gehören zu den häufigsten Gründen für Arbeitsunfähigkeit. Wer weiß, an welchem Arbeitsplatz die Belastung entsteht, kann gezielt dort ansetzen, statt allgemein zu schulen.',
+    /**
+     * Figure with source (decision 31.10.2026). TODO: set `wert` (e.g. '24,1 %')
+     * only after the figure has been confirmed; until then the page shows a
+     * marked placeholder, which npm run golive:check reports.
+     */
+    kennzahl: {
+      wert: null as string | null,
+      beschreibung: 'Anteil der Muskel-Skelett-Erkrankungen an den Arbeitsunfähigkeitstagen',
+      quelle: 'Quelle: BKK Gesundheitsreport 2025, Berichtsjahr 2024',
+      platzhalter: 'Die Zahl wird nach Prüfung der Quelle ergänzt.',
+    },
   },
 
   massnahmen: {

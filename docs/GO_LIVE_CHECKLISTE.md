@@ -1,6 +1,6 @@
 # Go-live-Checkliste
 
-Stand: 31.10.2026, in Phase 7 vervollständigt.
+Stand: 31.10.2026, in Phase 7 vervollständigt, Rückmeldung vom 31.10.2026 eingearbeitet.
 
 Die Website geht erst live, wenn jede **harte Bedingung** erfüllt und mit Datum und Namen abgehakt ist. Eine nicht erfüllte harte Bedingung lässt sich nicht durch eine Ausnahme ersetzen: Entweder wird sie erfüllt, oder die betroffene Aussage wird vor dem Go-live von der Website entfernt.
 
@@ -29,7 +29,7 @@ Abgehakt am: ________ von: ________
 ### 2. Rechtstexte vollständig
 
 - [ ] Impressum und Datenschutzerklärung durch Anwalt oder Generator (§7.6), ohne Platzhalter. Fakten für den Verfasser: `docs/RECHTSTEXTE_FAKTEN.md`.
-- [ ] Die Datenschutzerklärung nennt Kontaktformular, Analyse-App, gegebenenfalls Reichweitenmessung und das Laden des Erkennungsmodells von Google (oder das Modell wird selbst gehostet).
+- [ ] Die Datenschutzerklärung nennt Kontaktformular (Aufbewahrung 365 Tage, bestätigt am 31.10.2026) und Analyse-App. Das Erkennungsmodell ist selbst gehostet, eine Reichweitenmessung gibt es zum Start nicht (beides entschieden am 31.10.2026).
 
 Abgehakt am: ________ von: ________
 
@@ -47,8 +47,11 @@ Abgehakt am: ________ von: ________
 - [ ] Kein „DSGVO-konform“ auf Website, App und in den PDFs, bis die Aussage juristisch geprüft ist (Entscheidung vom 30.10.2026).
 - [ ] Kein Link zur Partnerseite `/fuer-robotik-anbieter`, bis `docs/WEBSITE_PLAN.md` §7.1 erfüllt ist; die Seite bleibt bis dahin `noindex`.
 - [ ] Label „Pilotphase“ an allen Kennzahlen, die laut `docs/validierung_steckbrief.md` (Repo `motavi-backend`) noch nicht validiert sind.
-- [ ] „Server in Deutschland“ stimmt für alle Daten, die die Website und der Dienst verarbeiten (Backend `europe-west3`, Firestore-Region, Hosting der Website).
-- [ ] Zusagen auf `/betriebsrat` und im Formular (Antwort innerhalb von zwei Werktagen) intern bestätigt.
+- [ ] REBA trägt „Pilotphase“, bis es gegen manuelle REBA-Bewertungen geprüft ist (Entscheidung vom 31.10.2026; Website, Steckbrief-PDF, Ergonomie-Report).
+- [ ] „Analyse auf Servern in Deutschland“ stimmt (Backend `europe-west3`, Firestore-Region prüfen).
+- [ ] „Server in Deutschland“ ohne Zusatz in Subline und Fußzeile erst, wenn das Hosting der Website feststeht und in Deutschland liegt (Entscheidung vom 31.10.2026). Bis dahin steht in der Subline „Analyse auf Servern in Deutschland“ (`src/content/startseite.ts`), die Fußzeile nennt keinen Standort (`src/content/site.ts`).
+- [ ] Fehlzeiten auf `/gesundheit`: Zahl aus dem BKK Gesundheitsreport 2025 (Berichtsjahr 2024) bestätigt und in `src/content/gesundheit.ts` (`fehltage.kennzahl.wert`) eingesetzt, oder der Platzhalter entfernt. `npm run golive:check` meldet ihn.
+- [ ] Zusagen intern bestätigt: auf `/betriebsrat` Zweckbindung (keine Leistungskontrolle, keine Weitergabe ohne Freigabe, kein Training ohne gesonderte schriftliche Vereinbarung und Zustimmung des Betriebsrats) und Vorstellung beim Betriebsrat; im Formular „in der Regel innerhalb einer Woche“ (geändert am 31.10.2026).
 
 Abgehakt am: ________ von: ________
 
@@ -59,9 +62,19 @@ Abgehakt am: ________ von: ________
 
 Abgehakt am: ________ von: ________
 
+## Offene Entscheidungen (TODO vor dem Go-live)
+
+Stand 31.10.2026, aus `docs/ENTSCHEIDUNGEN_NACHT.md`, Teil B.
+
+- [ ] **Umfang der Pakete (B3):** Preis je Arbeitsplatz, je Projekt oder für eine bestimmte Zahl von Arbeitsplätzen; Bearbeitungsdauer. Danach `src/content/pakete.ts` (`umfang`) ergänzen.
+- [ ] **Rolle gegenüber Robotik-Anbietern (B5, §7.2):** Provision, Auftragsanalyse oder rein neutral. Vor dem Verlinken der Partnerseite entscheiden und gegenüber Endkunden offenlegen.
+- [ ] **Backend-Adresse und CORS (B9):** `VITE_API_BASE_URL` beim Build setzen, CORS im Backend auf die Website-Domain beschränken (harte Bedingung 3).
+- [ ] **Impressum und Datenschutzerklärung (B11):** Texte durch Anwalt oder Generator (harte Bedingung 2).
+- [ ] **Hosting der Website (B13):** Anbieter und Standort festlegen; danach Fußzeile und Subline prüfen (harte Bedingung 4) und Lighthouse auf dem Hosting wiederholen (Abschnitt Qualität).
+
 ## Maschinelle Prüfung
 
-`npm run build && npm run golive:check` mit denselben Umgebungsvariablen wie für den Build prüft am fertigen Build: Rechtsseiten ohne Platzhalter, Seiten indexierbar, kein „DSGVO-konform“, Partnerseite nicht verlinkt und `noindex`, Sitemap mit Domain, Backend-Adresse für das Formular. Exit-Code 1, solange eine Bedingung fehlt. Der Rest dieser Liste ist Handarbeit.
+`npm run build && npm run golive:check` mit denselben Umgebungsvariablen wie für den Build prüft am fertigen Build: Rechtsseiten und übrige Seiten ohne Platzhalter, Seiten indexierbar, keine Reichweitenmessung, Erkennungsmodell selbst gehostet, kein „DSGVO-konform“, Partnerseite nicht verlinkt und `noindex`, Sitemap mit Domain, Backend-Adresse für das Formular. Exit-Code 1, solange eine Bedingung fehlt. Der Rest dieser Liste ist Handarbeit.
 
 ## Qualität (Phase 7)
 
@@ -73,4 +86,4 @@ Lokal am 31.10.2026 erfüllt (Details im Bericht); vor dem Go-live auf dem echte
 - [ ] Keine Seite mit seitlichem Scrollen ab 360 px Breite.
 - [ ] Tastaturbedienung: Sprunglink, sichtbarer Fokus, Rechner, Arbeitsplatz-Check und Formular vollständig per Tastatur.
 - [ ] Kontrasttest (`src/styles/tokens.test.ts`, Werte aus `src/styles/contrastReport.ts`) grün.
-- [ ] Reichweitenmessung: aus, oder ein cookieloser, in der EU betriebener Dienst über `VITE_ANALYTICS_SRC` und `VITE_ANALYTICS_DOMAIN`, in der Datenschutzerklärung genannt.
+- [ ] Keine Reichweitenmessung zum Start (Entscheidung vom 31.10.2026): `VITE_ANALYTICS_SRC` beim Build nicht gesetzt. `npm run golive:check` prüft das.

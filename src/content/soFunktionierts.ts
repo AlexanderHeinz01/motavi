@@ -15,13 +15,13 @@ export const soFunktionierts = {
   accent: 'data-ink' as Accent,
   title: 'So funktioniert Motavi',
   intro:
-    'Vom Video zur Empfehlung in vier Schritten: Sie nehmen ein Video auf, Motavi misst, ein Experte bewertet, und Sie erhalten Steckbrief und Report. Das Tool misst, der Experte bewertet.',
+    'Vom Video zur Empfehlung in vier Schritten: Ein Video wird aufgenommen, Motavi misst, ein Experte bewertet, und Sie erhalten Steckbrief und Report. Das Tool misst, der Experte bewertet.',
 
   schritte: [
     {
       nr: '01',
       titel: 'Video aufnehmen',
-      text: 'Ein Video des Arbeitsplatzes mit dem Smartphone. Keine Sensoren, keine Umbauten, kein Eingriff in den Ablauf.',
+      text: 'Ein Video des Arbeitsplatzes mit dem Smartphone: beim Video-Check durch Sie nach diesen Hinweisen, in den anderen Paketen durch uns vor Ort. Keine Sensoren, keine Umbauten, kein Eingriff in den Ablauf.',
       details: [
         'Kamera fest aufstellen, am besten auf einem Stativ, seitlich oder schräg von vorn.',
         'Die ganze Person im Bild, von Kopf bis Fuß, möglichst nur eine Person.',

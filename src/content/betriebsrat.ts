@@ -63,7 +63,7 @@ export const betriebsrat = {
       punkte: [
         'Keine Leistungskontrolle und keine Personalentscheidungen auf Grundlage der Daten.',
         'Keine Weitergabe an Dritte ohne Freigabe des Unternehmens.',
-        'Keine Nutzung der Videos oder Gelenkpunkte zum Training von Robotern oder KI-Modellen.',
+        'Wir nutzen Ihre Videos und Bewegungsdaten nicht zum Training von Robotern oder KI-Modellen, außer mit einer gesonderten schriftlichen Vereinbarung mit Ihnen und Zustimmung Ihres Betriebsrats.',
       ],
     },
     {

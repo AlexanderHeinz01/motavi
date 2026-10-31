@@ -11,7 +11,7 @@ export const startseite = {
   } satisfies PageMeta,
   headline: 'Verbessern, automatisieren oder beibehalten? Motavi misst, was sich an jedem Arbeitsplatz lohnt.',
   subline:
-    'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Server in Deutschland.',
+    'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland.',
   primaryCta: { label: 'Pilot anfragen', to: '/pilot' },
   secondaryCta: { label: 'Beispiel-Steckbrief ansehen', to: '/arbeitsplatz-steckbrief' },
 
@@ -158,7 +158,7 @@ export const startseite = {
     betontHinweis: 'Das Tool misst, der Experte bewertet.',
     /** Guideline 7: cycles, process steps and reach are not validated yet (STECKBRIEF_MODUL §8). */
     pilotLabel: 'Pilotphase',
-    pilotHinweis: 'Die automatische Messung von Zyklen, Ablaufschritten und Greifraum wird noch mit manuellen Messungen abgeglichen.',
+    pilotHinweis: 'Die automatische Messung von Zyklen, Ablaufschritten, Greifraum und Belastung nach REBA wird noch mit manuellen Messungen abgeglichen.',
     link: { label: 'Ablauf im Detail', to: '/so-funktionierts' },
   },
 
@@ -193,12 +193,12 @@ export const startseite = {
 
   /**
    * Section 11 "Pakete": prices and contents from src/content/pakete.ts (WEBSITE_PLAN Phase 5).
-   * WEBSITE_PLAN §7.3 (decided 30.10.2026): package 3 gives measured values and the
-   * Arbeitsplatz-Check; the recommendation with expert assessment comes with package 2.
+   * WEBSITE_PLAN §7.3 (contents decided 31.10.2026): package 3 gives measured values and
+   * the Arbeitsplatz-Check; the Steckbrief with recommendation comes with package 2.
    */
   pakete: {
     label: 'Pakete',
-    title: 'Drei Pakete, von den Messwerten bis zur Begleitung',
+    title: 'Drei Pakete, vom Video-Check bis zur Komplettbegleitung',
     /** cards from src/content/pakete.ts (single source) */
     karten: paketListe.map((p) => ({
       name: p.name,

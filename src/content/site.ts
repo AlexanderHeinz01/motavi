@@ -42,7 +42,9 @@ export const navText = {
 /**
  * Footer. The partner page /fuer-robotik-anbieter is intentionally not linked
  * until at least two providers confirm interest (WEBSITE_PLAN §7.1).
- * TODO: Hint "Server in der EU" (DESIGN_BRIEF §4) only once the hosting region is confirmed.
+ * TODO: Hint "Server in Deutschland" only once the hosting of the website is
+ * confirmed (decision 31.10.2026); until then the start page says
+ * "Analyse auf Servern in Deutschland".
  */
 export const footer = {
   claim: 'Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung.',

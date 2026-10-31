@@ -142,7 +142,7 @@ export const styleguide = {
     name: 'Name',
     namePlatzhalter: 'Vor- und Nachname',
     email: 'E-Mail',
-    emailHinweis: 'Wir antworten innerhalb von zwei Werktagen.',
+    emailHinweis: 'Wir melden uns in der Regel innerhalb einer Woche.',
     emailFehler: 'Bitte geben Sie eine gültige E-Mail-Adresse ein.',
     nachricht: 'Nachricht',
     nachrichtFehler: 'Bitte beschreiben Sie kurz Ihren Arbeitsplatz.',

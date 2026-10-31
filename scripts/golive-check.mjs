@@ -7,6 +7,7 @@
  * Exit code 1 if a hard condition fails. Environment (the same values as for the build):
  *   VITE_API_BASE_URL              address of the backend for the contact form
  *   PARTNERSEITE_FREIGEGEBEN=true  links to /fuer-robotik-anbieter are allowed (WEBSITE_PLAN §7.1)
+ *   VITE_ANALYTICS_SRC             must stay unset: no audience measurement at launch (decision 31.10.2026)
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
@@ -29,6 +30,8 @@ const pruefe = (name, ok, detail = '') => ergebnisse.push({ name, ok, detail })
 
 const mitPlatzhalter = oeffentlich.filter((p) => /impressum|datenschutz/.test(p) && html[p].includes('Platzhalter'))
 pruefe('Impressum und Datenschutzerklärung ohne Platzhalter', mitPlatzhalter.length === 0, mitPlatzhalter.join(', '))
+const sonstigePlatzhalter = oeffentlich.filter((p) => !/impressum|datenschutz/.test(p) && html[p].includes('Platzhalter'))
+pruefe('Keine Platzhalter auf den übrigen Seiten (z. B. Fehlzeiten auf /gesundheit)', sonstigePlatzhalter.length === 0, sonstigePlatzhalter.join(', '))
 
 const noindex = oeffentlich.filter((p) => !p.includes('fuer-robotik-anbieter') && /<meta name="robots" content="noindex/.test(html[p]))
 pruefe('Seiten indexierbar (VITE_SITE_INDEXABLE=true)', noindex.length === 0, noindex.length ? `${noindex.length} Seiten noindex` : '')
@@ -42,6 +45,9 @@ if (process.env.PARTNERSEITE_FREIGEGEBEN !== 'true') {
   pruefe('Partnerseite nicht verlinkt (§7.1)', links.length === 0, links.join(', '))
   pruefe('Partnerseite noindex (§7.1)', !!partner && /content="noindex/.test(partner[1]))
 }
+
+pruefe('Keine Reichweitenmessung zum Start (Entscheidung 31.10.2026)', !process.env.VITE_ANALYTICS_SRC, 'VITE_ANALYTICS_SRC ist gesetzt')
+pruefe('Erkennungsmodell selbst gehostet', !js.includes('storage.googleapis.com'), 'Build lädt von storage.googleapis.com')
 
 const sitemap = readFileSync(join(DIST, 'sitemap.xml'), 'utf-8')
 pruefe('Sitemap mit Domain statt Platzhalter', !/localhost|example/.test(sitemap) && /<loc>https:\/\//.test(sitemap))
