@@ -1,6 +1,6 @@
 # Motavi Website Relaunch: Implementierungsplan für Claude Code
 
-Stand: 30.10.2026 (Version 3: eine Messung, drei Empfehlungen; Entscheidungen zu Phase 2 eingearbeitet)
+Stand: 31.10.2026 (Version 3: eine Messung, drei Wege; Entscheidungen zu Phase 2 und die Rückmeldungen vom 31.10.2026 eingearbeitet)
 Ablage im Repo: `docs/WEBSITE_PLAN.md`
 Zugehörig: `docs/DESIGN_BRIEF.md` (Gestaltung), `docs/STECKBRIEF_MODUL.md` (Analysemodul Arbeitsplatz-Steckbrief)
 
@@ -33,7 +33,7 @@ Die Website darf nichts versprechen, was das Modul nicht kann. Unfertige Funktio
 
 **Motavi zeigt, welche Arbeit verbessert, welche automatisiert und welche beibehalten werden sollte, und wie viel Zeit darin steckt.**
 
-### Die Logik: eine Messung, drei Empfehlungen
+### Die Logik: eine Messung, drei Wege
 
 Jeder Arbeitsplatz wird gleich gemessen. Daraus folgt eine Empfehlung:
 
@@ -59,7 +59,7 @@ Das sind keine getrennten Produkte, sondern drei Einstiege in dieselbe Analyse.
 
 **Headline:** Verbessern, automatisieren oder beibehalten? Motavi misst, was sich an jedem Arbeitsplatz lohnt.
 
-**Subline:** Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Für jeden Arbeitsplatz erhalten Sie eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland. („Server in Deutschland“ in Subline und Fußzeile erst, wenn das Hosting der Website feststeht; Entscheidung vom 31.10.2026.)
+**Subline:** Motavi macht jede Bewegung im Arbeitsablauf messbar: als Zeit, als Kosten und als Belastung. Mit dem Steckbrief erhalten Sie für jeden Arbeitsplatz eine klare Empfehlung, ob Sie ihn gestalten, automatisieren oder beibehalten sollten. Herstellerneutral, ohne Sensoren, Analyse auf Servern in Deutschland. („Server in Deutschland“ in Subline und Fußzeile erst, wenn das Hosting der Website feststeht; Entscheidung vom 31.10.2026.)
 
 **Wiederkehrender Leitsatz für Abschnitte und LinkedIn:** Erst verstehen, dann entscheiden.
 
@@ -99,14 +99,14 @@ Diese Regeln gehören zusätzlich in die `CLAUDE.md` des Repos.
 
 | Route | Seite | Zweck |
 |---|---|---|
-| `/` | Startseite | Markenversprechen, eine Messung und drei Empfehlungen, Beispiel-Steckbrief, Beweis, Pakete |
+| `/` | Startseite | Markenversprechen, eine Messung und drei Wege, Beispiel-Steckbrief, Beweis, Pakete |
 | `/arbeitsplatz-steckbrief` | Der Steckbrief | Jede Kennzahl erklärt, Entscheidungslogik, Arbeitsplatz-Check |
 | `/kapazitaet` | Perspektive Kapazität | Zeit in nicht wertschöpfender Bewegung, ROI-Rechner |
 | `/automatisierung` | Perspektive Automatisierung | Physical-AI-Kontext, "Erst verstehen, dann entscheiden", Kriterien |
-| `/gesundheit` | Perspektive Gesundheit | REBA, LMM, CSRD, Fehltage |
-| `/so-funktionierts` | Ablauf | Video, Messung, Expertenbewertung, Steckbrief und Report |
+| `/gesundheit` | Perspektive Gesundheit | Haltungsindex auf REBA-Basis, LMM, CSRD, Fehltage |
+| `/so-funktionierts` | Ablauf | Video, Messung, Expertenbewertung (ab Paket 2), Report und Steckbrief |
 | `/fuer-robotik-anbieter` | Partnerseite | Angebot für Robotik-Anbieter und Integratoren. Wird erst verlinkt, wenn §7.1 erfüllt ist |
-| `/pakete` | Pakete und Preise | Paket 3 mit Messwerten und Arbeitsplatz-Check aus dem eigenen Video, Aufnahme und Validierung vor Ort und Steckbrief mit Empfehlung ab Paket 2 (§7.3) |
+| `/pakete` | Pakete und Preise | Paket 3 mit Messwerten und Ergonomie-Report aus dem eigenen Video, ohne Empfehlung; Aufnahme und Validierung vor Ort und Steckbrief mit Empfehlung ab Paket 2 (§7.3) |
 | `/betriebsrat` | Datenschutz und Betriebsrat | Anonymisierung, § 87 BetrVG, Zweckbindung, Umgang mit Automatisierung |
 | `/pilot` | Pilot anfragen | Formular mit Auswahl Hersteller oder Robotik-Anbieter |
 | `/impressum`, `/datenschutz` | Pflichtseiten | Platzhalter, Texte durch Anwalt oder Generator |
@@ -117,15 +117,15 @@ Navigation: Steckbrief, Kapazität, Automatisierung, Gesundheit, Pakete, Betrieb
 
 1. **Hero:** Headline und Subline aus Abschnitt 1. CTA "Pilot anfragen", zweiter CTA "Beispiel-Steckbrief ansehen". Visual: Bewegungsskelett, aus dem Zeit, Kosten und Belastung entstehen.
 2. **Problem:** "Jeder Arbeitsplatz verliert Zeit. Niemand weiß genau, wo und warum." Drei Kacheln: Fachkräftemangel (Arbeit bleibt liegen; "Jede Minute, die der Ablauf für Suchen, Gehen und Umgreifen verlangt, fehlt in der Wertschöpfung."), Automatisierungsdruck (Investitionen ohne Datengrundlage), Fehlzeiten (Belastung kostet).
-3. **Eine Messung, drei Empfehlungen:** Grafik: Messung in der Mitte, drei Wege (Verbessern, Automatisieren, Beibehalten) mit je einem Satz, wann er passt. Darunter: "Erst verstehen, dann entscheiden."
+3. **Eine Messung, drei Wege:** Grafik: Messung in der Mitte, drei Wege (Verbessern, Automatisieren, Beibehalten) mit je einem Satz, wann er passt. Darunter: "Erst verstehen, dann entscheiden."
 4. **Beispiel-Steckbrief:** Interaktive Vorschau mit Demo-Daten (`docs/STECKBRIEF_MODUL.md` Abschnitt 7). Startet mit "Erst verbessern, dann automatisieren"; der Umschalter auf die anderen drei Beispiele ist ohne Scrollen sichtbar, auch beim Lesen weiter unten im Steckbrief. Beschriftung der Wirtschaftlichkeit: "Automatisierungspotenzial: X Stunden pro Jahr", "Potenzial in Euro pro Jahr".
 5. **Beweis:** Fallbeispiel Abfülllinie: 4.800 Drehbewegungen pro Schicht, 57 Minuten Potenzial pro Schicht, Ursache im Prozessschritt erkannt und durch Gestaltung gelöst. Mit Methodenhinweis. Botschaft: Hier lautete die Antwort "Verbessern".
 6. **Drei Perspektiven:** Drei Karten (Kapazität, Automatisierung, Gesundheit) mit Kernfrage und Link.
 7. **Kapazität berechnen:** Mini-Rechner. Ergebnis als "gewonnene Kapazität" in Stunden, Euro und "Kapazität in Vollzeitstellen, z. B. für offene Stellen".
-8. **So funktioniert es:** 01 Video aufnehmen, 02 KI misst, 03 Experte bewertet, 04 Steckbrief und Empfehlung.
+8. **So funktioniert es:** 01 Video aufnehmen, 02 KI misst, 03 Experten bewerten (ab Paket 2), 04 Report und Steckbrief.
 9. **Herstellerneutral:** "Wir verkaufen keine Roboter. Wir sagen Ihnen, wo sich einer lohnt, und wo nicht." Kein Link zur Partnerseite, bis §7.1 erfüllt ist; danach ein kleiner Link für Robotik-Anbieter.
 10. **Betriebsrat als Partner:** Kurzfassung, Link.
-11. **Pakete:** Paket 3 mit Messwerten je Arbeitsplatz und Arbeitsplatz-Check, Aufnahme und Validierung vor Ort und Steckbrief mit Empfehlung ab Paket 2 (§7.3). „Empfohlen“ ist die Komplettbegleitung.
+11. **Pakete:** Paket 3 mit Messwerten je Arbeitsplatz und Ergonomie-Report, ohne Empfehlung; Aufnahme und Validierung vor Ort und Steckbrief mit Empfehlung ab Paket 2 (§7.3). „Empfohlen“ ist die Komplettbegleitung.
 12. **Abschluss-CTA:** "Finden Sie heraus, was sich an Ihren Arbeitsplätzen lohnt."
 
 ### `/fuer-robotik-anbieter`
@@ -185,7 +185,7 @@ Ergebnis wird nicht gespeichert. Hinweis: "Im Steckbrief messen wir diese Kriter
 - Texte in `src/content/*.ts`.
 - Scoring-Konfiguration als gemeinsame JSON-Datei für Website und Analysemodul. Quelle ist `config/workplace_scoring.json` im Repo `motavi-backend`; die Website liest beim Build eine Kopie unter demselben Pfad (`npm run sync:scoring`). Tests in beiden Repos schlagen fehl, wenn die Kopie abweicht. Die Fragen des Arbeitsplatz-Checks und ihre Kennzahlwerte stehen im Abschnitt `arbeitsplatz_check` dieser Datei, die sichtbaren Texte in `src/content/steckbrief.ts`.
 - Formular: `POST /api/v1/contact`, Honeypot, Rate-Limit, Zugangsdaten aus Umgebungsvariablen. Der Endpunkt liegt im Backend (`motavi-backend`, `docs/KONTAKT.md`); die Website sendet an `VITE_API_BASE_URL`.
-- Website und Analyse-App getrennt deployen. Stand Phase 0: vorerst eine Vite-App (Bereitstellung über Google AI Studio), Website vorgerendert, App unter `/app` nachgeladen; die Ordnerstruktur erlaubt die spätere Trennung.
+- Website und Analyse getrennt: Die Website ist eine Vite-App (vorgerendert). Die Browser-Analyse ist seit dem 31.10.2026 nicht im Build (G2); Analyse, internes Werkzeug und Upload-Seite für Kunden laufen im Backend (Repo `motavi-backend`, Cloud Run).
 - Lighthouse mindestens 90, mobil ab 360 px, WCAG AA.
 
 ---
@@ -308,8 +308,9 @@ harten Bedingungen dort sind Voraussetzung für das Go-live.
 2. **Rolle gegenüber Anbietern:** Empfehlungsprovision, Auftragsanalyse oder rein neutral. Muss gegenüber Endkunden offengelegt werden.
 3. **Paketinhalte (entschieden am 30. und 31.10.2026):**
    - Paket 1 Komplettbegleitung (3.350 €): Vorstellung des Vorgehens bei Betriebsrat, Management und Mitarbeitenden; Videoaufnahme durch uns vor Ort; Validierung und Ermittlung von Prozesspotenzialen vor Ort; Steckbrief mit Empfehlung; Vorstellung der Ergebnisse in einem Abschlusstermin. Markiert als „Empfohlen“.
-   - Paket 2 Analyse und Validierung (2.150 €): Videoaufnahme durch uns vor Ort; Validierung und Prozesspotenziale vor Ort; Steckbrief mit Empfehlung als Bericht.
-   - Paket 3 Video-Check (990 €): Aufnahme durch den Kunden nach Leitfaden; Messwerte je Arbeitsplatz, Ergonomie-Report, Arbeitsplatz-Check.
+   - Paket 2 Analyse vor Ort (2.150 €, Name seit 31.10.2026): Videoaufnahme durch uns vor Ort; Validierung und Prozesspotenziale vor Ort; Steckbrief mit Empfehlung als Bericht; Ergonomie-Report.
+   - Paket 3 Video-Check (990 €): Aufnahme durch den Kunden nach Leitfaden über einen persönlichen Upload-Link; Haltungsindex, Bewegungsanteile, kritische Momente, automatisch gemessene Zykluszeit und Greifraum, Ergonomie-Report. Keine Empfehlung. Der Arbeitsplatz-Check ist in keinem Paket enthalten, er bleibt der kostenlose Selbsttest auf der Steckbrief-Seite.
+   - Der Ergonomie-Report ist in allen drei Paketen enthalten (Entscheidung P2 vom 31.10.2026).
 4. **Veröffentlichung:** noindex, bis Name und Projekt intern geklärt sind. Harte Bedingungen vor dem Go-live in `docs/GO_LIVE_CHECKLISTE.md`, darunter: Aussagen zu Löschfristen erst, wenn die Lifecycle-Regel im Bucket angewendet und geprüft ist.
 5. **Domain und Designsystem:** siehe Design-Briefing.
 6. **Rechtstexte:** durch Anwalt oder Generator.

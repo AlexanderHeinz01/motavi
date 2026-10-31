@@ -25,17 +25,23 @@ export const LEER: KontaktFormular = {
   zielgruppe: '', name: '', unternehmen: '', funktion: '', email: '', telefon: '', anzahl: '', interesse: [], nachricht: '', website: '',
 }
 
-const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/
+// same rules as the backend (motavi-backend backend/app/schemas/kontakt.py)
+const EMAIL = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)*\.[A-Za-z]{2,}$/
 const TELEFON = /^[0-9 +()/.-]{5,40}$/
+const MAX_ARBEITSPLAETZE = 100_000
+// eslint-disable-next-line no-control-regex
+const STEUERZEICHEN = /[\x00-\x1f\x7f]/
 
 export function validieren(f: KontaktFormular): Fehler {
   const e: Fehler = {}
   if (!f.zielgruppe) e.zielgruppe = true
-  if (f.name.trim().length < 2) e.name = true
-  if (f.unternehmen.trim().length < 2) e.unternehmen = true
+  const name = f.name.trim()
+  const unternehmen = f.unternehmen.trim()
+  if (name.length < 2 || name.length > 120 || STEUERZEICHEN.test(name)) e.name = true
+  if (unternehmen.length < 2 || unternehmen.length > 160 || STEUERZEICHEN.test(unternehmen)) e.unternehmen = true
   if (!EMAIL.test(f.email.trim())) e.email = true
   if (f.telefon.trim() && !TELEFON.test(f.telefon.trim())) e.telefon = true
-  if (f.anzahl.trim() && !/^[1-9][0-9]{0,5}$/.test(f.anzahl.trim())) e.anzahl = true
+  if (f.anzahl.trim() && (!/^[1-9][0-9]{0,5}$/.test(f.anzahl.trim()) || Number(f.anzahl.trim()) > MAX_ARBEITSPLAETZE)) e.anzahl = true
   if (f.nachricht.length > 4000) e.nachricht = true
   return e
 }

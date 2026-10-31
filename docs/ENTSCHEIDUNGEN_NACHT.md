@@ -1,6 +1,6 @@
 # Entscheidungen und offene Punkte, Phasen 4 bis 7
 
-Stand: 31.10.2026, eigenständig umgesetzt in der Nacht, Rückmeldung vom 31.10.2026 am Ende eingearbeitet. Teil A: Entscheidungen, die ich getroffen und umgesetzt habe (bitte prüfen, alles lässt sich ändern). Teil B: Punkte, die Sie klären müssen. Teil D: Ihre Rückmeldung vom 31.10. Teil E: kritische Prüfung mit weiteren offenen Punkten.
+Stand: 31.10.2026, eigenständig umgesetzt in der Nacht, Rückmeldung vom 31.10.2026 am Ende eingearbeitet. Teil A: Entscheidungen, die ich getroffen und umgesetzt habe (bitte prüfen, alles lässt sich ändern). Teil B: Punkte, die Sie klären müssen. Teil D: Ihre Rückmeldung vom 31.10. Teil E: kritische Prüfung mit weiteren offenen Punkten. Teil F: Ihre Rückmeldung zu Teil E und was davon umgesetzt ist.
 
 ## A. Getroffene Entscheidungen
 
@@ -295,6 +295,110 @@ Repo `motavi-backend`, Branch `claude/lucid-ptolemy-uk3l0m`. Die Punkte 1, 3, 9 
 
 17. **REBA-Berechnungen laufen auseinander (Fehler, nachgeprüft, gehört zu E.1 Punkt 1 und 9).** Das Backend misst den Oberarm gegen die Schulterlinie. Ein hängender Arm ergibt dort immer die höchste Stufe: aufrecht stehend 4,6 („mittel“) im Backend gegenüber 3,1 („niedrig“) in der App. Auch „Überkopf“ ist unterschiedlich definiert. Der Wert fließt in Belastungsindex und Vorrang-Regel ein. Rampe und Vorrangschwelle sind auf eine Skala abgestimmt, auf der schon neutrales Stehen etwa 4,6 ergibt.
 18. **Zyklen pro Schicht (Hinweis).** Gerechnet wird mit der Schichtdauer aus dem Upload (480 min, brutto inklusive Pausen) und der Annahme, dass die ganze Schicht diese Tätigkeit ist. Zyklen pro Schicht und Wirtschaftlichkeit fallen damit um etwa den Pausenanteil zu hoch aus. Die Schichtdauer hat keine Grenzen (0 und negative Werte werden angenommen). Entscheidung: Netto-Arbeitszeit abfragen oder Pausenabzug annehmen?
+
+## F. Rückmeldung 31.10., Teil 2
+
+Ihre Entscheidungen zu „Neu aufgefallen“ (Teil D) und zu Teil E, umgesetzt am 31.10.2026. Commits: Repo `motavi-backend` `8d97e5b`, `0a940b3`, `ea9a7b1` (Branch `claude/lucid-ptolemy-uk3l0m`); Repo `motavi` `383dd57` und dieser Commit (Branch `website-relaunch`). Tests: Backend 354 grün (1 übersprungen), Website 507 grün.
+
+### Grundsatz
+
+| Nr. | Entscheidung | Umsetzung |
+|---|---|---|
+| G1 | Harte Go-live-Bedingung 0: Anbieter und Impressum geklärt; bis dahin keine Firmennamen | Bedingung 0 in `docs/GO_LIVE_CHECKLISTE.md`. „Motavi Inc.“ und „Motavi Demo GmbH“ entfernt. `npm run golive:check` sucht nach Firmennamen. |
+| G2 | Keine Kunden-Selbstbedienung; Backend-App als internes Werkzeug; Upload-Link für Video-Check-Kunden; Website beschreibt nur den Weg über das Backend | Website: `/login` und `/app` nicht mehr im Build, Fußzeile ohne Link, Code bleibt (`src/app`, `src/analysis`). Backend: Upload-Links (`routers/upload_links.py`), öffentliche Seite `/hochladen/{token}`, alte Marketingseite unter „/“ entfernt. Texte auf `/so-funktionierts`, `/betriebsrat` und der Startseite beschreiben Upload, Analyse in Frankfurt und Löschung. |
+| G3 | „Haltungsindex auf REBA-Basis (1 bis 10)“; Texte, Stufen, Report, Vorrang, Check anpassen | Überall umbenannt (Website, Dashboard, beide PDFs, Export-Schema 1 bis 10). Stufen und Schwellen siehe „Meine Festlegungen“. Doku `motavi-backend/docs/HALTUNGSINDEX.md`. |
+
+### Pakete und Texte
+
+| Nr. | Umsetzung |
+|---|---|
+| P1 | Video-Check: Aufnahme über persönlichen Upload-Link, Haltungsindex, Bewegungsanteile und kritische Momente, Zykluszeit und Greifraum, Ergonomie-Report; unter der Liste „Ohne Empfehlung und ohne Bewertung durch Experten“. Arbeitsplatz-Check aus allen Paketen gestrichen, er bleibt der kostenlose Selbsttest auf der Steckbrief-Seite. Damit der Report liefert, was das Paket verspricht, enthält der Ergonomie-Report jetzt den Abschnitt „Arbeitsablauf und Greifraum“ (aus `pose.npz`, Pilotphase). |
+| P2 | Ergonomie-Report in allen drei Paketen (Karten, Vergleichstabelle, `/so-funktionierts`). |
+| P3 | „Analyse vor Ort“ statt „Analyse und Validierung“. Die Leistung heißt weiter „Validierung und Ermittlung von Prozesspotenzialen vor Ort“ wie in Ihrem Konzept. |
+| P4 | In der Checkliste als bestätigt abgehakt. |
+| P5 | „Eine Messung, drei Wege“ (Startseite), „einer von drei gleichwertigen Wegen“ (Perspektiven, Steckbrief-Seite), „Oft lautet die Antwort: erst verbessern, dann automatisieren.“ Die Entscheidungsmatrix zeigt die Kombination weiter als vierte Zelle. |
+| P6 | Startseite und `/betriebsrat`: „Wir empfehlen, den Betriebsrat von Anfang an zu beteiligen.“ Ebenso auf der Upload-Seite und in den Aufnahmehinweisen. |
+| P7 | „Erfahrene Experten für Arbeitsgestaltung und Zeitwirtschaft (REFA)“ auf Startseite, `/so-funktionierts`, Steckbrief-Seite und `/automatisierung`; Mehrzahl statt „der Experte“. |
+| P8 | „gewinnen“ statt „freimachen“; `freimach` und `datenschutzkonform` stehen jetzt im Leitplanken-Test. |
+| P9 | Netto-Arbeitszeit je Schicht, Standard 450 min, Grenzen 60 bis 720 (Upload, Upload-Link, internes Werkzeug). Der Report rechnet die Minuten auf die Netto-Arbeitszeit hoch, nicht mehr zusätzlich auf 8 Stunden. |
+
+### Behobene Fehler
+
+**Priorität 1, Backend vor echten Videos**
+
+- E.3.1: Anmeldung auf allen Job-Routen, Eigentümer je Job (`job.json`); das Team sieht alle Jobs, andere nur eigene. Einzelbilder über Links, die 15 Minuten gelten. `--max-instances=3`.
+- E.3.3: Upload über eine Resumable-Session direkt in Cloud Storage, bis 1 GiB.
+- E.3.5: Ohne erkannte Person eine Fehlermeldung statt „geringes Risiko“, ab 50 % Erkennung ein Ergebnis; der Erkennungsanteil ist die Qualität des Haltungsindex im Steckbrief.
+- E.3.12: `cloudbuild.yaml` mit vollständiger Secret-Liste (`_SECRETS`), Umgebungsvariablen über Substitutionen. In Produktion startet der Dienst nicht ohne `JWT_SECRET` (mindestens 32 Byte), `PUBLIC_APP_URL` und `CORS_ORIGINS`.
+- E.3.13: eigenes Dienstkonto ohne Schlüssel; Rollen und Befehle in `motavi-backend/docs/BETRIEB.md`.
+- E.3.14: beide Modelle mit fester Version und Prüfsumme im Image; ohne Image ohne halb geladene Dateien.
+- E.3.17: Nacken, Oberarm und Unterarm wie in der REBA-Definition und wie in der Browser-Variante. Aufrechtes Stehen ergibt jetzt etwa 3,1 statt 4,6. Golden-Referenz bewusst neu gesetzt.
+- E.3.2: Es wird kein Video mehr gespeichert. Die drei Standbilder kommen aus dem Original, Köpfe aller Personen (bis zu sechs, aus den Gelenkpunkten) und alle von der Gesichtserkennung gefundenen Gesichter großzügig schwarz gefüllt. Bilder ohne erkannte Person und alle Bilder bei nicht verfügbaren Detektoren werden verworfen.
+- E.3.6: Befehle für Soft Delete und Versionierung in `motavi-backend/docs/BETRIEB.md` und `docs/LOESCHKONZEPT.md`. **Von Ihnen auszuführen.**
+- E.2.14: Der bestätigte Steckbrief wird als `steckbrief.json` eingefroren und von dort ausgeliefert, auch nach dem Löschen von `pose.npz`. Abrufe schreiben nichts. Änderungen des Teams frieren neu ein.
+- E.3.7: Benachrichtigung nur als Hinweis mit Dokument-ID, ohne Inhalt der Anfrage.
+- E.3.4: geplant in `motavi-backend/docs/WORKER.md` (Cloud Run Jobs), nicht umgesetzt.
+
+**Priorität 2, Website vor dem Go-live**
+
+- E.2.3: Körpergröße entfernt (Backend, internes Werkzeug).
+- E.2.7: feste Senkungsprozente gestrichen (Backend, Report, internes Werkzeug, Code der Browser-App).
+- E.2.8: Pilotphase auf `/automatisierung`, auf der Partnerseite und im Hinweis auf `/so-funktionierts`.
+- E.2.9: alte Startseite gelöscht.
+- E.2.11: alte Marketingseite im Backend entfernt, Schriften dort selbst gehostet.
+- E.2.12: Styleguide und Designentwürfe nur im Entwicklungsserver.
+- E.2.13: README, `metadata.json`, Titel, Fehlermeldung, Datenschutz-Gliederung bereinigt.
+- E.2.16: siehe P8.
+- E.1.3: `/so-funktionierts` je Paket.
+- E.1.5: `golive:check` verlangt `VITE_SITE_URL`.
+- E.1.10: Benachrichtigung und Zuständigkeit als harte Bedingung 3.
+
+**Priorität 3, Rest**
+
+- E.2.4: „Mit dem Steckbrief erhalten Sie für jeden Arbeitsplatz eine klare Empfehlung …“ (Subline und Beschreibung der Startseite).
+- E.2.10: Werbeaussagen, Firmenname und Gedankenstriche im Code der Browser-App entfernt.
+- E.2.6: Report einheitlich 1 bis 10.
+- E.3.8: TLS mit Zertifikatsprüfung.
+- E.3.9: Rate-Limit aus dem angehängten Eintrag, IPv6 je /64, höchstens 10.000 Schlüssel.
+- E.3.10: Steuerzeichen und Adresslisten abgelehnt, gleiche Grenzen auf der Website (1 bis 100.000 Arbeitsplätze, gleiche E-Mail-Regel).
+- E.3.11: synchrone Handler, Logging ohne personenbezogene Daten, keine internen Details in Fehlermeldungen.
+- E.3.15: Begrenzung der Anmeldeversuche (10 in 15 Minuten), gleiche Laufzeit, Setup-Key in konstanter Zeit, Passwort mindestens 12 Zeichen.
+- E.3.16 teilweise: README, Liste der Umgebungsvariablen, `.env.example` startet, Image ohne root.
+- E.3.7: Die E-Mail des Beraters in Bestätigungen ist dokumentiert.
+
+### Meine Festlegungen bei der Umsetzung (bitte prüfen)
+
+1. **Stufen des Haltungsindex:** unter 4 niedrig, 4 bis unter 6 mittel, 6 bis unter 8 hoch, ab 8 sehr hoch. Das sind die Grenzen, die die Analyse schon für `reba_level` nutzte, jetzt überall gleich.
+2. **Vorrang ab 6** (Stufe hoch). Folge: Im Arbeitsplatz-Check ergeben die Antworten „häufig“ und „ständig“ zur Haltung „vorrangig“, über alle Antwortkombinationen die Hälfte (vorher ein Viertel). Wenn Ihnen das zu oft ist: Vorrang ab 7 oder 8.
+3. **Belastungsindex:** Rampe 3 (etwa aufrechtes Stehen) bis 8 statt 2 bis 9. **Check-Werte** je Stufenmitte: 3,0 / 5,0 / 7,0 / 8,5. Die Scores der Testprofile ändern sich um 1 bis 2 Punkte, alle Empfehlungen bleiben. Die Verteilung des Checks ist jetzt 35 / 31 / 23 / 11 %.
+4. **Demo-Werte der Website** auf die neue Skala gesetzt, die Stufe bleibt gleich: Automatisieren 6,9 auf 4,6, Verbessern 6,4 auf 5,2 (beide mittel). Montage 5,8 und Beibehalten 3,4 unverändert.
+5. **Upload-Links:** 14 Tage gültig (einstellbar 1 bis 60), ein Video je Link, höchstens 1 GiB. Der Kunde sieht nach dem Upload nur eine Bestätigung, keine Ergebnisse. Den Report schickt das Team.
+6. **Zugriff:** Rollen `berater` und `admin` sehen alle Jobs; Konten mit Rolle `user` nur selbst angelegte. Kunden haben keine Konten.
+7. **Gesichtserkennung:** MediaPipe Face Detector (Nahbereich) zusätzlich zur Kopf-Box aus den Gelenkpunkten. Auf größere Entfernung findet er Gesichter schlechter; die Kopf-Box aus den Gelenkpunkten greift dort.
+8. **Eingefrorener Steckbrief:** Ohne Bestätigung ist ein Steckbrief nach 30 Tagen nicht mehr abrufbar (keine Pose-Daten). Mit Bestätigung bleibt er 365 Tage ab der letzten Änderung.
+9. **CORS in Produktion Pflicht**, Website-Adresse über `_CORS_ORIGINS`.
+
+### Weiter offen
+
+Von Ihnen zu klären, geführt in `docs/GO_LIVE_CHECKLISTE.md`:
+
+- Domain und Postfach;
+- Reisekosten;
+- Umfang je Paket;
+- Rechtliches mit dem Anwalt (Auftragsverarbeitungsvertrag, technische und organisatorische Maßnahmen, AGB, Vorlage für die Datenschutz-Folgenabschätzung);
+- B5, B9, B11, B13.
+
+Noch nicht entschieden oder umgesetzt:
+
+1. **Übernahme nach `main` und automatische Tests** (E.1.7). Vorschlag: zwei Pull Requests, danach GitHub Actions mit Tests, Typprüfung und `golive:check`. Dazu fehlen noch ein Testschritt in Cloud Build und feste Versionen der Python-Abhängigkeiten (E.3.16).
+2. **Passwort vergessen und Konten löschen** (E.1.11). Konten legt das Team über `/auth/register` mit Setup-Key an (`motavi-backend/docs/BETRIEB.md`).
+3. **Videos für die Validierung und Kalibrierung der Annahmen** (E.1.13, E.1.14). Damit kommt auch Standard-REBA (G3).
+4. **Schutz des Kontaktformulars über das Rate-Limit hinaus** (E.3.9): Cloud Armor oder ein Captcha ohne Cookies.
+5. **Leitfaden zum Herunterladen** für den Video-Check (E.1.16). Die Hinweise stehen auf `/so-funktionierts` und der Upload-Seite.
+6. **„Validierung“ in der Leistung** von Paket 1 und 2 (E.2.18): Der Paketname ist geändert, die Leistung heißt weiter „Validierung … vor Ort“ neben „Pilotphase: noch nicht validiert“. Umbenennen in „Prüfung vor Ort“?
+7. **Domain im Export-Schema und Vorschaubild** (E.2.19): `$id` `https://motavi.de/schema/…` in `docs/steckbrief_schema.json` und die eingebrannte Wortmarke in `public/og/motavi.png`. Nach der Domain-Entscheidung anpassen.
+8. **Browser-Analyse:** nicht im Build. Stufen und Anmeldung dort sind alt (Attrappe). Vor einer Wiederverwendung angleichen oder löschen.
+9. **Golden-Test mit echtem Video:** Die Referenz `testvideo_result.json` stammt von vor dem 31.10.2026 und muss mit dem Testvideo neu erstellt werden.
 
 ## C. TODO-Stellen im Code
 

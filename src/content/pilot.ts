@@ -38,7 +38,7 @@ export const pilot = {
     unternehmen: 'Bitte geben Sie Ihr Unternehmen an.',
     email: 'Bitte geben Sie eine gültige E-Mail-Adresse an.',
     telefon: 'Bitte nur Ziffern, Leerzeichen und + ( ) / - verwenden.',
-    anzahl: 'Bitte eine ganze Zahl ab 1 angeben.',
+    anzahl: 'Bitte eine ganze Zahl von 1 bis 100.000 angeben.',
     nachricht: 'Bitte höchstens 4.000 Zeichen.',
   },
   erfolg: {

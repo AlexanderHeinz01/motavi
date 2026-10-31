@@ -1,6 +1,6 @@
 # Motavi: Hinweise für Claude Code
 
-Website (hell, vorgerendert) und Analyse-App (dunkel, `/app`) in einer Vite-App. Bereitstellung über Google AI Studio, das per GitHub-Sync aus diesem Repo zieht. Pläne: `docs/WEBSITE_PLAN.md`, `docs/DESIGN_BRIEF.md`, `docs/STECKBRIEF_MODUL.md`.
+Website (hell, vorgerendert) in einer Vite-App. Die Browser-Analyse (`src/app`, `src/analysis`) ist seit dem 31.10.2026 nicht im Build (keine Selbstbedienung für Kunden, Entscheidung G2); Analyse, Upload-Links für Kunden und das interne Werkzeug laufen im Backend (Repo `motavi-backend`). Bereitstellung über Google AI Studio, das per GitHub-Sync aus diesem Repo zieht. Pläne: `docs/WEBSITE_PLAN.md`, `docs/DESIGN_BRIEF.md`, `docs/STECKBRIEF_MODUL.md`.
 
 ## Befehle
 
@@ -16,9 +16,9 @@ Website (hell, vorgerendert) und Analyse-App (dunkel, `/app`) in einer Vite-App.
 - `src/website/`: `routes.tsx` (einzige Quelle für Routen, Vorab-Rendern und Sitemap), `layout/`, `pages/` (eine Datei je Route), `seo.ts`
 - `src/ui/`: Komponentenbibliothek nach `docs/DESIGN_BRIEF.md` §4
 - `src/styles/`: `tokens.css` (Design-Tokens) und `fonts.ts` (selbst gehostete Schriften)
-- `src/analysis/`: Analysekern ohne React (MediaPipe im Browser, REBA, Ergebnis, Job-Speicher, PDF). Das Steckbrief-Modul liegt nicht hier, sondern im Python-Backend (Repo `motavi-backend`, `backend/app/services/workplace/`).
-- `src/app/`: Analyse-App (Login, Upload, Analyse, Dashboard)
-- `src/marketing/`: alte Startseite unter `/_alt-startseite`, nur noch zum Vergleich. Wird gelöscht, sobald die neue Startseite steht.
+- `src/analysis/`: Analysekern ohne React (MediaPipe im Browser, Haltungsindex, Ergebnis, Job-Speicher, PDF), nicht im Build. Das Steckbrief-Modul liegt nicht hier, sondern im Python-Backend (Repo `motavi-backend`, `backend/app/services/workplace/`).
+- `src/app/`: Browser-Analyse-App (Login als Attrappe, Upload, Analyse, Dashboard), nicht im Build und so nicht veröffentlichen
+- Interne Seiten (`/_styleguide`, `/_design/...`) nur im Entwicklungsserver (`src/website/routes.tsx`)
 
 ## Entscheidungen (Phase 0)
 
@@ -28,9 +28,11 @@ Website (hell, vorgerendert) und Analyse-App (dunkel, `/app`) in einer Vite-App.
 - **Dunkle Variante:** `.surface-inverse` schaltet neben ink- und path-Tokens auch `--bg`, `--text`, `--text-muted`, `--border` und `--border-strong` um; dieselben Komponenten funktionieren so im Dashboard (z.B. `SteckbriefVorschau theme="dunkel"`). Im dunklen Kontext immer `text-ink` setzen, nicht die Textfarbe vom hellen `body` erben lassen. `--bg-subtle` bleibt im Dunkeln die Grundfarbe, sonst fiele `--risk` als Text unter 4,5:1.
 - **Steckbrief-Vorschau (D2b):** `src/ui/SteckbriefVorschau.tsx` in Reihenfolge des späteren Dashboard-Tabs (STECKBRIEF_MODUL §6). Begründung und Wirtschaftlichkeit werden nur aus Messwerten abgeleitet (`src/lib/steckbrief.ts`). Prüfseite `/_design/steckbrief`. Zahl und Einheit (`prozent`, `euro`) sind mit geschütztem Leerzeichen verbunden.
 - **Komponenten und Styleguide:** Bibliothek in `src/ui/` (Formularfelder in `src/ui/form/`), feste Texte in `src/content/komponenten.ts`. `/_styleguide` zeigt alle Komponenten in allen Zuständen (noindex, nicht in Sitemap und Navigation). Hover und Fokus lassen sich mit `data-force="hover|focus"` erzwingen (Tailwind-Varianten `is-hover`, `is-focus`, `is-focus-within`). Formularfehler immer `--error-ink`, nie `--risk-ink`.
-- **Analyse im Browser:** Die Ergonomie-Analyse dieser App läuft im Browser, das Video verlässt den Rechner nicht. Die Aussage dazu steht zentral in `src/content/datenweg.ts` (Schalter `DATENWEG`, erst auf `'server'` stellen, wenn die App an das Backend hochlädt und das Löschkonzept live ist).
+- **Datenweg (Entscheidung G2 vom 31.10.2026):** Die Website beschreibt nur den Weg über das Backend: Upload (durch Motavi oder per persönlichem Upload-Link), Analyse auf Servern in Deutschland, Originalvideo unmittelbar nach der Auswertung gelöscht, kein Video aufbewahrt. `src/content/datenweg.ts` gehört zur Browser-App und ist nicht im Build.
 - **Steckbrief-Modul im Backend (Entscheidung 30.10.2026):** Zykluserkennung (mindestens 10 Hz), Expertenbewertung und Scoring laufen im Python-Backend (`motavi-backend`). Pose-Daten liegen dort als `results/{job_id}/pose.npz` (nur Koordinaten, ohne Augen und Mund, 30 Tage wie das anonymisierte Video; Originalvideo wird direkt nach der Auswertung gelöscht, siehe `docs/LOESCHKONZEPT.md` im Backend). Siehe `docs/STECKBRIEF_MODUL.md`.
-- **noindex:** Die gesamte Website ist bis zur Freigabe `noindex`. Freigabe beim Build mit `VITE_SITE_INDEXABLE=true`. Die App ist immer `noindex`.
+- **noindex:** Die gesamte Website ist bis zur Freigabe `noindex`. Freigabe beim Build mit `VITE_SITE_INDEXABLE=true`.
+- **Haltungsindex (Entscheidung G3 vom 31.10.2026):** Nie „REBA“ allein schreiben. Der gemessene Wert heißt „Haltungsindex auf REBA-Basis (1 bis 10)“, Stufen unter 4, 4 bis unter 6, 6 bis unter 8, ab 8 (`src/lib/steckbrief.ts`, `motavi-backend/docs/HALTUNGSINDEX.md`).
+- **Formulierungen:** „drei Wege“ (Verbessern, Automatisieren, Beibehalten); die Kombination als Reihenfolge („Oft lautet die Antwort: erst verbessern, dann automatisieren.“). Experten: „erfahrene Experten für Arbeitsgestaltung und Zeitwirtschaft (REFA)“, keine Namen. Betriebsrat: „wir empfehlen“, nicht „nur mit“. Keine Firmennamen, bis der Anbieter geklärt ist.
 - **Partnerseite** `/fuer-robotik-anbieter`: gebaut, aber nicht verlinkt und nicht in der Sitemap (`WEBSITE_PLAN.md` §7.1).
 
 ## Leitplanken (gelten für jede Phase, aus `docs/WEBSITE_PLAN.md` §2)

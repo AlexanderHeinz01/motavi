@@ -16,6 +16,14 @@ describe('Kontaktformular', () => {
     expect(validieren({ ...GUT, email: 'erika@example' })).toEqual({ email: true })
     expect(validieren({ ...GUT, nachricht: 'x'.repeat(4001) })).toEqual({ nachricht: true })
   })
+  it('gleiche Grenzen wie das Backend', () => {
+    const gut = { ...LEER, zielgruppe: 'hersteller' as const, name: 'Erika Muster', unternehmen: 'Beispiel GmbH', email: 'erika@example.de' }
+    expect(validieren({ ...gut, anzahl: '100000' })).toEqual({})
+    expect(validieren({ ...gut, anzahl: '100001' }).anzahl).toBe(true)
+    expect(validieren({ ...gut, email: 'a,b@evil.com' }).email).toBe(true)
+    expect(validieren({ ...gut, unternehmen: 'Beispiel\r\nBcc: x' }).unternehmen).toBe(true)
+    expect(validieren({ ...gut, name: 'x'.repeat(121) }).name).toBe(true)
+  })
   it('Anfrage ohne leere Felder, mit Honeypot', () => {
     expect(anfrage({ ...GUT, anzahl: ' 12 ', interesse: ['kapazitaet'] })).toEqual({
       zielgruppe: 'hersteller', name: 'Erika Muster', unternehmen: 'Beispiel GmbH', email: 'erika@example.org',
