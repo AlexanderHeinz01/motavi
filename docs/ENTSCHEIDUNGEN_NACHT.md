@@ -88,7 +88,7 @@ Umgesetzt am 31.10.2026. Wo Teil A oder B etwas anderes sagt, gilt dieser Abschn
 
 ## E. Kritische Prüfung 31.10.
 
-Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich ohne Entscheidung beheben, „Entscheidung“ braucht Sie. Die Ergebnisse zweier unabhängiger Prüfungen (Website-Texte gegen das Produkt und Backend) folgen in E.2 und E.3.
+Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich ohne Entscheidung beheben, „Entscheidung“ braucht Sie. Die Ergebnisse zweier unabhängiger Prüfungen stehen in E.2 (Website-Texte gegen das Produkt, folgt) und E.3 (Backend).
 
 ### E.1 Eigene Befunde
 
@@ -151,6 +151,73 @@ Gesamte Umsetzung in beiden Repos noch einmal geprüft. „Fehler“ lässt sich
 17. **Vertragsbedingungen (Entscheidung).** Allgemeine Geschäftsbedingungen oder Angebotsbedingungen mit Zahlungsziel und Haftung für die „grobe Abschätzung“ der Wirtschaftlichkeit fehlen.
 18. **Wer ist „der Experte“? (Entscheidung).** Die Website verspricht eine Expertenbewertung. Soll die Qualifikation genannt werden, etwa Ergonomie oder Arbeitswissenschaft? Eine Seite „Über uns“ gibt es nicht.
 19. **Analyse-App nicht geprüft (TODO).** Die dunkle Oberfläche unter `/app` war nicht Teil der Qualitätsprüfung in Phase 7: Lighthouse, Barrierefreiheit und Texte gegen die Leitplanken stehen aus.
+
+### E.3 Backend (unabhängige Prüfung)
+
+Repo `motavi-backend`, Branch `claude/lucid-ptolemy-uk3l0m`. Die Punkte 1, 3, 9 und 10 habe ich im Code selbst nachgeprüft. „Fehler“ kann ich ohne Entscheidung beheben, „Risiko“ braucht eine Entscheidung zu Betrieb oder Sicherheit.
+
+**Vor jedem Betrieb mit echten Videos**
+
+1. **Analyse ohne Anmeldung, keine Trennung zwischen Kunden (Fehler, nachgeprüft).**
+   - `POST /upload`, `GET /analysis/{job_id}`, `GET /frames/...` und `GET /report/.../pdf` verlangen keine Anmeldung (`routers/upload.py`, `analysis.py`, `report.py`). Jeder kann Videos bis 500 MB hochladen und teure Analysen starten. Ohne `--max-instances` treibt das die Kosten hoch.
+   - Wer eine Job-ID kennt, erhält Ergebnis, PDF und die kritischen Einzelbilder mit Beschäftigten.
+   - Beim Steckbrief (`workplace.py`) reicht „angemeldet“: Jeder Nutzer kann die Kundenangaben jedes Jobs lesen und überschreiben.
+   - Behebung: Anmeldung auf allen Routen, Eigentümer bzw. Firma am Job speichern und prüfen, Bilder über kurzlebige signierte Links, `--max-instances` setzen.
+2. **Anonymisierung mit Lücken (Risiko).** Betroffen ist `services/analyzer.py`.
+   - Bilder ohne erkannte Person kommen ungeschwärzt ins aufbewahrte Video.
+   - Erkannt wird nur eine Person, Kolleginnen und Kollegen im Bild bleiben erkennbar.
+   - Bei schlecht sichtbarem Kopf beginnt der Balken erst an den Schultern.
+   - `video_anon.mp4` wird 30 Tage aufbewahrt, aber von keinem Code gelesen.
+
+   Das berührt die Aussagen auf `/betriebsrat` und `/so-funktionierts` („Im aufbewahrten Video ist der Kopfbereich unkenntlich gemacht“). Vorschlag: das anonymisierte Video gar nicht speichern, die drei kritischen Bilder großzügig schwärzen und bei fehlender Erkennung verwerfen, Gesichtserkennung für alle Personen. Danach die Texte anpassen.
+3. **Uploads über 32 MiB scheitern (Fehler).** Cloud Run begrenzt einzelne Anfragen auf 32 MiB, ein einminütiges Handyvideo hat etwa 100 MB. Das Frontend verspricht 500 MB, zudem liegt jeder Upload ganz im Arbeitsspeicher. Behebung: Upload über einen signierten Link direkt in den Speicher, danach die Analyse starten.
+4. **Analyse läuft im Webdienst (Risiko).** Jedes Deploy und jedes Herunterskalieren bricht laufende Analysen ab, der Job bleibt dann dauerhaft auf „processing“. Der Kommentar „max. 4 parallele Jobs“ in `cloudbuild.yaml` stimmt nicht. Behebung: eigener Worker über Cloud Run Jobs oder Cloud Tasks, Jobstatus in Firestore.
+5. **Keine Person erkannt ergibt „geringes Risiko“ (Fehler, nachgeprüft).** Ohne erkannte Person (falscher Winkel, dunkles Video) liefert die Analyse REBA 1,0 „LOW“, und der Steckbrief übernimmt den Wert als belastbar. Behebung: in diesem Fall ein Fehlerergebnis ausgeben und den Erkennungsanteil als Qualität führen.
+
+**Löschfristen und Datenschutz**
+
+6. **Soft Delete im Speicher (Risiko).** Google Cloud Storage hält gelöschte Objekte standardmäßig 7 Tage wiederherstellbar, also auch das „unmittelbar gelöschte“ Originalvideo. Entweder Soft Delete im Bucket abschalten (`--clear-soft-delete`) und Versionierung prüfen, oder die 7 Tage offen nennen. Gleiches für Firestore-Sicherungen prüfen. Gehört zur harten Go-live-Bedingung 1.
+7. **Weitere Abweichungen bei den Löschfristen (Hinweis).**
+   - Der Steckbrief wird immer aus `pose.npz` neu berechnet. Nach 30 Tagen liefern Abruf, PDF und Export deshalb 404, obwohl die Ergebnisse laut Website 365 Tage bleiben.
+   - Jeder Abruf schreibt `workplace.json` neu, die Frist zählt damit faktisch ab dem letzten Abruf.
+   - Bestätigungen speichern die E-Mail des Beraters (`bestaetigt_von`); das ist nicht dokumentiert.
+   - Benachrichtigungsmails liegen mit allen Kontaktdaten im Postfach, außerhalb der 365 Tage.
+8. **E-Mail-Versand ohne Zertifikatsprüfung (Fehler).** `starttls()` ohne SSL-Kontext prüft das Zertifikat des Mailservers nicht; Passwort und Anfragedaten wären mitlesbar.
+
+**Kontaktformular**
+
+9. **Rate-Limit umgehbar, Speicher wächst (Fehler, nachgeprüft).** Gezählt wird der erste Eintrag aus `X-Forwarded-For`, den der Absender frei setzen kann. Einträge werden nie gelöscht, eine Flut füllt den Speicher und kann laufende Analysen beenden. Behebung: den von Google angehängten Eintrag nehmen, Adressen prüfen, alte Einträge löschen. Entscheidung: zusätzlicher Schutz wie Cloud Armor oder ein Captcha ohne Cookies?
+10. **Eingabeprüfung (Fehler).**
+    - Ein Zeilenumbruch im Feld Unternehmen erzeugt nach dem Speichern einen Fehler 500; ein Neuversuch führt zu Duplikaten.
+    - Steuerzeichen werden angenommen.
+    - Adressen wie `a,b@evil.com` gelten als gültig.
+    - Website und Backend erlauben unterschiedlich viele Arbeitsplätze (999.999 gegenüber 100.000).
+11. **Blockierende Aufrufe, fehlendes Logging (Fehler).** Firestore, Mailversand und Speicherzugriffe blockieren den ganzen Dienst, solange sie laufen. Fehler beim Speichern werden nicht geloggt, die Anfrage ist dann still verloren. Einige Fehlermeldungen geben interne Details an anonyme Aufrufer.
+
+**Deployment**
+
+12. **`cloudbuild.yaml` löscht Secrets (Fehler).** `--set-secrets` entfernt alle vorhandenen Secrets und setzt nur zwei. Ein in der Konsole hinterlegtes `JWT_SECRET` oder `SMTP_PASSWORD` verschwindet bei jedem Deploy; danach antworten Anmeldung und Steckbrief mit 503, und der Mailversand bleibt still aus.
+13. **Dienstkonto und Rechte (Risiko).** Statt eines dauerhaften Schlüssels sollte ein eigenes Dienstkonto angehängt werden. Die nötigen Rollen sind nirgends dokumentiert:
+    - `storage.objectUser` auf dem Bucket. Ohne Löschrecht scheitert das Löschen des Originalvideos still.
+    - `datastore.user`.
+    - Zugriff auf die Secrets.
+14. **Erkennungsmodell im Backend (Fehler).** Es wird bei jedem Kaltstart von Google geladen, ohne feste Version. Gleichzeitige Jobs können ein halb geladenes Modell erwischen. Behebung: Modell mit fester Version und Prüfsumme ins Image, wie auf der Website.
+15. **Anmeldung (Hinweis).**
+    - Keine Begrenzung der Anmeldeversuche.
+    - An der Antwortzeit lässt sich erkennen, ob ein Konto existiert.
+    - Setup-Schlüssel nicht in konstanter Zeit verglichen.
+    - Keine Mindestlänge für Passwörter.
+16. **Betriebsunterlagen (Hinweis).**
+    - Die README ist leer, eine Liste der Umgebungsvariablen fehlt.
+    - `.env.example` lässt das Backend beim Start abbrechen.
+    - Kein Testschritt im Build.
+    - Abhängigkeiten nicht auf Versionen festgelegt.
+    - Das Image läuft als root.
+
+**Messung**
+
+17. **REBA-Berechnungen laufen auseinander (Fehler, nachgeprüft, gehört zu E.1 Punkt 1 und 9).** Das Backend misst den Oberarm gegen die Schulterlinie. Ein hängender Arm ergibt dort immer die höchste Stufe: aufrecht stehend 4,6 („mittel“) im Backend gegenüber 3,1 („niedrig“) in der App. Auch „Überkopf“ ist unterschiedlich definiert. Der Wert fließt in Belastungsindex und Vorrang-Regel ein. Rampe und Vorrangschwelle sind auf eine Skala abgestimmt, auf der schon neutrales Stehen etwa 4,6 ergibt.
+18. **Zyklen pro Schicht (Hinweis).** Gerechnet wird mit der Schichtdauer aus dem Upload (480 min, brutto inklusive Pausen) und der Annahme, dass die ganze Schicht diese Tätigkeit ist. Zyklen pro Schicht und Wirtschaftlichkeit fallen damit um etwa den Pausenanteil zu hoch aus. Die Schichtdauer hat keine Grenzen (0 und negative Werte werden angenommen). Entscheidung: Netto-Arbeitszeit abfragen oder Pausenabzug annehmen?
 
 ## C. TODO-Stellen im Code
 
