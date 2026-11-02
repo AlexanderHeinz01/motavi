@@ -17,7 +17,7 @@ export default function PaketePage() {
             key={p.id}
             name={p.name}
             preis={p.preis}
-            preisHinweis={t.preisHinweis}
+            preisHinweis={p.preisHinweis}
             leistungen={p.leistungen}
             cta={t.cta}
             empfohlen={p.empfohlen}

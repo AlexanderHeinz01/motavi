@@ -400,6 +400,17 @@ Noch nicht entschieden oder umgesetzt:
 8. **Browser-Analyse:** nicht im Build. Stufen und Anmeldung dort sind alt (Attrappe). Vor einer Wiederverwendung angleichen oder löschen.
 9. **Golden-Test mit echtem Video:** Die Referenz `testvideo_result.json` stammt von vor dem 31.10.2026 und muss mit dem Testvideo neu erstellt werden.
 
+## G. Rückmeldung 02.11.
+
+Nach der Veröffentlichung unter `motavi.ai.studio`, umgesetzt am 02.11.2026:
+
+1. **Seitenanfang bei internen Links:** Ein Klick auf einen internen Link öffnet die neue Seite oben (`src/website/layout/SiteLayout.tsx`). Vorher behielt die App die Scrollposition der vorigen Seite. Ausnahmen, bitte prüfen:
+   - Links mit Sprungmarke, z.B. „Wie die Empfehlung entsteht“ auf `/arbeitsplatz-steckbrief#entscheidung` oder „Zum Rechner“ auf `/kapazitaet#rechner`, springen weiter zum Abschnitt.
+   - Zurück und Vor im Browser stellen die vorige Position wieder her.
+
+   Sollen auch Links mit Sprungmarke oben beginnen, entferne ich die Sprungmarken.
+2. **Reisekosten:** Unter dem Preis von „Analyse vor Ort“ und „Komplettbegleitung“ steht „netto, zuzüglich Umsatzsteuer und Reisekosten“, beim Video-Check weiter „netto, zuzüglich Umsatzsteuer“ (`src/content/pakete.ts`, gilt für `/pakete` und die Startseite). Offen bleibt, wie Reisekosten berechnet werden (Go-live-Checkliste).
+
 ## C. TODO-Stellen im Code
 
 | Stelle | Inhalt |

@@ -203,7 +203,7 @@ export const startseite = {
     karten: paketListe.map((p) => ({
       name: p.name,
       preis: p.preis,
-      preisHinweis: pakete.preisHinweis,
+      preisHinweis: p.preisHinweis,
       leistungen: p.leistungen,
       hinweis: p.hinweis,
       cta: p.empfohlen ? { label: 'Pilot anfragen', to: '/pilot' } : { label: 'Mehr erfahren', to: '/pakete' },

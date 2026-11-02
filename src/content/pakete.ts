@@ -7,7 +7,7 @@ import type { PageMeta } from './types'
  * and 1 add recording and validation on site and the Steckbrief with
  * recommendation. The ergonomics report is in all three packages.
  * Single source for /pakete and the start page.
- * TODO: scope per package (number of workplaces, duration, travel costs) once defined.
+ * TODO: scope per package (number of workplaces, duration) and how travel costs are charged, once defined.
  */
 export interface Paket {
   id: 'video-check' | 'analyse' | 'komplett'
@@ -15,6 +15,8 @@ export interface Paket {
   nr: 1 | 2 | 3
   name: string
   preis: string
+  /** line below the price */
+  preisHinweis: string
   leistungen: string[]
   /** what is not included (shown without a check mark) */
   hinweis?: string
@@ -23,12 +25,17 @@ export interface Paket {
 
 const NBSP = ' '
 
+/** Price notes; travel costs only for the packages with work on site (decision 02.11.2026). */
+const NETTO = 'netto, zuzüglich Umsatzsteuer'
+const NETTO_REISE = 'netto, zuzüglich Umsatzsteuer und Reisekosten'
+
 export const paketListe: Paket[] = [
   {
     id: 'video-check',
     nr: 3,
     name: 'Video-Check',
     preis: `990${NBSP}€`,
+    preisHinweis: NETTO,
     leistungen: [
       'Aufnahme durch Sie nach unserem Leitfaden, über einen persönlichen Upload-Link',
       'Haltungsindex auf REBA-Basis, Bewegungsanteile und kritische Momente',
@@ -42,6 +49,7 @@ export const paketListe: Paket[] = [
     nr: 2,
     name: 'Analyse vor Ort',
     preis: `2.150${NBSP}€`,
+    preisHinweis: NETTO_REISE,
     leistungen: [
       'Videoaufnahme durch uns vor Ort',
       'Validierung und Ermittlung von Prozesspotenzialen vor Ort',
@@ -54,6 +62,7 @@ export const paketListe: Paket[] = [
     nr: 1,
     name: 'Komplettbegleitung',
     preis: `3.350${NBSP}€`,
+    preisHinweis: NETTO_REISE,
     leistungen: [
       'Vorstellung des Vorgehens bei Betriebsrat, Management und Mitarbeitenden',
       'Videoaufnahme durch uns vor Ort',
@@ -78,7 +87,6 @@ export const pakete = {
     'Drei Pakete, vom Video-Check bis zur Komplettbegleitung. Der Ergonomie-Report ist in allen Paketen enthalten. Aufnahme und Validierung vor Ort und den Steckbrief mit Empfehlung gibt es ab dem Paket Analyse vor Ort.',
   /** heading above the cards, for screen readers only (heading order h1, h2, h3) */
   kartenTitel: 'Die drei Pakete',
-  preisHinweis: 'netto, zuzüglich Umsatzsteuer',
   umfang: 'Den genauen Umfang, etwa die Zahl der Arbeitsplätze, stimmen wir im Angebot mit Ihnen ab.',
   cta: { label: 'Pilot anfragen', to: '/pilot' },
   vergleich: {

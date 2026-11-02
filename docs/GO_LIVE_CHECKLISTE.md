@@ -92,7 +92,7 @@ Abgehakt am: ________ von: ________
 Stand 31.10.2026, aus `docs/ENTSCHEIDUNGEN_NACHT.md`, Teile B, E und F.
 
 - [ ] **Domain und Postfach:** Domain der Website (§7.5) und ob `hello@motavi.ai` existiert und wer es liest (`src/content/site.ts`).
-- [ ] **Reisekosten:** in Paket 1 und 2 enthalten oder zusätzlich; bediente Region; Zeit vor Ort.
+- [ ] **Reisekosten:** entschieden am 02.11.2026, sie kommen bei Paket 1 und 2 hinzu („netto, zuzüglich Umsatzsteuer und Reisekosten“). Offen: wie sie berechnet werden (Pauschale oder nach Aufwand), bediente Region, Zeit vor Ort.
 - [ ] **Umfang je Paket (B3):** Preis je Arbeitsplatz, je Projekt oder für eine bestimmte Zahl von Arbeitsplätzen; Bearbeitungsdauer. Danach `src/content/pakete.ts` (`umfang`) ergänzen.
 - [ ] **Rechtliches mit dem Anwalt:** Auftragsverarbeitungsvertrag, technische und organisatorische Maßnahmen, AGB, Vorlage für die Datenschutz-Folgenabschätzung (harte Bedingung 2).
 - [ ] **Rolle gegenüber Robotik-Anbietern (B5, §7.2):** Provision, Auftragsanalyse oder rein neutral. Vor dem Verlinken der Partnerseite entscheiden und gegenüber Endkunden offenlegen.
