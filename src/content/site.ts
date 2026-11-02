@@ -5,10 +5,10 @@
  * sign-in with Firebase, upload and dashboard (decision 02.11.2026). Set it
  * here, because AI Studio may not pass build variables; VITE_APP_URL wins if
  * set. Empty: the button "Anmelden" is not shown.
- * TODO: https address of the service, e.g. from
- * gcloud run services describe motavi-backend --region=europe-west3 --format="value(status.url)"
+ * Service motavi-backend in project motavi (europe-west3); with a custom
+ * domain later, change it here.
  */
-const APP_URL = ''
+const APP_URL = 'https://motavi-backend-59926964593.europe-west3.run.app'
 
 export const site = {
   name: 'Motavi',

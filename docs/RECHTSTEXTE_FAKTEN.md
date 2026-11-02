@@ -4,7 +4,7 @@ Stand: 31.10.2026. Technische Angaben für die Person, die Impressum und Datensc
 
 ## Website (Repo `motavi`)
 
-- Statisch vorgerendert. Hosting: **offen** (Phase 0: Bereitstellung über Google AI Studio; Domain und Hosting nach WEBSITE_PLAN §7.5).
+- Statisch vorgerendert. Veröffentlicht über Google AI Studio unter `https://motavi.ai.studio`; AI Studio betreibt sie als Cloud-Run-Dienst `motavi` im Google-Cloud-Projekt `motavi`, Region `europe-west1` (Belgien), Stand 02.11.2026. Domain und endgültiges Hosting: **offen** (WEBSITE_PLAN §7.5, B13).
 - Keine Cookies. Die Website selbst setzt keine Cookies und lädt keine Inhalte von Dritten.
 - Schriften (Inter, Space Grotesk, JetBrains Mono) sind selbst gehostet (`@fontsource`), keine Anfrage an Google Fonts.
 - Reichweitenmessung: **keine** zum Start (Entscheidung vom 31.10.2026). Technisch vorbereitet und aus; aktiv würde sie nur, wenn `VITE_ANALYTICS_SRC` beim Build gesetzt ist.
