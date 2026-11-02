@@ -61,6 +61,8 @@ Befehle und Reihenfolge: `motavi-backend/docs/BETRIEB.md`.
 - [ ] Eigenes Dienstkonto mit den dort genannten Rollen, alter Schlüssel entfernt und gelöscht.
 - [ ] Secrets `JWT_SECRET` (mindestens 32 Byte) und `GCS_BUCKET_NAME` angelegt, `_SECRETS` im Build-Trigger vollständig.
 - [ ] `_PUBLIC_APP_URL` gesetzt, CORS des Buckets für den Browser-Upload gesetzt (`infra/gcs_cors.json`).
+- [ ] Anmeldung mit Firebase eingerichtet (`motavi-backend/docs/BETRIEB.md`, Abschnitt 3a): Anbieter aktiviert, Adresse des Dienstes als erlaubte Domain, Web-Konfiguration und `_ADMIN_EMAILS` im Build-Trigger, Team unter Zugänge freigegeben.
+- [ ] Adresse des Dienstes in `src/content/site.ts` (`APP_URL`) eingetragen; die Schaltfläche „Anmelden“ erscheint auf der Website.
 - [ ] Deploy erfolgreich (die Startprüfung in Produktion hat nichts bemängelt).
 - [ ] Ende-zu-Ende geprüft: Upload-Link erstellt, Video über den Link hochgeladen, Analyse fertig, Ergonomie-Report mit Zykluszeit und Greifraum erzeugt, Standbilder mit geschwärzten Köpfen, Originalvideo gelöscht.
 - [ ] Benachrichtigungen in Cloud Monitoring für „Kontaktanfrage konnte nicht gespeichert werden“, „Deleting the raw video failed“ und „Pipeline failed“.

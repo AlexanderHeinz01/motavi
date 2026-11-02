@@ -1,5 +1,15 @@
 /** Site-wide content: name, URL, navigation, footer. */
 
+/**
+ * Address of the internal tool (backend on Cloud Run, repo motavi-backend):
+ * sign-in with Firebase, upload and dashboard (decision 02.11.2026). Set it
+ * here, because AI Studio may not pass build variables; VITE_APP_URL wins if
+ * set. Empty: the button "Anmelden" is not shown.
+ * TODO: https address of the service, e.g. from
+ * gcloud run services describe motavi-backend --region=europe-west3 --format="value(status.url)"
+ */
+const APP_URL = ''
+
 export const site = {
   name: 'Motavi',
   /** Absolute base URL for canonical links, sitemap and Open Graph. TODO: confirm domain (WEBSITE_PLAN §7.5). */
@@ -13,6 +23,7 @@ export const site = {
   leitsatz: 'Erst verstehen, dann entscheiden.',
   ogImage: '/og/motavi.png',
   contactEmail: 'hello@motavi.ai',
+  appUrl: ((import.meta.env.VITE_APP_URL as string | undefined) || APP_URL).replace(/\/$/, ''),
 }
 
 export interface NavItem {
@@ -31,6 +42,9 @@ export const mainNav: NavItem[] = [
 ]
 
 export const navCta: NavItem = { label: 'Pilot anfragen', to: '/pilot' }
+
+/** Sign-in for granted users; leads to the internal tool (site.appUrl). */
+export const navLogin = { label: 'Anmelden', pfad: '/login', hinweis: 'Für freigegebene Benutzer: Videos hochladen und Dashboard' }
 
 export const navText = {
   homeLabel: 'Motavi, zur Startseite',

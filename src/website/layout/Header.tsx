@@ -1,7 +1,7 @@
 import { Menu, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { mainNav, navCta, navText } from '../../content/site'
+import { mainNav, navCta, navLogin, navText, site } from '../../content/site'
 import ButtonLink from '../../ui/ButtonLink'
 import Icon from '../../ui/Icon'
 
@@ -69,6 +69,15 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-1">
+          {site.appUrl && (
+            <a
+              href={`${site.appUrl}${navLogin.pfad}`}
+              title={navLogin.hinweis}
+              className={`${navLinkClass(false)} mr-3 hidden min-h-[44px] items-center sm:inline-flex`}
+            >
+              {navLogin.label}
+            </a>
+          )}
           <ButtonLink to={navCta.to} className="!px-4 text-[14px] sm:!px-5 sm:text-[15px]">
             {navCta.label}
           </ButtonLink>
@@ -99,6 +108,13 @@ export default function Header() {
                   </NavLink>
                 </li>
               ))}
+              {site.appUrl && (
+                <li className="border-b border-line">
+                  <a href={`${site.appUrl}${navLogin.pfad}`} className={mobileNavLinkClass(false)}>
+                    {navLogin.label}
+                  </a>
+                </li>
+              )}
             </ul>
           </nav>
         </div>

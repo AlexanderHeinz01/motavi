@@ -410,6 +410,17 @@ Nach der Veröffentlichung unter `motavi.ai.studio`, umgesetzt am 02.11.2026:
 
    Sollen auch Links mit Sprungmarke oben beginnen, entferne ich die Sprungmarken.
 2. **Reisekosten:** Unter dem Preis von „Analyse vor Ort“ und „Komplettbegleitung“ steht „netto, zuzüglich Umsatzsteuer und Reisekosten“, beim Video-Check weiter „netto, zuzüglich Umsatzsteuer“ (`src/content/pakete.ts`, gilt für `/pakete` und die Startseite). Offen bleibt, wie Reisekosten berechnet werden (Go-live-Checkliste).
+3. **Anmeldung mit Firebase, Schaltfläche, Upload und Dashboard:**
+   - Website: In der Kopfzeile steht „Anmelden“, auf dem Handy im Menü. Die Schaltfläche führt zum internen Werkzeug des Backends und erscheint, sobald dessen Adresse in `src/content/site.ts` (`APP_URL`) steht.
+   - Werkzeug (Repo `motavi-backend`): Anmeldung mit Firebase, wahlweise Google, Microsoft oder E-Mail und Passwort, mit „Passwort vergessen“. Nach der Anmeldung führt das Menü zu:
+     - **Dashboard** (`/app/jobs`): alle Jobs mit Status und Link zum Ergebnis;
+     - **Hochladen** (`/app`): eigenes Video oder Upload-Link für Kunden;
+     - **Zugänge** (`/app/zugaenge`): nur für Admins.
+   - Zugang haben nur freigegebene Adressen. Die erste Admin-Adresse steht in `ADMIN_EMAILS`.
+   - Damit ist auch E.1.11 (Passwort vergessen) erledigt.
+   - Eigene Festlegungen, bitte prüfen:
+     - Freigegebene Personen sind zunächst Ihr Team (Rollen `berater` und `admin`). Die Rolle `user` sieht nur selbst angelegte Jobs. Für Kunden wäre eine Zuordnung Job zu Kunde nötig, die gibt es noch nicht.
+     - Bei E-Mail und Passwort muss die Adresse beim ersten Anmelden bestätigt werden, sonst könnte sich jemand mit einer fremden freigegebenen Adresse registrieren.
 
 ## C. TODO-Stellen im Code
 

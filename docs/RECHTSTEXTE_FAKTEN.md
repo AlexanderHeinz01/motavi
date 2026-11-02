@@ -32,7 +32,8 @@ Stand: 31.10.2026. Technische Angaben für die Person, die Impressum und Datensc
 - Je Job `job.json` mit der E-Mail des anlegenden Teammitglieds, Angaben zum Arbeitsplatz und Status; Bestätigungen enthalten die E-Mail des Beraters: 365 Tage.
 - Gelöschte Objekte: Soft Delete des Speichers wird abgeschaltet (`motavi-backend/docs/LOESCHKONZEPT.md`); Firestore-Sicherungen prüfen.
 - Kennzahlen, bestätigter Steckbrief, Expertenbewertung, Kundenangaben (JSON): 365 Tage ab der letzten Änderung.
-- Benutzerkonten (Firestore `users`): nur das Motavi-Team; E-Mail, Name, Unternehmen, Rolle, Passwort-Hash.
+- Anmeldung zum internen Werkzeug über Firebase Authentication (Google), seit 02.11.2026: E-Mail-Adresse, Name und Anmeldeart der freigegebenen Personen liegen bei Firebase; der Speicherort lässt sich dort nach unserem Stand nicht auf Frankfurt festlegen (**prüfen**). Anmeldung mit Google oder Microsoft möglich, wenn aktiviert.
+- Zugänge (Firestore `users`): nur freigegebene Personen; E-Mail, Name, Rolle, wer wann freigegeben hat. Frühere Einträge enthalten noch einen Passwort-Hash.
 - Gelenkpunkte sind Koordinaten, keine Bilder. Erfasst werden keine Namen oder Personalnummern der aufgenommenen Beschäftigten.
 
 ## Impressum
